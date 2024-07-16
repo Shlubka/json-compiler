@@ -1,7 +1,8 @@
+//use inquire::ui::Key;
 use inquire::{Select, Text};
 use std::io::BufRead;
 use std::{
-    fs::{self, File},
+    fs:: File,
     io::BufReader,
     path::{Path, PathBuf},
 };
@@ -37,11 +38,11 @@ impl Language for Rust {
             map.insert("continue", "");
             map.insert("crate", "");
             map.insert("dyn", "");
-            map.insert("else", "");
+            map.insert("else", "if/else");
             map.insert("enum", "");
             map.insert("extern", "");
             map.insert("false", "");
-            map.insert("fn", "");
+            map.insert("fn", "funk");
             map.insert("for", "");
             map.insert("if", "");
             map.insert("impl", "");
@@ -54,7 +55,7 @@ impl Language for Rust {
             map.insert("mut", "");
             map.insert("pub", "");
             map.insert("ref", "");
-            map.insert("return", "");
+            map.insert("return", "exit");
             map.insert("Self", "");
             map.insert("self", "");
             map.insert("static", "");
@@ -68,6 +69,8 @@ impl Language for Rust {
             map.insert("use", "");
             map.insert("where", "");
             map.insert("while", "");
+            map.insert("print!", "i/o oper");
+            map.insert("println!", "i/o oper");
             map
         };
 
@@ -82,20 +85,19 @@ impl Language for Rust {
 
         for line in reader.lines() {
             let line = line?;
-            match rust_keywords.get(&line) {
-                "println!" => print!("i/o oper")
+            match rust_keywords
+                .values()
+                .find(|&key| line.contains(key))
+                .copied()
+            {
+                Some("fn") => print!("String contains a value fn from the HashMap"),
+                Some("mod") => print!("String contains a value 'mod' from the HashMap"),
+                Some("struct") => print!("String contains a value 'struct' from the HashMap"),
+                Some(key) => print!("String contains a value '{}' from the HashMap", key),
+                None => print!("String does not contain a value from the HashMap"),
             }
-            println!("{line}");
+            println!("   {line}");
         }
-
-        /*let input = match fs::read_to_string(path) {
-            Ok(input) => input,
-            Err(error) => {
-                eprintln!("Failed to read file {}: {}", path.display(), error);
-                return Err(error);
-            }
-        };
-        println!("{input}");*/
 
         Ok(())
     }
@@ -156,7 +158,7 @@ fn main() -> Result<(), std::io::Error> {
     println!("File path: {}", path.display());
     match sellang.as_ref() {
         "Rust" => Rust.analyze(&path),
-        //""
+        //""другие языки
         _ => Err(std::io::Error::new(
             std::io::ErrorKind::Other,
             "Unsupported language",
