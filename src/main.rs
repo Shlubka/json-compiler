@@ -1,8 +1,10 @@
+#![warn(clippy::all, clippy::pedantic)]
 //use inquire::ui::Key;
 use inquire::{Select, Text};
 use std::io::BufRead;
+use std::primitive;
 use std::{
-    fs:: File,
+    fs::File,
     io::BufReader,
     path::{Path, PathBuf},
 };
@@ -32,45 +34,12 @@ impl Language for Rust {
     fn analyze(&self, path: &Path) -> Result<(), std::io::Error> {
         let rust_keywords = {
             let mut map = std::collections::HashMap::new();
-            map.insert("as", "");
-            map.insert("break", "");
-            map.insert("const", "");
-            map.insert("continue", "");
-            map.insert("crate", "");
-            map.insert("dyn", "");
-            map.insert("else", "if/else");
-            map.insert("enum", "");
-            map.insert("extern", "");
-            map.insert("false", "");
-            map.insert("fn", "funk");
-            map.insert("for", "");
-            map.insert("if", "");
-            map.insert("impl", "");
-            map.insert("in", "");
-            map.insert("let", "");
-            map.insert("loop", "");
-            map.insert("match", "");
-            map.insert("mod", "");
-            map.insert("move", "");
-            map.insert("mut", "");
-            map.insert("pub", "");
-            map.insert("ref", "");
-            map.insert("return", "exit");
-            map.insert("Self", "");
-            map.insert("self", "");
-            map.insert("static", "");
-            map.insert("struct", "");
-            map.insert("super", "");
-            map.insert("trait", "");
-            map.insert("true", "");
-            map.insert("type", "");
-            map.insert("union", "");
-            map.insert("unsafe", "");
-            map.insert("use", "");
-            map.insert("where", "");
-            map.insert("while", "");
-            map.insert("print!", "i/o oper");
             map.insert("println!", "i/o oper");
+            map.insert("print!", "i/o oper");
+            map.insert("main", "enter point");
+            map.insert("fn", "func");
+            map.insert("if", "if/else");
+            map.insert("else", "if/else");
             map
         };
 
@@ -83,20 +52,20 @@ impl Language for Rust {
         };
         let reader = BufReader::new(file);
 
+        let mut i = 1;
         for line in reader.lines() {
             let line = line?;
-            match rust_keywords
-                .values()
+            match rust_keywords//.keys().find(|&keys| line.contains(keys)).copied()
+                .keys()
                 .find(|&key| line.contains(key))
-                .copied()
+                .map(|key| rust_keywords.get(key).unwrap())
             {
-                Some("fn") => print!("String contains a value fn from the HashMap"),
-                Some("mod") => print!("String contains a value 'mod' from the HashMap"),
-                Some("struct") => print!("String contains a value 'struct' from the HashMap"),
-                Some(key) => print!("String contains a value '{}' from the HashMap", key),
-                None => print!("String does not contain a value from the HashMap"),
+                Some(values) => print!("String {i} have a '{values}'"),
+                //Some(&"func")        => print!("goyda"),
+                None                => print!("String {i} nothing    "),
             }
             println!("   {line}");
+            i += 1;
         }
 
         Ok(())
@@ -158,7 +127,9 @@ fn main() -> Result<(), std::io::Error> {
     println!("File path: {}", path.display());
     match sellang.as_ref() {
         "Rust" => Rust.analyze(&path),
-        //""другие языки
+        "C" => C.analyze(&path),
+        "CPlusPlus" => CPlusPlus.analyze(&path),
+        "Java" => Java.analyze(&path),
         _ => Err(std::io::Error::new(
             std::io::ErrorKind::Other,
             "Unsupported language",
