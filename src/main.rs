@@ -36,10 +36,15 @@ impl Language for Rust {
             let mut map = std::collections::HashMap::new();
             map.insert("println!", "i/o oper");
             map.insert("print!", "i/o oper");
-            map.insert("main", "enter point");
+            map.insert("fn main () {", "enter point");
             map.insert("fn", "func");
             map.insert("if", "if/else");
             map.insert("else", "if/else");
+            map.insert("match", "if/else");
+            map.insert("\n", "probel");
+            //map.insert("}", "");
+            //map.insert("]", "");
+            //map.insert("}", "");
             map
         };
 
@@ -55,17 +60,41 @@ impl Language for Rust {
         let mut i = 1;
         for line in reader.lines() {
             let line = line?;
+            //if line == "}"{continue;}
             match rust_keywords//.keys().find(|&keys| line.contains(keys)).copied()
                 .keys()
                 .find(|&key| line.contains(key))
                 .map(|key| rust_keywords.get(key).unwrap())
             {
-                Some(values) => print!("String {i} have a '{values}'"),
+                Some(keys) => match keys {
+                    & "enter point" => print!("String {i:>width$} enter point  |", width=3),
+                    & "i/o oper"    => print!("String {i:>width$} i/o oper     |", width=3),
+                    & "if/else"     => print!("String {i:>width$} if/else      |", width=3),
+                    & "func"        => print!("String {i:>width$} func         |", width=3),
+                    //& "probel"      => break,
+                    _               => print!("String {i:>width$} unknown key  |", width=3),
+
+                }//print!("String {i} have a '{keys}'"),
                 //Some(&"func")        => print!("goyda"),
-                None                => print!("String {i} nothing    "),
+                None                => print!("String {i:>width$} action       |", width=3),
+            }
+            println!("{line}");
+            i += 1;
+            /*let keyword = rust_keywords
+                .keys()
+                .find(|&key| line.contains(key))
+                .copied();
+
+            match keyword {
+                Some(key) => match rust_keywords.get(key).unwrap() {
+                    &"fn main" => print!("enter point                 "),
+                    //&"fn main" => print!("enter point                 "),
+                    _          => print!("String {i} have a '{}' ", key),
+                },
+                None           => print!("String {i} have action      "),
             }
             println!("   {line}");
-            i += 1;
+            i += 1;*/
         }
 
         Ok(())

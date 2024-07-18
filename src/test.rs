@@ -1,4 +1,4 @@
-    fn external_func() -> i32 {
+fn external_func() -> i32 {
     let a:i32 = 12;
     let b:i32 = 21;
     if a > b {
