@@ -1,8 +1,6 @@
 #![warn(clippy::all, clippy::pedantic)]
-//use inquire::ui::Key;
 use inquire::{Select, Text};
 use std::io::BufRead;
-use std::primitive;
 use std::{
     fs::File,
     io::BufReader,
@@ -36,15 +34,16 @@ impl Language for Rust {
             let mut map = std::collections::HashMap::new();
             map.insert("println!", "i/o oper");
             map.insert("print!", "i/o oper");
-            map.insert("fn main () {", "enter point");
+            map.insert("main", "enter point");
             map.insert("fn", "func");
             map.insert("if", "if/else");
             map.insert("else", "if/else");
             map.insert("match", "if/else");
-            map.insert("\n", "probel");
-            //map.insert("}", "");
-            //map.insert("]", "");
-            //map.insert("}", "");
+            map.insert("let", "leteraly");
+            map.insert("}", "fklz");
+            map.insert(")", "rklz");
+            map.insert("]", "sklz");
+            map.insert("return", "return");
             map
         };
 
@@ -58,27 +57,43 @@ impl Language for Rust {
         let reader = BufReader::new(file);
 
         let mut i = 1;
+        let mut bracket_c = 0;
         for line in reader.lines() {
             let line = line?;
             //if line == "}"{continue;}
-            match rust_keywords//.keys().find(|&keys| line.contains(keys)).copied()
+            match rust_keywords //.keys().find(|&keys| line.contains(keys)).copied()
                 .keys()
                 .find(|&key| line.contains(key))
                 .map(|key| rust_keywords.get(key).unwrap())
             {
-                Some(keys) => match keys {
-                    & "enter point" => print!("String {i:>width$} enter point  |", width=3),
-                    & "i/o oper"    => print!("String {i:>width$} i/o oper     |", width=3),
-                    & "if/else"     => print!("String {i:>width$} if/else      |", width=3),
-                    & "func"        => print!("String {i:>width$} func         |", width=3),
-                    //& "probel"      => break,
-                    _               => print!("String {i:>width$} unknown key  |", width=3),
-
-                }//print!("String {i} have a '{keys}'"),
-                //Some(&"func")        => print!("goyda"),
-                None                => print!("String {i:>width$} action       |", width=3),
+                Some(value) => match value {
+                    &"enter point" => {
+                        print!("String {i:>width$} enter point  |", width = 3);
+                        bracket_c += 1;
+                    }
+                    &"i/o oper"    => print!("String {i:>width$} i/o oper     |", width = 3),
+                    &"if/else"     => {
+                        print!("String {i:>width$} if/else      |", width = 3);
+                        bracket_c += 1;
+                    }
+                    &"func"        => {
+                        print!("String {i:>width$} func         |", width = 3);
+                        bracket_c += 1;
+                    }
+                    &"leteraly"    => continue,
+                    &"fklz"        => {
+                        print!("String {i:>width$} }} close      |", width=3);
+                        bracket_c -= 1;
+                    }
+                    &"return"      => print!("String {i:>width$} return       |", width=3),
+                    //& "("        => print!("String {i:>width$} ( open       |", width=3),
+                    //& "probel"   => break,
+                    _              => print!("String {i:>width$} unknown key  |", width = 3),
+                }, //print!("String {i} have a '{keys}'"),
+                //Some(&"func")    => print!("goyda"),
+                None               => print!("String {i:>width$} action       |", width = 3),
             }
-            println!("{line}");
+            println!("{bracket_c}  {line}");
             i += 1;
             /*let keyword = rust_keywords
                 .keys()
