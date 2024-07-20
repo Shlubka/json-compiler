@@ -31,7 +31,6 @@ impl Language for Rust {
     }
 
     fn analyze(&self, path: &Path) -> Result<(), std::io::Error> {
-        //use rust_fuzzy_search::fuzzy_search;
         let file = match File::open(path) {
             Ok(file) => file,
             Err(error) => {
@@ -42,9 +41,6 @@ impl Language for Rust {
         let reader = BufReader::new(file);
 
         let mut i = 1;
-        //let mut bracket_c = 0;
-        //let mut test;
-        //let mut res: Vec<(&str, f32)>;
         let mut external_func: Vec<String> = Vec::new();
         for line in reader.lines() {
             let line = line?;     //переаисать эту хуйню через match
