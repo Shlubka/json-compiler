@@ -47,8 +47,9 @@ impl Language for Rust {
         //let mut res: Vec<(&str, f32)>;
         let mut external_func: Vec<String> = Vec::new();
         for line in reader.lines() {
-            let line = line?;
-            if line.contains("fn main") {
+            let line = line?;     //переаисать эту хуйню через match
+            if line.contains("fn main") { // создать 2 вектора, и рогнать их либо чеоез for либо
+                                          // через iter
                 print!("Line {i:>3} have enter point      ")
             } else if line.contains("fn") {
                 print!("Line {i:>3} have 'fn'             ");
