@@ -1,5 +1,6 @@
 #![warn(clippy::all, clippy::pedantic)]
 use inquire::{Select, Text};
+//use rust_fuzzy_search::{fuzzy_compire};
 use std::io::BufRead;
 use std::{
     fs::File,
@@ -30,23 +31,7 @@ impl Language for Rust {
     }
 
     fn analyze(&self, path: &Path) -> Result<(), std::io::Error> {
-        let rust_keywords = {
-            let mut map = std::collections::HashMap::new();
-            map.insert("println!", "i/o oper");
-            map.insert("print!", "i/o oper");
-            map.insert("main", "enter point");
-            map.insert("fn", "func");
-            map.insert("if", "if/else");
-            map.insert("else", "if/else");
-            map.insert("match", "if/else");
-            map.insert("let", "leteraly");
-            map.insert("}", "fklz");
-            map.insert(")", "rklz");
-            map.insert("]", "sklz");
-            map.insert("return", "return");
-            map
-        };
-
+        //use rust_fuzzy_search::fuzzy_search;
         let file = match File::open(path) {
             Ok(file) => file,
             Err(error) => {
@@ -57,59 +42,46 @@ impl Language for Rust {
         let reader = BufReader::new(file);
 
         let mut i = 1;
-        let mut bracket_c = 0;
+        //let mut bracket_c = 0;
+        //let mut test;
+        //let mut res: Vec<(&str, f32)>;
+        let mut external_func: Vec<String> = Vec::new();
         for line in reader.lines() {
             let line = line?;
-            //if line == "}"{continue;}
-            match rust_keywords //.keys().find(|&keys| line.contains(keys)).copied()
-                .keys()
-                .find(|&key| line.contains(key))
-                .map(|key| rust_keywords.get(key).unwrap())
-            {
-                Some(value) => match value {
-                    &"enter point" => {
-                        print!("String {i:>width$} enter point  |", width = 3);
-                        bracket_c += 1;
-                    }
-                    &"i/o oper"    => print!("String {i:>width$} i/o oper     |", width = 3),
-                    &"if/else"     => {
-                        print!("String {i:>width$} if/else      |", width = 3);
-                        bracket_c += 1;
-                    }
-                    &"func"        => {
-                        print!("String {i:>width$} func         |", width = 3);
-                        bracket_c += 1;
-                    }
-                    &"leteraly"    => continue,
-                    &"fklz"        => {
-                        print!("String {i:>width$} }} close      |", width=3);
-                        bracket_c -= 1;
-                    }
-                    &"return"      => print!("String {i:>width$} return       |", width=3),
-                    //& "("        => print!("String {i:>width$} ( open       |", width=3),
-                    //& "probel"   => break,
-                    _              => print!("String {i:>width$} unknown key  |", width = 3),
-                }, //print!("String {i} have a '{keys}'"),
-                //Some(&"func")    => print!("goyda"),
-                None               => print!("String {i:>width$} action       |", width = 3),
+            if line.contains("fn main") {
+                print!("Line {i:>3} have enter point      ")
+            } else if line.contains("fn") {
+                print!("Line {i:>3} have 'fn'             ");
+                let func_name = line
+                .split_whitespace()
+                .nth(1)
+                .unwrap()
+                .split('(')
+                .next()
+                .unwrap();
+            external_func.push(func_name.to_string());
+            } else if line.contains("return") {
+                print!("Line {i:>3} have exit from fn     ")
+            } else if let Some(external_func) = external_func.iter().find(|&kw| line.contains(kw)) {
+                print!("Line {i:>3} have call of {:<7}  ", external_func)
+            } else if line.contains("let") {
+                i += 1;
+                continue;
+                //print!("Line {i:>3} have new var          ")
+            } else if line.len() == 0 {
+                i += 1;
+                continue;
+                //print!("Line {i:>3} have void          ")
+            } else if line.contains("if") {
+                print!("Line {i:>3} have if               ")
+            } else if line.contains("else") {
+                print!("Line {i:>3} have else             ")
             }
-            println!("{bracket_c}  {line}");
+            else {
+                print!("Line {i:>3} have unnow pattern    ")
+            }
+            println!("|      {line}");
             i += 1;
-            /*let keyword = rust_keywords
-                .keys()
-                .find(|&key| line.contains(key))
-                .copied();
-
-            match keyword {
-                Some(key) => match rust_keywords.get(key).unwrap() {
-                    &"fn main" => print!("enter point                 "),
-                    //&"fn main" => print!("enter point                 "),
-                    _          => print!("String {i} have a '{}' ", key),
-                },
-                None           => print!("String {i} have action      "),
-            }
-            println!("   {line}");
-            i += 1;*/
         }
 
         Ok(())
@@ -166,17 +138,8 @@ fn main() -> Result<(), std::io::Error> {
         .iter()
         .find(|x| x.get_name() == selected_language)
         .unwrap();
-    let sellang = selected_language.get_name();
-    println!("Selected language: {}", &sellang);
+    println!("Selected language: {}", selected_language.get_name());
     println!("File path: {}", path.display());
-    match sellang.as_ref() {
-        "Rust" => Rust.analyze(&path),
-        "C" => C.analyze(&path),
-        "CPlusPlus" => CPlusPlus.analyze(&path),
-        "Java" => Java.analyze(&path),
-        _ => Err(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Unsupported language",
-        )),
-    }
+    let _ = selected_language.analyze(&path);
+    Ok(())
 }

@@ -1,3 +1,5 @@
+#![warn(clippy::all, clippy::pedantic)]
+
 [package]
 name = "json-compiler"
 version = "0.1.0"
@@ -5,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 inquire = "0.7.5"
+rust-fuzzy-search = "0.1.1"
