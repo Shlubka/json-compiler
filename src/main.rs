@@ -40,15 +40,22 @@ impl Language for Rust {
         };
         let reader = BufReader::new(file);
 
+        let mut mystack: Vec<char> = Vec::new();
+        println!("stach {}", mystack.len());
         let mut i = 1;
         let mut external_func: Vec<String> = Vec::new();
         for line in reader.lines() {
             let line = line?;     //переаисать эту хуйню через match
+            if line.contains("}") { //and mystack.top() == '{'
+                mystack.pop();
+            }
             if line.contains("fn main") { // создать 2 вектора, и рогнать их либо чеоез for либо
                                           // через iter
-                print!("Line {i:>3} have enter point      ")
+                print!("Line {i:>3} have enter point      ");
+                mystack.push('{')
             } else if line.contains("fn") {
                 print!("Line {i:>3} have 'fn'             ");
+                mystack.push('{');
                 let func_name = line
                 .split_whitespace()
                 .nth(1)
@@ -58,7 +65,8 @@ impl Language for Rust {
                 .unwrap();
             external_func.push(func_name.to_string());
             } else if line.contains("return") {
-                print!("Line {i:>3} have exit from fn     ")
+                print!("Line {i:>3} have exit from fn     ");
+                mystack.push('{');
             } else if let Some(external_func) = external_func.iter().find(|&kw| line.contains(kw)) {
                 print!("Line {i:>3} have call of {:<7}  ", external_func)
             } else if line.contains("let") {
@@ -66,18 +74,23 @@ impl Language for Rust {
                 continue;
             } else if line.len() == 0 {
                 i += 1;
-                continue;
+                //continue;
             } else if line.contains("if") {
-                print!("Line {i:>3} have if               ")
+                print!("Line {i:>3} have if               ");
+                mystack.push('{');
             } else if line.contains("else") {
-                print!("Line {i:>3} have else             ")
+                print!("Line {i:>3} have else             ");
+                mystack.push('{');
             }
             else {
-                print!("Line {i:>3} have unnow pattern    ")
+                print!("Line {i:>3} have action           ")
             }
-            println!("|      {line}");
+            println!("| {}      {line}", mystack.len());
             i += 1;
         }
+    if mystack.len() > 0 {
+        println!("stack more than 0")
+    }
 
         Ok(())
     }
