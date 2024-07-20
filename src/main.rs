@@ -68,11 +68,9 @@ impl Language for Rust {
             } else if line.contains("let") {
                 i += 1;
                 continue;
-                //print!("Line {i:>3} have new var          ")
             } else if line.len() == 0 {
                 i += 1;
                 continue;
-                //print!("Line {i:>3} have void          ")
             } else if line.contains("if") {
                 print!("Line {i:>3} have if               ")
             } else if line.contains("else") {
