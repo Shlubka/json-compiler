@@ -5,7 +5,8 @@
         a - b
     }
     else {
-        return b - a}
+        return b - a
+    }
 }
 
 fn main () {

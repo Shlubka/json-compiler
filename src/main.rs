@@ -60,9 +60,11 @@ impl Language for Rust {
         ];*/
 
         //println!("stach {}", mystack.len());
-        let mut i = 1;
+        //let mut eblocks: Vec<String> = Vec::new();
         let mut mystack: Vec<char> = Vec::new();
         let mut external_func: Vec<String> = Vec::new();
+        let mut block_stack: Vec<String> = Vec::new();
+
         for (i, line) in reader.lines().enumerate() {
             let line = line.unwrap_or_else(|e| {
                 // handle error here
@@ -72,10 +74,13 @@ impl Language for Rust {
             let action = match line.as_str() {
                 s if s.contains("}") => {
                     mystack.pop();
-                    "exit block".to_string()
+                    let block_name = block_stack.pop().unwrap_or("block".to_string());
+                    format!("exit block {}", block_name)
                 }
                 s if s.contains("fn main") => {
                     mystack.push('{');
+                    let block_name = s.split_whitespace().nth(1).unwrap_or("main");
+                    block_stack.push(block_name.to_string());
                     "enter point".to_string()
                 }
                 s if s.contains("fn") => {
@@ -88,25 +93,39 @@ impl Language for Rust {
                         .next()
                         .unwrap();
                     external_func.push(func_name.to_string());
+                    let block_name = func_name.to_string();
+                    block_stack.push(block_name);
                     "fn".to_string()
                 }
                 s if s.contains("return") => "exit fn".to_string(),
                 s if external_func.iter().any(|kw| s.contains(kw)) => {
-                    let func_name = s.split_whitespace().nth(1).unwrap();
-                    format!("call {}", func_name)
+                    //let func_name = s.split_whitespace().nth(1).unwrap();
+                    let func_name = kw;
+                    format!("call {} ", func_name)
                 }
                 s if s.contains("let") || s.len() == 0 => continue,
                 s if s.contains("if") => {
                     mystack.push('{');
+                    let block_name = "if".to_string();
+                    block_stack.push(block_name);
                     "if".to_string()
                 }
                 s if s.contains("else") => {
                     mystack.push('{');
+                    let block_name = "else".to_string();
+                    block_stack.push(block_name);
                     "else".to_string()
+                }
+                s if s.contains("{") => {
+                    mystack.push('{');
+                    let block_name = s.split_whitespace().nth(1).unwrap_or("block");
+                    block_stack.push(block_name.to_string());
+                    "enter block".to_string()
                 }
                 _ => "action".to_string(),
             };
-            println!("{i:>3} | {action:<15} | {line} | {:>2}", mystack.len(),);
+
+            println!("{i:>3} | {action:<17}| {:>2} | {line} ", mystack.len());
         }
         if mystack.len() == 0 {
             println!("stack == 0")
