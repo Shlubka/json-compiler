@@ -26,6 +26,44 @@ struct CPlusPlus;
 #[derive(Default)]
 struct Java;
 
+//json objs
+#[derive(Debug, Clone, PartialEq)]
+struct Obj<'a> {
+    x: i32,
+    y: i32,
+    text: &'a str,
+    widht: i32,
+    height: i32,
+    type_: &'a str,
+    is_menu_block: bool,
+    font_size: i32,
+    text_height: i32,
+    is_bold: bool,
+    is_italic: bool,
+    text_align: &'a str,
+    labels_position: i32,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct Arrow {
+    pub start_index: usize,
+    pub end_index: usize,
+    pub start_connector_index: usize,
+    pub end_connector_index: usize,
+    pub nodes: Vec<(i32, i32)>,
+    pub counts: Vec<usize>,
+}
+/*
+let arrow = Arrow {
+    start_index: 2,
+    end_index: 3,
+    start_connector_index: 2,
+    end_connector_index: 0,
+    nodes: vec![(420, 240), (420, 260), (420, 275)],
+    counts: vec![1, 1, 1],
+};
+*/
+
 impl Language for Rust {
     fn get_name(&self) -> &'static str {
         "Rust"
@@ -66,7 +104,7 @@ impl Language for Rust {
         let mut block_stack: Vec<String> = Vec::new();
 
         for (i, line) in reader.lines().enumerate() {
-            let line = line.unwrap_or_else(|e| {
+            let line = line.unwrap_or_else(|_e| {
                 // handle error here
                 return Default::default();
             });
@@ -99,8 +137,8 @@ impl Language for Rust {
                 }
                 s if s.contains("return") => "exit fn".to_string(),
                 s if external_func.iter().any(|kw| s.contains(kw)) => {
-                    //let func_name = s.split_whitespace().nth(1).unwrap();
-                    let func_name = kw;
+                    let func_name = s.split_whitespace().nth(3).unwrap();
+                    //let func_name = kw;
                     format!("call {} ", func_name)
                 }
                 s if s.contains("let") || s.len() == 0 => continue,
@@ -127,9 +165,11 @@ impl Language for Rust {
 
             println!("{i:>3} | {action:<17}| {:>2} | {line} ", mystack.len());
         }
-        if mystack.len() == 0 {
-            println!("stack == 0")
-        }
+        /*
+         * if mystack.len() == 0 {
+         *   println!("stack == 0")
+         * }
+         */
         Ok(())
     }
 }
