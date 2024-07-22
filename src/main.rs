@@ -63,53 +63,53 @@ impl Language for Rust {
         let mut i = 1;
         let mut mystack: Vec<char> = Vec::new();
         let mut external_func: Vec<String> = Vec::new();
-        for line in reader.lines() {
-            let line = line?; //переаисать эту хуйню через match
-            if line.contains("}") {
-                //and mystack.top() == '{'
-                mystack.pop();
-            }
-            if line.contains("fn main") {
-                // создать 2 вектора, и рогнать их либо чеоез for либо
-                // через iter
-                print!("Line {i:>3} have enter point      ");
-                mystack.push('{')
-            } else if line.contains("fn") {
-                print!("Line {i:>3} have 'fn'             ");
-                mystack.push('{');
-                let func_name = line
-                    .split_whitespace()
-                    .nth(1)
-                    .unwrap()
-                    .split('(')
-                    .next()
-                    .unwrap();
-                external_func.push(func_name.to_string());
-            } else if line.contains("return") {
-                print!("Line {i:>3} have exit from fn     ");
-                //mystack.push('{');
-            } else if let Some(external_func) = external_func.iter().find(|&kw| line.contains(kw)) {
-                print!("Line {i:>3} have call of {:<7}  ", external_func)
-            } else if line.contains("let") {
-                i += 1;
-                continue;
-            } else if line.len() == 0 {
-                i += 1;
-                continue;
-            } else if line.contains("if") {
-                print!("Line {i:>3} have if               ");
-                mystack.push('{');
-            } else if line.contains("else") {
-                print!("Line {i:>3} have else             ");
-                mystack.push('{');
-            } else {
-                print!("Line {i:>3} have action           ")
-            }
-            println!("| {}      {line}", mystack.len());
-            i += 1;
+        for (i, line) in reader.lines().enumerate() {
+            let line = line.unwrap_or_else(|e| {
+                // handle error here
+                return Default::default();
+            });
+
+            let action = match line.as_str() {
+                s if s.contains("}") => {
+                    mystack.pop();
+                    "exit block".to_string()
+                }
+                s if s.contains("fn main") => {
+                    mystack.push('{');
+                    "enter point".to_string()
+                }
+                s if s.contains("fn") => {
+                    mystack.push('{');
+                    let func_name = s
+                        .split_whitespace()
+                        .nth(1)
+                        .unwrap()
+                        .split('(')
+                        .next()
+                        .unwrap();
+                    external_func.push(func_name.to_string());
+                    "fn".to_string()
+                }
+                s if s.contains("return") => "exit fn".to_string(),
+                s if external_func.iter().any(|kw| s.contains(kw)) => {
+                    let func_name = s.split_whitespace().nth(1).unwrap();
+                    format!("call {}", func_name)
+                }
+                s if s.contains("let") || s.len() == 0 => continue,
+                s if s.contains("if") => {
+                    mystack.push('{');
+                    "if".to_string()
+                }
+                s if s.contains("else") => {
+                    mystack.push('{');
+                    "else".to_string()
+                }
+                _ => "action".to_string(),
+            };
+            println!("{i:>3} | {action:<15} | {line} | {:>2}", mystack.len(),);
         }
-        if mystack.len() > 0 {
-            println!("stack more than 0")
+        if mystack.len() == 0 {
+            println!("stack == 0")
         }
         Ok(())
     }
@@ -165,7 +165,7 @@ fn main() -> Result<(), std::io::Error> {
     let selected_language: &str;
     match lang.as_str() {
         "rust" => selected_language = "Rust",
-        "java" => selected_language = "Rust",
+        "java" => selected_language = "java",
         "cpp" => selected_language = "CPlusPlus",
         "c" => selected_language = "C",
         _ => {
