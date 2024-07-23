@@ -1,6 +1,8 @@
 #![warn(clippy::all, clippy::pedantic)]
 use inquire::{Select, Text};
+use std::ascii::AsciiExt;
 use std::env;
+//use serde_json::json;
 //use rust_fuzzy_search::{fuzzy_compire};
 use std::io::BufRead;
 use std::{
@@ -13,7 +15,11 @@ trait Language {
     fn get_name(&self) -> &'static str;
     fn analyze(&self, path: &Path) -> Result<(), std::io::Error>;
 }
-
+/*
+trait AddToJson {
+    fn adding(&self) -> Result<(), std::io::Error>;
+}
+*/
 #[derive(Default)]
 struct Rust;
 
@@ -25,14 +31,14 @@ struct CPlusPlus;
 
 #[derive(Default)]
 struct Java;
-
+/*
 //json objs
 #[derive(Debug, Clone, PartialEq)]
 struct Obj<'a> {
     x: i32,
     y: i32,
     text: &'a str,
-    widht: i32,
+    width: i32,
     height: i32,
     type_: &'a str,
     is_menu_block: bool,
@@ -53,15 +59,66 @@ pub struct Arrow {
     pub nodes: Vec<(i32, i32)>,
     pub counts: Vec<usize>,
 }
-/*
-let arrow = Arrow {
-    start_index: 2,
-    end_index: 3,
-    start_connector_index: 2,
-    end_connector_index: 0,
-    nodes: vec![(420, 240), (420, 260), (420, 275)],
-    counts: vec![1, 1, 1],
-};
+
+trait Visitor {
+    fn visit_obj(&mut self, obj: &Obj) -> String;
+    fn visit_arrow(&mut self, arrow: &Arrow) -> String;
+}
+
+struct JsonVisitor;
+
+impl Visitor for JsonVisitor {
+    fn visit_obj(&mut self, obj: &Obj) -> String {
+        format!(r#"
+        {{
+            "x": {},
+            "y": {},
+            "text": "{}",
+            "width": {},
+            "height": {},
+            "type": "{}",
+            "is_menu_block": {},
+            "font_size": {},
+            "text_height": {},
+            "is_bold": {},
+            "is_italic": {},
+            "text_align": "{}",
+            "labels_position": {}
+        }}
+    "#, obj.x, obj.y, obj.text, obj.width, obj.height, obj.type_, obj.is_menu_block, obj.font_size, obj.text_height, obj.is_bold, obj.is_italic, obj.text_align, obj.labels_position)
+    }
+
+    fn visit_arrow(&mut self, arrow: &Arrow) -> String {
+        format!(r#"
+        {{
+            "start_index": {},
+            "end_index": {},
+            "start_connector_index": {},
+            "end_connector_index": {},
+            "nodes": {},
+            "counts": {}
+        }}
+    "#, arrow.start_index, arrow.end_index, arrow.start_connector_index, arrow.end_connector_index, json!(arrow.nodes), json!(arrow.counts))
+    }
+}
+
+trait Accept {
+    fn accept(&self, visitor: &mut dyn Visitor) -> String;
+}
+
+impl Accept for Obj<'static> {
+    fn accept(&self, visitor: &mut dyn Visitor) -> String {
+        visitor.visit_obj(self)
+    }
+}
+
+impl Accept for Arrow {
+    fn accept(&self, visitor: &mut dyn Visitor) -> String {
+        visitor.visit_arrow(self)
+    }
+}
+
+
 */
 
 impl Language for Rust {
@@ -79,29 +136,10 @@ impl Language for Rust {
         };
         let reader = BufReader::new(file);
 
-        /*let keyword: Vec<String> = vec![
-            String::from("return"),
-            String::from("fn main"),
-            String::from("fn"),
-            String::from("if"),
-            String::from("else"),
-            String::from("let"),
-            String::from("for"),
-            String::from("loot"),
-            String::from("while"),
-            String::from("match"),
-            String::from("print"),
-            String::from("}"),
-            String::from(")"),
-            String::from("]"),
-            //String::from(""),
-        ];*/
-
-        //println!("stach {}", mystack.len());
-        //let mut eblocks: Vec<String> = Vec::new();
         let mut mystack: Vec<char> = Vec::new();
         let mut external_func: Vec<String> = Vec::new();
         let mut block_stack: Vec<String> = Vec::new();
+        let mut is_multiline_comment = false;
 
         for (i, line) in reader.lines().enumerate() {
             let line = line.unwrap_or_else(|_e| {
@@ -109,7 +147,20 @@ impl Language for Rust {
                 return Default::default();
             });
 
+            if is_multiline_comment {
+                if line.trim_start().starts_with("*/") {
+                    is_multiline_comment = false;
+                    continue;
+                } else {
+                    continue;
+                }
+            }
+
             let action = match line.as_str() {
+                s if s.trim_start().starts_with("/*") => {
+                    is_multiline_comment = true;
+                    continue;
+                }
                 s if s.contains("}") => {
                     mystack.pop();
                     let block_name = block_stack.pop().unwrap_or("block".to_string());
@@ -142,6 +193,7 @@ impl Language for Rust {
                     format!("call {} ", func_name)
                 }
                 s if s.contains("let") || s.len() == 0 => continue,
+                s if s.trim_start().starts_with("//") => continue,
                 s if s.contains("if") => {
                     mystack.push('{');
                     let block_name = "if".to_string();
@@ -156,7 +208,7 @@ impl Language for Rust {
                 }
                 s if s.contains("{") => {
                     mystack.push('{');
-                    let block_name = s.split_whitespace().nth(1).unwrap_or("block");
+                    let block_name = s.split_whitespace().nth(0).unwrap_or("block");
                     block_stack.push(block_name.to_string());
                     "enter block".to_string()
                 }
@@ -165,11 +217,11 @@ impl Language for Rust {
 
             println!("{i:>3} | {action:<17}| {:>2} | {line} ", mystack.len());
         }
-        /*
-         * if mystack.len() == 0 {
-         *   println!("stack == 0")
-         * }
-         */
+
+        if mystack.len() == 0 {
+            println!("stack == 0")
+        }
+
         Ok(())
     }
 }
@@ -222,11 +274,11 @@ fn main() -> Result<(), std::io::Error> {
     ];
 
     let selected_language: &str;
-    match lang.as_str() {
+    match lang.to_lowercase().as_str() {
         "rust" => selected_language = "Rust",
         "java" => selected_language = "java",
-        "cpp" => selected_language = "CPlusPlus",
         "c" => selected_language = "C",
+        "cpp" | "c++" | "cplusplus" => selected_language = "CPlusPlus",
         _ => {
             selected_language = Select::new(
                 "Language?",
