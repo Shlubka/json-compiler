@@ -1,25 +1,45 @@
 #![warn(clippy::all, clippy::pedantic)]
 use inquire::{Select, Text};
-use std::ascii::AsciiExt;
-use std::env;
-//use serde_json::json;
-//use rust_fuzzy_search::{fuzzy_compire};
+use lazy_static::lazy_static;
+
+use serde::{Deserialize, Serialize};
+use serde_json::{from_str, to_string_pretty};
+
+use std::fs;
 use std::io::BufRead;
+use std::sync::Mutex;
 use std::{
+    env,
     fs::File,
     io::BufReader,
     path::{Path, PathBuf},
 };
 
+lazy_static! {
+    static ref LONG_STRING: Mutex<String> = Mutex::new(String::from(
+        "{\"blocks\":[], \"arrows\": [],\"x0\": 0, \"y0\": 0}"
+    ));
+}
+
 trait Language {
     fn get_name(&self) -> &'static str;
     fn analyze(&self, path: &Path) -> Result<(), std::io::Error>;
 }
-/*
-trait AddToJson {
-    fn adding(&self) -> Result<(), std::io::Error>;
+
+trait Adding {
+    fn adding(&self);
+    //fn convert_to_json(&self, js: &String, path_to_json: &Path) -> Result<(), std::io::Error>;
 }
-*/
+
+pub enum TypesOfBlok {
+    //Input: String = String::from("fdssds");
+    StartEnd(String), //= "Начало / конец",
+    InputOutput(String),
+    Block(String),
+    Condition(String),
+    Cycle(String),
+}
+
 #[derive(Default)]
 struct Rust;
 
@@ -31,95 +51,59 @@ struct CPlusPlus;
 
 #[derive(Default)]
 struct Java;
-/*
+
 //json objs
-#[derive(Debug, Clone, PartialEq)]
-struct Obj<'a> {
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct FullJson {
+    blocks: Vec<JsBlock>,
+    arrows: Vec<Arrow>,
+    x0: i32,
+    y0: i32,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+struct JsBlock {
     x: i32,
     y: i32,
-    text: &'a str,
+    text: String,
     width: i32,
     height: i32,
-    type_: &'a str,
+    tupe: String,
     is_menu_block: bool,
     font_size: i32,
     text_height: i32,
     is_bold: bool,
     is_italic: bool,
-    text_align: &'a str,
+    text_align: String,
     labels_position: i32,
 }
 
-#[derive(Debug, Clone, PartialEq)]
-pub struct Arrow {
-    pub start_index: usize,
-    pub end_index: usize,
-    pub start_connector_index: usize,
-    pub end_connector_index: usize,
-    pub nodes: Vec<(i32, i32)>,
-    pub counts: Vec<usize>,
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct Arrow {
+    start_index: usize,
+    end_index: usize,
+    start_connector_index: usize,
+    end_connector_index: usize,
+    nodes: Vec<(i32, i32)>,
+    counts: Vec<usize>,
 }
 
-trait Visitor {
-    fn visit_obj(&mut self, obj: &Obj) -> String;
-    fn visit_arrow(&mut self, arrow: &Arrow) -> String;
-}
+impl Adding for JsBlock {
+    fn adding(&self) {
+        let mut long_string = LONG_STRING.lock().unwrap();
+        let mut main_json = from_str::<FullJson>(&long_string.clone()).unwrap();
 
-struct JsonVisitor;
-
-impl Visitor for JsonVisitor {
-    fn visit_obj(&mut self, obj: &Obj) -> String {
-        format!(r#"
-        {{
-            "x": {},
-            "y": {},
-            "text": "{}",
-            "width": {},
-            "height": {},
-            "type": "{}",
-            "is_menu_block": {},
-            "font_size": {},
-            "text_height": {},
-            "is_bold": {},
-            "is_italic": {},
-            "text_align": "{}",
-            "labels_position": {}
-        }}
-    "#, obj.x, obj.y, obj.text, obj.width, obj.height, obj.type_, obj.is_menu_block, obj.font_size, obj.text_height, obj.is_bold, obj.is_italic, obj.text_align, obj.labels_position)
+        main_json.blocks.push(self.clone());
+        let main_json_str = to_string_pretty(&main_json).unwrap();
+        *long_string = main_json_str.clone();
     }
-
-    fn visit_arrow(&mut self, arrow: &Arrow) -> String {
-        format!(r#"
-        {{
-            "start_index": {},
-            "end_index": {},
-            "start_connector_index": {},
-            "end_connector_index": {},
-            "nodes": {},
-            "counts": {}
-        }}
-    "#, arrow.start_index, arrow.end_index, arrow.start_connector_index, arrow.end_connector_index, json!(arrow.nodes), json!(arrow.counts))
-    }
+    //fn convert_to_json(&self, js: &String, path_to_json: &Path) -> Result<(), std::io::Error> {
+    //    todo!()
+    //}
 }
-
-trait Accept {
-    fn accept(&self, visitor: &mut dyn Visitor) -> String;
-}
-
-impl Accept for Obj<'static> {
-    fn accept(&self, visitor: &mut dyn Visitor) -> String {
-        visitor.visit_obj(self)
-    }
-}
-
-impl Accept for Arrow {
-    fn accept(&self, visitor: &mut dyn Visitor) -> String {
-        visitor.visit_arrow(self)
-    }
-}
-
-
-*/
 
 impl Language for Rust {
     fn get_name(&self) -> &'static str {
@@ -144,7 +128,7 @@ impl Language for Rust {
         for (i, line) in reader.lines().enumerate() {
             let line = line.unwrap_or_else(|_e| {
                 // handle error here
-                return Default::default();
+                String::default()
             });
 
             if is_multiline_comment {
@@ -161,15 +145,31 @@ impl Language for Rust {
                     is_multiline_comment = true;
                     continue;
                 }
-                s if s.contains("}") => {
+                s if s.contains('}') => {
                     mystack.pop();
                     let block_name = block_stack.pop().unwrap_or("block".to_string());
-                    format!("exit block {}", block_name)
+                    format!("exit block {block_name}")
                 }
                 s if s.contains("fn main") => {
                     mystack.push('{');
                     let block_name = s.split_whitespace().nth(1).unwrap_or("main");
                     block_stack.push(block_name.to_string());
+                    let local_block = JsBlock {
+                        x: 0,
+                        y: 0,
+                        text: String::from("начало"),
+                        width: 10,
+                        height: 30,
+                        tupe: String::from("Начало / конец"),
+                        is_menu_block: false,
+                        font_size: 14,
+                        text_height: 14,
+                        is_bold: false,
+                        is_italic: false,
+                        text_align: String::from("center"),
+                        labels_position: 1,
+                    };
+                    local_block.adding();
                     "enter point".to_string()
                 }
                 s if s.contains("fn") => {
@@ -184,20 +184,68 @@ impl Language for Rust {
                     external_func.push(func_name.to_string());
                     let block_name = func_name.to_string();
                     block_stack.push(block_name);
+                    let local_block = JsBlock {
+                        x: 0,
+                        y: 0,
+                        text: String::from("начало"),
+                        width: 10,
+                        height: 30,
+                        tupe: String::from(external_func.last().unwrap().to_string()),
+                        is_menu_block: false,
+                        font_size: 14,
+                        text_height: 14,
+                        is_bold: false,
+                        is_italic: false,
+                        text_align: String::from("center"),
+                        labels_position: 1,
+                    };
+                    local_block.adding();
                     "fn".to_string()
                 }
                 s if s.contains("return") => "exit fn".to_string(),
                 s if external_func.iter().any(|kw| s.contains(kw)) => {
                     let func_name = s.split_whitespace().nth(3).unwrap();
+                    let local_block = JsBlock {
+                        x: 0,
+                        y: 0,
+                        text: String::from("начало"),
+                        width: 10,
+                        height: 30,
+                        tupe: String::from("call {func_name} "),
+                        is_menu_block: false,
+                        font_size: 14,
+                        text_height: 14,
+                        is_bold: false,
+                        is_italic: false,
+                        text_align: String::from("center"),
+                        labels_position: 1,
+                    };
+                    local_block.adding();
                     //let func_name = kw;
-                    format!("call {} ", func_name)
+                    format!("call {func_name} ")
                 }
-                s if s.contains("let") || s.len() == 0 => continue,
+                s if s.contains("let") || s.is_empty() => continue,
                 s if s.trim_start().starts_with("//") => continue,
                 s if s.contains("if") => {
                     mystack.push('{');
                     let block_name = "if".to_string();
                     block_stack.push(block_name);
+                    let local_block = JsBlock {
+                        x: 0,
+                        y: 0,
+                        text: String::from("начало"),
+                        width: 10,
+                        height: 30,
+                        tupe: String::from("call {func_name} "),
+                        is_menu_block: false,
+                        font_size: 14,
+                        text_height: 14,
+                        is_bold: false,
+                        is_italic: false,
+                        text_align: String::from("center"),
+                        labels_position: 1,
+                    };
+                    local_block.adding();
                     "if".to_string()
                 }
                 s if s.contains("else") => {
@@ -206,7 +254,7 @@ impl Language for Rust {
                     block_stack.push(block_name);
                     "else".to_string()
                 }
-                s if s.contains("{") => {
+                s if s.contains('{') => {
                     mystack.push('{');
                     let block_name = s.split_whitespace().nth(0).unwrap_or("block");
                     block_stack.push(block_name.to_string());
@@ -218,8 +266,8 @@ impl Language for Rust {
             println!("{i:>3} | {action:<17}| {:>2} | {line} ", mystack.len());
         }
 
-        if mystack.len() == 0 {
-            println!("stack == 0")
+        if mystack.is_empty() {
+            println!("stack == 0");
         }
 
         Ok(())
@@ -256,7 +304,8 @@ impl Language for Java {
     }
 }
 
-fn main() -> Result<(), std::io::Error> {
+fn main() {
+    //-> Result<(), std::io::Error> {
     let args: Vec<String> = env::args().collect();
     let lang = match args.len() > 1 {
         true => args[1].clone(),
@@ -272,6 +321,8 @@ fn main() -> Result<(), std::io::Error> {
         Box::new(CPlusPlus),
         Box::new(Java),
     ];
+
+    //let final_json =  Box::new(final_json);
 
     let selected_language: &str;
     match lang.to_lowercase().as_str() {
@@ -301,5 +352,8 @@ fn main() -> Result<(), std::io::Error> {
     println!("Selected language: {}", selected_language.get_name());
     println!("File path: {}", path.display());
     let _ = selected_language.analyze(&path);
-    Ok(())
+    let long_string = LONG_STRING.lock().unwrap();
+    println!("{long_string}");
+    fs::write("test.json", long_string.to_string()).expect("Error write");
+    //Ok(())
 }
