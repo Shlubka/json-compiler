@@ -124,6 +124,7 @@ impl Language for Rust {
         let mut external_func: Vec<String> = Vec::new();
         let mut block_stack: Vec<String> = Vec::new();
         let mut is_multiline_comment = false;
+        let mut is_rnter_point = false;
 
         for (i, line) in reader.lines().enumerate() {
             let line = line.unwrap_or_else(|_e| {
@@ -131,11 +132,16 @@ impl Language for Rust {
                 String::default()
             });
 
+                    let local_long_string = LONG_STRING.lock().unwrap();
+                    let local_main_json = from_str::<FullJson>(&local_long_string.clone()).unwrap();
+
             if is_multiline_comment {
                 if line.trim_start().starts_with("*/") {
                     is_multiline_comment = false;
+                    drop(local_long_string);
                     continue;
                 } else {
+                    drop(local_long_string);
                     continue;
                 }
             }
@@ -143,22 +149,47 @@ impl Language for Rust {
             let action = match line.as_str() {
                 s if s.trim_start().starts_with("/*") => {
                     is_multiline_comment = true;
+                    drop(local_long_string);
                     continue;
                 }
+                s if s.trim_start().starts_with("//") => continue,
                 s if s.contains('}') => {
                     mystack.pop();
                     let block_name = block_stack.pop().unwrap_or("block".to_string());
+                    if is_rnter_point {
+                        let local_block = JsBlock {
+                            x: 220,
+                            y: local_main_json.blocks.last().unwrap().y + 80,
+                            text: String::from("конец"),
+                            width: 100,
+                            height: 30,
+                            tupe: String::from("Начало / конец"),
+                            is_menu_block: false,
+                            font_size: 14,
+                            text_height: 14,
+                            is_bold: false,
+                            is_italic: false,
+                            text_align: String::from("center"),
+                            labels_position: 1,
+                        };
+                    drop(local_long_string);
+                        local_block.adding();
+                    }
                     format!("exit block {block_name}")
                 }
                 s if s.contains("fn main") => {
+                    is_rnter_point = true;
                     mystack.push('{');
                     let block_name = s.split_whitespace().nth(1).unwrap_or("main");
                     block_stack.push(block_name.to_string());
                     let local_block = JsBlock {
-                        x: 0,
-                        y: 0,
+                        x: 220,
+                        y: match local_main_json.blocks.last().is_none() {
+                            true => 0,
+                            false => local_main_json.blocks.last().unwrap().y + 80,
+                        },
                         text: String::from("начало"),
-                        width: 10,
+                        width: 100,
                         height: 30,
                         tupe: String::from("Начало / конец"),
                         is_menu_block: false,
@@ -169,6 +200,7 @@ impl Language for Rust {
                         text_align: String::from("center"),
                         labels_position: 1,
                     };
+                    drop(local_long_string);
                     local_block.adding();
                     "enter point".to_string()
                 }
@@ -185,12 +217,15 @@ impl Language for Rust {
                     let block_name = func_name.to_string();
                     block_stack.push(block_name);
                     let local_block = JsBlock {
-                        x: 0,
-                        y: 0,
-                        text: String::from("начало"),
-                        width: 10,
+                        x: 220,
+                        y: match local_main_json.blocks.last().is_none() {
+                            true => 0,
+                            false => local_main_json.blocks.last().unwrap().y + 80,
+                        },
+                        text: String::from(external_func.last().unwrap().to_string()),
+                        width: 100,
                         height: 30,
-                        tupe: String::from(external_func.last().unwrap().to_string()),
+                        tupe: String::from("Начало / конец"),
                         is_menu_block: false,
                         font_size: 14,
                         text_height: 14,
@@ -199,6 +234,8 @@ impl Language for Rust {
                         text_align: String::from("center"),
                         labels_position: 1,
                     };
+                    //let local_long_string = LONG_STRING.unlock();
+                    drop(local_long_string);
                     local_block.adding();
                     "fn".to_string()
                 }
@@ -206,12 +243,12 @@ impl Language for Rust {
                 s if external_func.iter().any(|kw| s.contains(kw)) => {
                     let func_name = s.split_whitespace().nth(3).unwrap();
                     let local_block = JsBlock {
-                        x: 0,
-                        y: 0,
-                        text: String::from("начало"),
-                        width: 10,
+                        x: 220,
+                            y: local_main_json.blocks.last().unwrap().y + 80,
+                        text: String::from("{func_name}"),
+                        width: 100,
                         height: 30,
-                        tupe: String::from("call {func_name} "),
+                        tupe: String::from("Блок"),
                         is_menu_block: false,
                         font_size: 14,
                         text_height: 14,
@@ -220,23 +257,23 @@ impl Language for Rust {
                         text_align: String::from("center"),
                         labels_position: 1,
                     };
+                    drop(local_long_string);
                     local_block.adding();
                     //let func_name = kw;
                     format!("call {func_name} ")
                 }
                 s if s.contains("let") || s.is_empty() => continue,
-                s if s.trim_start().starts_with("//") => continue,
                 s if s.contains("if") => {
                     mystack.push('{');
                     let block_name = "if".to_string();
                     block_stack.push(block_name);
                     let local_block = JsBlock {
-                        x: 0,
-                        y: 0,
-                        text: String::from("начало"),
-                        width: 10,
+                        x: 220,
+                            y: local_main_json.blocks.last().unwrap().y + 80,
+                        text: String::from("выыод"),
+                        width: 100,
                         height: 30,
-                        tupe: String::from("call {func_name} "),
+                        tupe: String::from("Условие"),
                         is_menu_block: false,
                         font_size: 14,
                         text_height: 14,
@@ -245,6 +282,7 @@ impl Language for Rust {
                         text_align: String::from("center"),
                         labels_position: 1,
                     };
+                    drop(local_long_string);
                     local_block.adding();
                     "if".to_string()
                 }
@@ -254,10 +292,31 @@ impl Language for Rust {
                     block_stack.push(block_name);
                     "else".to_string()
                 }
+                s if s.contains("print") => {
+                    let local_block = JsBlock {
+                        x: 220,
+                            y: local_main_json.blocks.last().unwrap().y + 80,
+                        text: String::from("выыод"),
+                        width: 100,
+                        height: 30,
+                        tupe: String::from("Ввод / вывод"),
+                        is_menu_block: false,
+                        font_size: 14,
+                        text_height: 14,
+                        is_bold: false,
+                        is_italic: false,
+                        text_align: String::from("center"),
+                        labels_position: 1,
+                    };
+                    drop(local_long_string);
+                    local_block.adding();
+                    "print".to_string()
+                }
                 s if s.contains('{') => {
                     mystack.push('{');
                     let block_name = s.split_whitespace().nth(0).unwrap_or("block");
                     block_stack.push(block_name.to_string());
+                    drop(local_long_string);
                     "enter block".to_string()
                 }
                 _ => "action".to_string(),
@@ -338,7 +397,7 @@ fn main() {
             .prompt()
             .unwrap();
         }
-    }
+    };
 
     let path = match file_path.as_str() {
         "default_file_path" => PathBuf::from(Text::new("Path").prompt().unwrap()),
@@ -353,7 +412,7 @@ fn main() {
     println!("File path: {}", path.display());
     let _ = selected_language.analyze(&path);
     let long_string = LONG_STRING.lock().unwrap();
-    println!("{long_string}");
-    fs::write("test.json", long_string.to_string()).expect("Error write");
+    //println!("{long_string}");
+    fs::write("test.json", long_string.to_string().replace("tupe", "type")).expect("Error write");
     //Ok(())
 }
