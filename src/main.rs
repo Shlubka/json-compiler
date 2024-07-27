@@ -491,13 +491,17 @@ fn main() {
 
     let mut count = 0;
 
-    let mut y_acum = 0;
-    let mut x_acum = 0;
+    //let mut y_acum = 0;
+    //let mut x_acum = 0;
 
+    let mut back_asum: [i32; 3] = [0, 0, 0];
 
     for window in main_json.blocks.windows(2) {
         println!(" ");
-        print!("{}:{}       {}:{} {}:{}", window[0].text, window[1].text, window[0].x, window[1].x, window[0].y, window[1].y);
+        print!(
+            "{}:{}       {}:{} {}:{}",
+            window[0].text, window[1].text, window[0].x, window[1].x, window[0].y, window[1].y
+        );
         if window[0].text == "конец" {
             println!("\nout");
             count += 1;
@@ -530,8 +534,65 @@ fn main() {
             count += 1;
             main_json.arrows.push(arrow);
         } else if window[0].x != window[1].x {
-            y_acum = window[1].y;
-            count += 1;
+            if back_asum[0] != 0 {
+                let local_usize = back_asum[2] as usize;
+
+                let average_x = (window[1].x + main_json.blocks[local_usize].x) / 2;
+                let average_y = (window[1].y + main_json.blocks[local_usize].y) / 2;
+
+                //print!("    ok {} == {}", window[0].x, window[1].x);
+                let arrow = Arrow {
+                    start_index: count,
+                    end_index: count + 1,
+                    start_connector_index: 2,
+                    end_connector_index: 0,
+                    nodes: vec![
+                        Node {
+                            x: main_json.blocks[local_usize].x,
+                            y: main_json.blocks[local_usize].y,
+                        },
+                        Node {
+                            x: average_x,
+                            y: average_y,
+                        },
+                        Node {
+                            x: window[1].x,
+                            y: window[1].y,
+                        },
+                    ],
+                    counts: vec![1, 1, 1],
+                };
+                count += 1;
+                main_json.arrows.push(arrow);
+                back_asum = [0, 0, 0];
+            } else {
+                back_asum = [window[1].x, window[1].y, count as i32];
+                let average_x = (window[0].x + window[1].x) / 2;
+                let average_y = (window[0].y + window[1].y) / 2;
+                let arrow = Arrow {
+                    start_index: count,
+                    end_index: count + 1,
+                    start_connector_index: 2,
+                    end_connector_index: 0,
+                    nodes: vec![
+                        Node {
+                            x: window[0].x,
+                            y: window[0].y,
+                        },
+                        Node {
+                            x: average_x,
+                            y: average_y,
+                        },
+                        Node {
+                            x: window[1].x,
+                            y: window[1].y,
+                        },
+                    ],
+                    counts: vec![1, 1, 1],
+                };
+                count += 1;
+                main_json.arrows.push(arrow);
+            }
         }
     }
     let long_string = to_string_pretty(&main_json).unwrap();
@@ -539,4 +600,3 @@ fn main() {
     fs::write("test.json", long_string.to_string().replace("tupe", "type")).expect("Error write");
     //Ok(())
 }
-
