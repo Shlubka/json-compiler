@@ -282,12 +282,12 @@ impl Language for Rust {
                     "exit fn".to_string()
                 }
                 s if external_func.iter().any(|kw| s.contains(kw)) => {
-                    let func_name = s.split_whitespace().nth(3).unwrap();
+                    let func_name = s.split_whitespace().next().unwrap();
                     y_global += 80;
                     let local_block = JsBlock {
                         x: x_global,
                         y: y_global,
-                        text: String::from("{func_name}"),
+                        text: String::from(format!("{func_name}")),
                         width: 100,
                         height: 30,
                         tupe: String::from("Блок"),
