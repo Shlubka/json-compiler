@@ -158,6 +158,23 @@ impl Language for Rust {
                 }
             }
 
+            //look
+            let mut local_block = JsBlock {
+                x: x_global,
+                y: y_global,
+                text: String::from("конец"),
+                width: 100,
+                height: 30,
+                tupe: String::from("Начало / конец"),
+                is_menu_block: false,
+                font_size: 14,
+                text_height: 14,
+                is_bold: false,
+                is_italic: false,
+                text_align: String::from("center"),
+                labels_position: 1,
+            };
+
             let action = match line.as_str() {
                 s if s.trim_start().starts_with("/*") => {
                     is_multiline_comment = true;
@@ -171,21 +188,6 @@ impl Language for Rust {
                     if mystack.len() == 0 && !is_return {
                         y_global += 80;
                         //if is_rnter_point {
-                        let local_block = JsBlock {
-                            x: x_global,
-                            y: y_global,
-                            text: String::from("конец"),
-                            width: 100,
-                            height: 30,
-                            tupe: String::from("Начало / конец"),
-                            is_menu_block: false,
-                            font_size: 14,
-                            text_height: 14,
-                            is_bold: false,
-                            is_italic: false,
-                            text_align: String::from("center"),
-                            labels_position: 1,
-                        };
                         drop(local_long_string);
                         local_block.adding();
                     }
@@ -207,21 +209,8 @@ impl Language for Rust {
                     let block_name = s.split_whitespace().nth(1).unwrap_or("main");
                     block_stack.push(block_name.to_string());
                     y_global += 80;
-                    let local_block = JsBlock {
-                        x: x_global,
-                        y: y_global,
-                        text: String::from("начало"),
-                        width: 100,
-                        height: 30,
-                        tupe: String::from("Начало / конец"),
-                        is_menu_block: false,
-                        font_size: 14,
-                        text_height: 14,
-                        is_bold: false,
-                        is_italic: false,
-                        text_align: String::from("center"),
-                        labels_position: 1,
-                    };
+                    local_block.text = String::from("начало");
+                    local_block.tupe = String::from("Начало / конец");
                     drop(local_long_string);
                     local_block.adding();
                     "enter point".to_string()
@@ -239,21 +228,10 @@ impl Language for Rust {
                     external_func.push(func_name.to_string());
                     let block_name = func_name.to_string();
                     block_stack.push(block_name);
-                    let local_block = JsBlock {
-                        x: x_global,
-                        y: y_global,
-                        text: String::from(external_func.last().unwrap().to_string()),
-                        width: 100,
-                        height: 30,
-                        tupe: String::from("Начало / конец"),
-                        is_menu_block: false,
-                        font_size: 14,
-                        text_height: 14,
-                        is_bold: false,
-                        is_italic: false,
-                        text_align: String::from("center"),
-                        labels_position: 1,
-                    };
+
+                    local_block.text = String::from(external_func.last().unwrap().to_string());
+                    local_block.tupe = String::from("Начало / конец");
+
                     //let local_long_string = LONG_STRING.unlock();
                     drop(local_long_string);
                     local_block.adding();
@@ -262,7 +240,7 @@ impl Language for Rust {
                 s if s.contains("return") => {
                     is_return = true;
                     y_global += 80;
-                    let local_block = JsBlock {
+                    /*let local_block = JsBlock {
                         x: x_global,
                         y: y_global,
                         text: String::from("конец"),
@@ -276,7 +254,7 @@ impl Language for Rust {
                         is_italic: false,
                         text_align: String::from("center"),
                         labels_position: 1,
-                    };
+                    };*/
                     drop(local_long_string);
                     local_block.adding();
                     "exit fn".to_string()
@@ -284,21 +262,8 @@ impl Language for Rust {
                 s if external_func.iter().any(|kw| s.contains(kw)) => {
                     let func_name = s.split_whitespace().next().unwrap();
                     y_global += 80;
-                    let local_block = JsBlock {
-                        x: x_global,
-                        y: y_global,
-                        text: String::from(format!("{func_name}")),
-                        width: 100,
-                        height: 30,
-                        tupe: String::from("Блок"),
-                        is_menu_block: false,
-                        font_size: 14,
-                        text_height: 14,
-                        is_bold: false,
-                        is_italic: false,
-                        text_align: String::from("center"),
-                        labels_position: 1,
-                    };
+                    local_block.text = String::from(format!("{func_name}"));
+                    local_block.tupe = String::from("Блок");
                     drop(local_long_string);
                     local_block.adding();
                     //let func_name = kw;
@@ -310,21 +275,8 @@ impl Language for Rust {
                     mystack.push('{');
                     let block_name = "if".to_string();
                     block_stack.push(block_name);
-                    let local_block = JsBlock {
-                        x: x_global,
-                        y: y_global,
-                        text: String::from("if"),
-                        width: 100,
-                        height: 30,
-                        tupe: String::from("Условие"),
-                        is_menu_block: false,
-                        font_size: 14,
-                        text_height: 14,
-                        is_bold: false,
-                        is_italic: false,
-                        text_align: String::from("center"),
-                        labels_position: 1,
-                    };
+                    local_block.text = String::from("if");
+                    local_block.tupe = String::from("Условие");
                     x_global += x_global + 80;
                     drop(local_long_string);
                     local_block.adding();
@@ -347,21 +299,8 @@ impl Language for Rust {
                 }
                 s if s.contains("print") => {
                     y_global += 80;
-                    let local_block = JsBlock {
-                        x: x_global,
-                        y: y_global,
-                        text: String::from("вывод"),
-                        width: 100,
-                        height: 30,
-                        tupe: String::from("Ввод / вывод"),
-                        is_menu_block: false,
-                        font_size: 14,
-                        text_height: 14,
-                        is_bold: false,
-                        is_italic: false,
-                        text_align: String::from("center"),
-                        labels_position: 1,
-                    };
+                    local_block.text = String::from("вывод");
+                    local_block.tupe = String::from("Ввод / вывод");
                     drop(local_long_string);
                     local_block.adding();
                     "print".to_string()
@@ -375,7 +314,7 @@ impl Language for Rust {
                 }
                 _ => {
                     y_global += 80;
-                    let local_block = JsBlock {
+                    /*let local_block = JsBlock {
                         x: x_global,
                         y: y_global,
                         text: format!("{}", line.trim_start().trim_end_matches(' ')).to_string(),
@@ -389,14 +328,18 @@ impl Language for Rust {
                         is_italic: false,
                         text_align: String::from("center"),
                         labels_position: 1,
-                    };
+                    };*/
+                    local_block.text =
+                        format!("{}", line.trim_start().trim_end_matches(' ')).to_string();
+                    local_block.tupe = String::from("Блок");
+                    local_block.y = y_global;
                     drop(local_long_string);
                     local_block.adding();
                     "action".to_string()
                 }
             };
 
-            //println!("{i:>3} | {action:<17}| {:>2} | {line} ", mystack.len());
+            println!("{i:>3} | {action:<17}| {:>2} | {line} ", mystack.len());
         }
 
         if mystack.len() > 0 {
@@ -498,8 +441,8 @@ fn main() {
     //let mut y_acum = 0;
     //let mut x_acum = 0;
 
-    let mut back_asum: [i32; 3] = [0, 0, 0];
-    let mut back_acum: [i32; 3] = [0, 0, 0];
+    let mut back_asum: [i32; 3] = [0, 0, 0]; // акамулятор для координат блока if
+    let mut back_acum: [i32; 3] = [0, 0, 0]; // акамулятор для координат блока перед else
 
     for window in main_json.blocks.windows(2) {
         if window[0].text == "конец" {
