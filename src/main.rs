@@ -132,8 +132,8 @@ impl Language for Rust {
         let mut block_stack: Vec<String> = Vec::new();
         let mut is_multiline_comment = false;
         //let mut is_rnter_point = false;
-        let mut is_if = false;
-        let mut is_else = false;
+        //let mut is_if = false;
+        //let mut is_else = false;
         let mut is_return = false;
         let mut x_global = 0;
         let mut y_global = 0;
@@ -187,7 +187,6 @@ impl Language for Rust {
                     let block_name = block_stack.pop().unwrap_or("block".to_string());
                     if mystack.len() == 0 && !is_return {
                         y_global += 80;
-                        //if is_rnter_point {
                         drop(local_long_string);
                         local_block.adding();
                     }
@@ -195,8 +194,8 @@ impl Language for Rust {
                         is_return = false;
                     }
                     if block_name == "else" {
-                        //println!("kjdfhjbsfkjdsnb");
-                        x_global += 80
+                        x_global += 80;
+                        y_global += 80
                     }
                     if block_name == "if" {
                         x_global -= 80
@@ -204,7 +203,6 @@ impl Language for Rust {
                     format!("exit block {block_name}")
                 }
                 s if s.contains("fn main") => {
-                    //is_rnter_point = true;
                     mystack.push('{');
                     let block_name = s.split_whitespace().nth(1).unwrap_or("main");
                     block_stack.push(block_name.to_string());
@@ -232,7 +230,6 @@ impl Language for Rust {
                     local_block.text = String::from(external_func.last().unwrap().to_string());
                     local_block.tupe = String::from("Начало / конец");
 
-                    //let local_long_string = LONG_STRING.unlock();
                     drop(local_long_string);
                     local_block.adding();
                     "fn".to_string()
@@ -240,21 +237,6 @@ impl Language for Rust {
                 s if s.contains("return") => {
                     is_return = true;
                     y_global += 80;
-                    /*let local_block = JsBlock {
-                        x: x_global,
-                        y: y_global,
-                        text: String::from("конец"),
-                        width: 100,
-                        height: 30,
-                        tupe: String::from("Начало / конец"),
-                        is_menu_block: false,
-                        font_size: 14,
-                        text_height: 14,
-                        is_bold: false,
-                        is_italic: false,
-                        text_align: String::from("center"),
-                        labels_position: 1,
-                    };*/
                     drop(local_long_string);
                     local_block.adding();
                     "exit fn".to_string()
