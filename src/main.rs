@@ -6,6 +6,9 @@ use crate::mk_json_blocks::{FullJson, Node, Arrow};
 mod lang_json_stuf;
 use crate::lang_json_stuf::{Java, Rust, C, CPlusPlus, Language};
 
+mod lang_vec_stuf;
+use crate::lang_json_stuf::{Java, Rust, C, CPlusPlus, Language};
+
 use inquire::{Select, Text};
 use serde_json::{from_str, to_string_pretty};
 use std::fs;
