@@ -2,12 +2,12 @@ use crate::mk_json_blocks::{Adding, FullJson, JsBlock, Node};
 use serde::{Deserialize, Serialize};
 use serde_json::{from_str, to_string_pretty};
 use std::io::BufRead;
-use std::sync::{Arc, Mutex};
+//use std::sync::{Arc, Mutex};
 use std::{fs::File, io::BufReader, path::Path};
 
 pub trait Language {
     fn get_name(&self) -> &'static str;
-    fn analyze(&self, path: &Path, long_string: Arc<Mutex<String>>) -> Result<(), std::io::Error>;
+    fn analyze(&self, path: &Path) -> Result<(), std::io::Error>;
 }
 
 #[derive(Default)]
@@ -18,7 +18,7 @@ impl Language for C {
         "C"
     }
 
-    fn analyze(&self, path: &Path, long_string: Arc<Mutex<String>>) -> Result<(), std::io::Error> {
+    fn analyze(&self, path: &Path) -> Result<(), std::io::Error> {
         todo!();
     }
 }
@@ -31,7 +31,7 @@ impl Language for CPlusPlus {
         "CPlusPlus"
     }
 
-    fn analyze(&self, path: &Path, long_string: Arc<Mutex<String>>) -> Result<(), std::io::Error> {
+    fn analyze(&self, path: &Path) -> Result<(), std::io::Error> {
         todo!();
     }
 }
@@ -44,7 +44,7 @@ impl Language for Java {
         "Java"
     }
 
-    fn analyze(&self, path: &Path, long_string: Arc<Mutex<String>>) -> Result<(), std::io::Error> {
+    fn analyze(&self, path: &Path) -> Result<(), std::io::Error> {
         todo!();
     }
 }
@@ -57,7 +57,7 @@ impl Language for Rust {
         "Rust"
     }
 
-    fn analyze(&self, path: &Path, long_string: Arc<Mutex<String>>) -> Result<(), std::io::Error> {
+    fn analyze(&self, path: &Path) -> Result<(), std::io::Error> {
         let file = match File::open(path) {
             Ok(file) => file,
             Err(error) => {
@@ -248,3 +248,120 @@ impl Language for Rust {
         Ok(())
     }
 }
+
+
+ for window in main_json.blocks.windows(2) {
+        if window[0].text == "конец" {
+            count += 1;
+            continue;
+        }
+
+        println!("new duo");
+        let average_x = (window[0].x + window[1].x) / 2;
+        let average_y = (window[0].y + window[1].y) / 2;
+
+        let mut arrow = Arrow {
+            start_index: count,
+            end_index: count + 1,
+            start_connector_index: 2,
+            end_connector_index: 0,
+            nodes: vec![
+                Node {
+                    x: window[0].x,
+                    y: window[0].y,
+                },
+                Node {
+                    x: average_x,
+                    y: average_y,
+                },
+                Node {
+                    x: window[1].x,
+                    y: window[1].y,
+                },
+            ],
+            counts: vec![1, 1, 1],
+        };
+
+        if window[0].x == window[1].x {
+            main_json.arrows.push(arrow);
+        } else if window[0].tupe == "Условие" {
+            arrow.start_connector_index = 1;
+            back_asum = [window[0].x, window[0].y, count as i32];
+            main_json.arrows.push(arrow);
+        } else if window[1].y < window[0].y {
+            back_acum = [window[0].x, window[0].y, count as i32];
+            arrow.start_index = back_asum[2] as usize;
+            arrow.end_index = count + 1;
+            arrow.start_connector_index = 3;
+            arrow.nodes = vec![
+                Node {
+                    x: back_asum[0],
+                    y: back_asum[1],
+                },
+                Node {
+                    x: average_x,
+                    y: average_y,
+                },
+                Node {
+                    x: window[1].x,
+                    y: window[1].y,
+                },
+            ];
+            main_json.arrows.push(arrow);
+        } else if window[1].x > window[0].x {
+            let arrow = Arrow {
+                start_index: count,
+                end_index: count + 1,
+                start_connector_index: 2,
+                end_connector_index: 0,
+                nodes: vec![
+                    Node {
+                        x: window[0].x,
+                        y: window[0].y,
+                    },
+                    Node {
+                        x: window[0].x,
+                        y: window[0].y + 35,
+                    },
+                    Node {
+                        x: window[1].x,
+                        y: window[0].y + 35,
+                    },
+                    Node {
+                        x: window[1].x,
+                        y: window[1].y,
+                    },
+                ],
+                counts: vec![1, 1, 1, 1],
+            };
+            main_json.arrows.push(arrow);
+            let arrow = Arrow {
+                start_index: back_acum[2] as usize,
+                end_index: count + 1,
+                start_connector_index: 2,
+                end_connector_index: 0,
+                nodes: vec![
+                    Node {
+                        x: back_acum[0],
+                        y: back_acum[1],
+                    },
+                    Node {
+                        x: back_acum[0],
+                        y: back_acum[1] + 35,
+                    },
+                    Node {
+                        x: window[1].x,
+                        y: back_acum[1] + 35,
+                    },
+                    Node {
+                        x: window[1].x,
+                        y: window[1].y,
+                    },
+                ],
+                counts: vec![1, 1, 1, 1],
+            };
+            main_json.arrows.push(arrow);
+        }
+
+        count += 1;
+    }

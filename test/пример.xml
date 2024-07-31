@@ -10,7 +10,7 @@
         <mxCell id="XuxGQG1p5qiRbqtiiNWT-5" value="goyda" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fontSize=24;" vertex="1" parent="1">
           <mxGeometry width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="XuxGQG1p5qiRbqtiiNWT-49" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XuxGQG1p5qiRbqtiiNWT-6" target="XuxGQG1p5qiRbqtiiNWT-48">
+        <mxCell id="XuxGQG1p5qiRbqtiiNWT-49" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XuxGQG1p5qiRbqtiiNWT-6" target="blablabla-48">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="180" y="130" />
@@ -27,10 +27,10 @@
         <mxCell id="XuxGQG1p5qiRbqtiiNWT-6" value="a &amp;gt; b " style="rhombus;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
           <mxGeometry y="100" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="XuxGQG1p5qiRbqtiiNWT-51" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XuxGQG1p5qiRbqtiiNWT-48" target="XuxGQG1p5qiRbqtiiNWT-50">
+        <mxCell id="XuxGQG1p5qiRbqtiiNWT-51" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="blablabla-48" target="XuxGQG1p5qiRbqtiiNWT-50">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="XuxGQG1p5qiRbqtiiNWT-48" value="вывод строки" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=16;" vertex="1" parent="1">
+        <mxCell id="blablabla-48" value="вывод строки" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="120" y="190" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="XuxGQG1p5qiRbqtiiNWT-53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XuxGQG1p5qiRbqtiiNWT-50" target="XuxGQG1p5qiRbqtiiNWT-52">

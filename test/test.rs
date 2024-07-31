@@ -1,19 +1,21 @@
 fn goyda () {
     if a > b {
-        printlm!("a > b");
-        printlm!("a > b");
-        printlm!("a > b");
-        printlm!("a > b");
-        printlm!("a > b");
+        println!("a > b");
+        println!("a > b");
+        println!("a > b");
+        println!("a > b");
+        println!("a > b");
     }
     else {
-        printlm!("a < b");
+        println!("a < b");
     }
 }
 
 fn main () -> i32 {
     goyda(3, 5);
 
-    printlm!("all ok");
+    for i in 1..10 {
+        println!("all ok");
+    }
     return 1;
 }
