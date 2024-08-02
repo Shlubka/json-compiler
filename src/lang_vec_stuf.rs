@@ -7,6 +7,13 @@ pub trait Language {
     fn analyze_to_vec(&self, path: &Path) -> Vec<String>;
 }
 
+pub struct local_vec_block {
+    tupe: String,
+    text: String,
+    x: i32,
+    y: i32
+}
+
 #[derive(Default)]
 pub struct C;
 
@@ -67,15 +74,22 @@ impl Language for Rust {
 
         let mut bracket_stack: Vec<char> = Vec::new(); // stack for [{(
         let mut external_func: Vec<String> = Vec::new(); // stack for external func
-        let mut return_vec: Vec<String> = Vec::new(); // vec for return from this mod
+        let mut return_vec = Vec::new(); // vec for return from this mod
         let mut block_stack: Vec<&str> = Vec::new(); // stack for looking for block
         let mut is_multiline_comment = false;
         let mut is_return = false;
         let mut is_if = false;
+        let mut is_else = false;
         let mut x_global = 0;
         let mut y_global = 0;
 
         for (i, line) in reader.lines().enumerate() {
+            local_vec_block {
+                tupe: String::from("action"),
+                text: String::new(),
+                x: x_global,
+                y: y_global,
+            };
             let line = line.unwrap_or_else(|_e| String::default());
 
             //print!("{: <70}     |", line);
@@ -105,8 +119,11 @@ impl Language for Rust {
                     if block_stack.len() == 0 {
                         panic!("unopened bracket")
                     }
+                    //return_vec
+                    let local_end = format!("end {}", block_stack.last().unwrap().to_string().clone());
                     block_stack.pop();
-                    continue;
+                    local_end
+                    //continue;
                     /*match block_stack.last().unwrap().to_string().as_str() {
                         "if" => {
                             println!("end if");
@@ -157,9 +174,9 @@ impl Language for Rust {
                 }
                 s if s.trim_start().starts_with("return") => {
                     println!("return");
-                    "return from fn".to_string()
+                    "return".to_string()
                 }
-                s if external_func.iter().any(|kw| s.trim_start().starts_with(kw)) => {
+                s if external_func.iter().any(|kw| s.contains(kw)) => {
                     let func_name = s.split_whitespace().next().unwrap().to_string();
                     let static_func_name = Box::leak(func_name.into_boxed_str());
                     block_stack.push(static_func_name);
@@ -191,12 +208,12 @@ impl Language for Rust {
                 s if s.trim_start().starts_with("for") => {
                     block_stack.push("for");
                     println!("for");
-                    "loop".to_string()
+                    "for".to_string()
                 }
                 s if s.trim_start().starts_with("while") => {
                     block_stack.push("while");
                     println!("while");
-                    "loop".to_string()
+                    "while".to_string()
                 }
 
                 _ => {
@@ -213,6 +230,7 @@ impl Language for Rust {
             panic!("bracket_stack > 0")
         }
 
+        println!("\n\n");
         return_vec
     }
 }

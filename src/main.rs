@@ -1,7 +1,7 @@
 #![warn(clippy::all, clippy::pedantic)]
 
 mod mk_json_blocks;
-use crate::mk_json_blocks::{FullJson, Node, Arrow};
+use crate::mk_json_blocks::{analyze};
 
 //mod lang_json_stuf;
 //use crate::lang_json_stuf::{Java, Rust, C, CPlusPlus, Language};
@@ -67,6 +67,7 @@ fn main() {
         println!("now: {}", i.as_str())
     }*/
 
+    analyze(analyzed_vector);
 
     //fs::write("test.json", long_string.to_string().replace("tupe", "type")).expect("Error write");
 }
