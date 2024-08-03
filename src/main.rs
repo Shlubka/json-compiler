@@ -11,7 +11,7 @@ use crate::lang_vec_stuf::{Language, Java, Rust, C, CPlusPlus};
 
 use inquire::{Select, Text};
 //use serde_json::{from_str, to_string_pretty};
-//use std::fs;
+use std::fs;
 use std::{
     env,
     path::PathBuf,
@@ -61,13 +61,13 @@ fn main() {
         .unwrap();
 
 
-    let analyzed_vector: Vec<String> = selected_language.analyze_to_vec(&path);
+    let analyzed_vector: Vec<lang_vec_stuf::LocalVecBlock> = selected_language.analyze_to_vec(&path);
 
     /*for i in analyzed_vector.iter() {
         println!("now: {}", i.as_str())
     }*/
 
-    analyze(analyzed_vector);
+    let long_string =  analyze(analyzed_vector);
 
-    //fs::write("test.json", long_string.to_string().replace("tupe", "type")).expect("Error write");
+    fs::write("test.json", long_string.replace("tupe", "type")).expect("Error write");
 }

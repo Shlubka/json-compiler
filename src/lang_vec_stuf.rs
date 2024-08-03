@@ -4,14 +4,24 @@ use std::{fs::File, io::BufReader, path::Path};
 
 pub trait Language {
     fn get_name(&self) -> &'static str;
-    fn analyze_to_vec(&self, path: &Path) -> Vec<String>;
+    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock>;
+}
+#[derive(Debug)]
+pub enum BlockType {
+    Start,
+    End,
+    Actoin,
+    Print,
+    Condition,
+    Cycle,
+    // Добавьте другие возможные типы блоков здесь
 }
 
-pub struct local_vec_block {
-    tupe: String,
-    text: String,
-    x: i32,
-    y: i32
+pub struct LocalVecBlock {
+    pub r#type: BlockType,
+    pub text: String,
+    pub x: i32,
+    pub y: i32,
 }
 
 #[derive(Default)]
@@ -22,7 +32,7 @@ impl Language for C {
         "C"
     }
 
-    fn analyze_to_vec(&self, path: &Path) -> Vec<String> {
+    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
         todo!();
     }
 }
@@ -35,7 +45,7 @@ impl Language for CPlusPlus {
         "CPlusPlus"
     }
 
-    fn analyze_to_vec(&self, path: &Path) -> Vec<String> {
+    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
         todo!();
     }
 }
@@ -48,7 +58,7 @@ impl Language for Java {
         "Java"
     }
 
-    fn analyze_to_vec(&self, path: &Path) -> Vec<String> {
+    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
         todo!();
     }
 }
@@ -61,168 +71,178 @@ impl Language for Rust {
         "Rust"
     }
 
-    fn analyze_to_vec(&self, path: &Path) -> Vec<String> {
+    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
         let file = File::open(path).unwrap();
-        /*let file = match File::open(path) {
-            Ok(file) => file,
-            Err(error) => {
-                return Err(error);
-            }
-        };*/
 
         let reader = BufReader::new(file);
 
         let mut bracket_stack: Vec<char> = Vec::new(); // stack for [{(
         let mut external_func: Vec<String> = Vec::new(); // stack for external func
         let mut return_vec = Vec::new(); // vec for return from this mod
-        let mut block_stack: Vec<&str> = Vec::new(); // stack for looking for block
+        let mut block_stack: Vec<String> = Vec::new(); // stack for looking for block
         let mut is_multiline_comment = false;
         let mut is_return = false;
         let mut is_if = false;
         let mut is_else = false;
+        let mut is_cycle = false;
         let mut x_global = 0;
         let mut y_global = 0;
+        let mut is_if_acum = [0, 0, 0];// x_global; y_global; max y in if/else arms
 
         for (i, line) in reader.lines().enumerate() {
-            local_vec_block {
-                tupe: String::from("action"),
+            let mut local_vec_block = LocalVecBlock {
+                r#type: BlockType::Actoin,
                 text: String::new(),
                 x: x_global,
                 y: y_global,
             };
             let line = line.unwrap_or_else(|_e| String::default());
 
-            //print!("{: <70}     |", line);
-
             if is_multiline_comment {
                 if line.trim_start().starts_with("*/") {
                     is_multiline_comment = false;
-                    //drop(local_long_string);
                     continue;
                 } else {
-                    //drop(local_long_string);
                     continue;
                 }
             }
 
-            if line.len() == 0 {continue;}
+            if line.len() == 0 {
+                continue;
+            }
 
             return_vec.push(match line {
                 s if s.trim_start().starts_with("/*") => {
                     is_multiline_comment = true;
-                    //drop(local_long_string);
                     continue;
                 }
                 s if s.trim_start().starts_with("//") => continue,
                 s if s.trim_start().starts_with('}') => {
-                    //println!("\n{}\n", block_stack.len());
-                    if block_stack.len() == 0 {
-                        panic!("unopened bracket")
+                    if is_cycle == true {
+                        local_vec_block.r#type = BlockType::End;
+                        local_vec_block.text = String::from("cycle");
+                    } else if is_if == true {
+                        is_if_acum[2] = y_global;
+                        is_if = false;
+                        x_global -= 100;
+                        continue;
+                    } else if is_else == true {
+                        y_global = is_if_acum[2];
+                        is_else = false;
+                        x_global += 100;
+                        println!("\nshuyli?\n");
+                        continue;
+                    } else if is_return && bracket_stack.len() == 0{
+                        is_return = false;
+                        continue;
                     }
-                    //return_vec
-                    let local_end = format!("end {}", block_stack.last().unwrap().to_string().clone());
-                    block_stack.pop();
-                    local_end
-                    //continue;
-                    /*match block_stack.last().unwrap().to_string().as_str() {
-                        "if" => {
-                            println!("end if");
-                            bracket_stack.pop();
-                            continue;
-                        }
-                        "else" => {
-                            println!("end else");
-                            bracket_stack.pop();
-                            continue;
-                        }
-                        "loop" => {
-                            println!("end loop");
-                            bracket_stack.pop();
-                            continue;
-                        }
-                        "for" => {
-                            println!("end for");
-                            bracket_stack.pop();
-                            continue;
-                        }
-                        "while" => {
-                            println!("end while");
-                            bracket_stack.pop();
-                            continue;
-                        }
-                        "main" => {
-                            println!("end main");
-                            bracket_stack.pop();
-                            continue;
-                        }
-                        _ => {
-                            println!("idn");
-                            continue;
-                        }
-                    }*/
+                    if block_stack.len() == 0 {
+                        local_vec_block.r#type = BlockType::End;
+                    }
+                    local_vec_block.r#type = BlockType::End;
+                    local_vec_block.text = String::from("Конец");
+                    y_global += 100;
+                    local_vec_block
                 }
                 s if s.trim_start().starts_with("fn main") => {
                     println!("start main");
-                    //.push("main");
-                    block_stack.push("main");
-                    "main".to_string()
+                    block_stack.push("main".to_string());
+                    local_vec_block.r#type = BlockType::Start;
+                    local_vec_block.text = String::from("Начало");
+                    y_global += 100;
+                    local_vec_block.y = y_global;
+                    y_global += 100;
+                    local_vec_block
                 }
-                s if s.trim_start().starts_with("fn") => {
-                    block_stack.push("huy");
-                    println!("start ext fn");
-                    "fn".to_string()
+                s if s.trim_start().starts_with("fn ") => {
+                    let local_str = s.clone().split_whitespace().nth(1).unwrap().to_string();
+                    block_stack.push(local_str.to_string());
+                    println!("start {}", local_str.clone());
+                    local_vec_block.r#type = BlockType::Start;
+                    local_vec_block.text = local_str.to_string().clone();
+                    y_global += 100;
+                    local_vec_block.y = y_global;
+                    y_global += 100;
+                    local_vec_block
                 }
                 s if s.trim_start().starts_with("return") => {
                     println!("return");
-                    "return".to_string()
+                    is_return = true;
+                    y_global += 100;
+                    local_vec_block.r#type = BlockType::End;
+                    local_vec_block.text = String::from(s.trim_start().to_string().clone());
+                    local_vec_block
                 }
                 s if external_func.iter().any(|kw| s.contains(kw)) => {
                     let func_name = s.split_whitespace().next().unwrap().to_string();
-                    let static_func_name = Box::leak(func_name.into_boxed_str());
-                    block_stack.push(static_func_name);
-                    format!("call {static_func_name} ")
+                    block_stack.push(func_name.clone());
+                    local_vec_block.text = func_name.clone();
+                    y_global += 100;
+                    local_vec_block
                 }
                 s if s.trim_start().starts_with("let") || s.is_empty() => continue,
                 s if s.trim_start().starts_with("if") => {
-                    block_stack.push("if");
+                    block_stack.push("if".to_string());
                     println!("start if");
-                    "if".to_string()
+                    is_if_acum = [x_global - 100, y_global + 100, 0];
+                    is_if = true;
+                    y_global += 100;
+                    x_global += 100;
+                    local_vec_block.text = String::from(s.trim_start()[2..s.trim_start().len()-1].to_string().clone());
+                    local_vec_block.r#type = BlockType::Condition;
+                    local_vec_block
                 }
                 s if s.trim_start().starts_with("else") => {
-                    block_stack.push("else");
+                    block_stack.push("else".to_string());
                     println!("start else");
-                    "else".to_string()
+                    is_else = true;
+                    y_global = is_if_acum[1];
+                    x_global = is_if_acum[0];
+                    continue;
                 }
-                s if s.trim_start().starts_with("print") => {
+                s if s.contains("print") => {
                     println!("print");
-                    "print".to_string()
+                    local_vec_block.r#type = BlockType::Print;
+                    y_global += 100;
+                    local_vec_block
                 }
-                s if s.trim_start().starts_with('{') => continue,
 
+                s if s.trim_start().starts_with('{') && s.trim_start().len() == 1 => continue,
 
                 s if s.trim_start().starts_with("loop") => {
-                    block_stack.push("loop");
+                    block_stack.push("loop".to_string());
                     println!("loop");
-                    "loop".to_string()
+                    is_cycle = true;
+                    y_global += 100;
+                    local_vec_block.text = String::from("while true");
+                    local_vec_block.r#type = BlockType::Cycle;
+                    local_vec_block
                 }
                 s if s.trim_start().starts_with("for") => {
-                    block_stack.push("for");
+                    block_stack.push("for".to_string());
                     println!("for");
-                    "for".to_string()
+                    is_cycle = true;
+                    y_global += 100;
+                    local_vec_block.text = String::from(s.trim_start()[0..s.trim_start().len() -1].to_string().clone());
+                    local_vec_block.r#type = BlockType::Cycle;
+                    local_vec_block
                 }
                 s if s.trim_start().starts_with("while") => {
-                    block_stack.push("while");
+                    block_stack.push("while".to_string());
                     println!("while");
-                    "while".to_string()
+                    is_cycle = true;
+                    y_global += 100;
+                    local_vec_block.text = String::from(s.trim_start()[0..s.trim_start().len() -1].to_string().clone());
+                    local_vec_block.r#type = BlockType::Cycle;
+                    local_vec_block
                 }
-
                 _ => {
                     println!("action");
-                    "action".to_string()
+                    y_global += 100;
+                    local_vec_block.text = String::from(line.trim_start().to_string().clone());
+                    local_vec_block
                 }
-            })
-
-            //println!("{i:>3} | {action:<17}| {:>2} | {line} ", mystack.len());
+            });
         }
 
         if bracket_stack.len() > 0 {

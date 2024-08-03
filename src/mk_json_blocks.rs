@@ -1,8 +1,11 @@
-use std::path::{Path, PathBuf};
+//use core::panicking::panic_const::panic_const_neg_overflow;
+//use std::path::{Path, PathBuf};
 
 //use std::sync::Mutex;
 use serde::{Deserialize, Serialize};
-use serde_json::{from_str, to_string_pretty};
+use serde_json::to_string_pretty;
+
+use crate::lang_vec_stuf::{BlockType, LocalVecBlock};
 
 trait Adding {
     fn adding(&self);
@@ -53,28 +56,86 @@ struct Arrow {
 }
 
 impl Adding for JsBlock {
-    fn adding(&self) {
-    }
+    fn adding(&self) {}
 }
 
 impl Adding for Arrow {
-    fn adding(&self) {
-    }
+    fn adding(&self) {}
 }
 
-pub fn analyze (analyzed_vector: Vec<String>) {//-> PathBuf {
+pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
+    //-> PathBuf {
+    let mut cycle_acum_y = 0;
+    let mut x_max_min_acum = [0, 0];
+
+    let mut local_full_blocks = FullJson {
+        blocks: Vec::<JsBlock>::new(),
+        arrows: Vec::<Arrow>::new(),
+        x0: 0,
+        y0: 0,
+    };
+
     for i in analyzed_vector.iter() {
-        match i.as_str() {
-            "main"    => println!("found main in vec"),
-            "if"      => println!("found if in vec"),
-            "else"    => println!("found else in vec"),
-            "loop"    => println!("found loop in vec"),
-            "for"     => println!("found for in vec"),
-            "while"   => println!("found while in vec"),
-            "print"   => println!("found print in vec"),
-            "action"  => println!("found action in vec"),
-            "return"  => println!("found return in vec"),
-            _         => println!("found {i} in vec")
+        let mut local_block = JsBlock {
+            x: i.x,
+            y: i.y,
+            text: String::new(),
+            width: 120,
+            height: 60,
+            tupe: String::from("Блок"),
+            is_menu_block: false,
+            font_size: 14,
+            text_height: 14,
+            is_bold: false,
+            is_italic: false,
+            text_align: String::new(),
+            labels_position: 1,
+        };
+        match i.r#type {
+            BlockType::Start => {
+                println!("found start {} in vec {} {}", i.text, i.y, i.x);
+                local_block.text = i.text.clone();
+                local_block.tupe = String::from("Начало / конец");
+            }
+            BlockType::Condition => {
+                local_block.text = i.text.clone();
+                local_block.tupe = String::from("Условие");
+            }
+            BlockType::Actoin => {
+                println!("found {} in vec {} {}", i.text, i.y, i.x);
+                local_block.text = i.text.clone();
+                //local_block.tupe = String::from("Начало / конец");
+            }
+            BlockType::End => {
+                println!("found end in vec {} {} {}", i.y, i.x, i.text);
+                match i.text == "cycle" {
+                    false => {
+                        local_block.tupe = String::from("Начало / конец");
+                        local_block.text = match i.text.is_empty() {
+                            false => i.text.clone(),
+                            true => "Конец".to_string().clone(),
+                        }
+                    }
+                    true => {
+                        local_block.tupe = String::from("Блок");
+                        local_block.text = String::from("iter++")
+                    }
+                }
+            }
+            BlockType::Print => {
+                println!("found print in vec {} {}", i.y, i.x);
+                local_block.tupe = String::from("Ввод / вывод");
+                local_block.text = String::from("Вывод строки");
+            }
+            //_         => println!("found {} in vec", i.text)
+            BlockType::Cycle => {
+                cycle_acum_y = i.y;
+                println!("found cycle in vec {} {}", i.y, i.x);
+                local_block.tupe = String::from("Условие");
+                local_block.text = String::from("");
+            }
         }
+        local_full_blocks.blocks.push(local_block)
     }
+    return to_string_pretty(&local_full_blocks).unwrap();
 }
