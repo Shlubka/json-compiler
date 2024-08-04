@@ -17,6 +17,11 @@ use std::{
     path::PathBuf,
 };
 
+enum MkPngScheme {
+    ProgForU,
+    Drawio,
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let lang = match args.len() > 1 {
@@ -34,6 +39,7 @@ fn main() {
         Box::new(Java),*/
     ];
 
+    let selected_service = MkPngScheme::ProgForU;
     let selected_language: &str;
     match lang.to_lowercase().as_str() {
         "rust" => selected_language = "Rust",
@@ -60,14 +66,24 @@ fn main() {
         .find(|x| x.get_name() == selected_language)
         .unwrap();
 
-
+    // make vector for next analyze to needed format
     let analyzed_vector: Vec<lang_vec_stuf::LocalVecBlock> = selected_language.analyze_to_vec(&path);
 
-    /*for i in analyzed_vector.iter() {
-        println!("now: {}", i.as_str())
-    }*/
+    // analyze vec for make needed format
+    let mut long_string = String::new();
 
-    let long_string =  analyze(analyzed_vector);
+    match selected_service {
+        MkPngScheme::ProgForU => long_string = analyze(analyzed_vector),
+        MkPngScheme::Drawio   => todo!()
+    }
+    /*let long_string: String = match selected_service {
+        MkPngScheme::Drawio => {
+            todo!()
+        }
+        MkPngScheme::ProgForU => {
+            analyze(analyzed_vector)
+        }
+    };*/
 
     fs::write("test.json", long_string.replace("tupe", "type")).expect("Error write");
 }

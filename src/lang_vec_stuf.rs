@@ -90,6 +90,7 @@ impl Language for Rust {
         let mut is_if_acum = [0, 0, 0];// x_global; y_global; max y in if/else arms
 
         for (i, line) in reader.lines().enumerate() {
+        println!("len brst == {}", bracket_stack.len());
             let mut local_vec_block = LocalVecBlock {
                 r#type: BlockType::Actoin,
                 text: String::new(),
@@ -121,27 +122,33 @@ impl Language for Rust {
                     if is_cycle == true {
                         local_vec_block.r#type = BlockType::End;
                         local_vec_block.text = String::from("cycle");
+                        bracket_stack.pop();
                     } else if is_if == true {
                         is_if_acum[2] = y_global;
                         is_if = false;
                         x_global -= 100;
+                        bracket_stack.pop();
                         continue;
                     } else if is_else == true {
                         y_global = is_if_acum[2];
                         is_else = false;
                         x_global += 100;
                         println!("\nshuyli?\n");
+                        bracket_stack.pop();
                         continue;
-                    } else if is_return && bracket_stack.len() == 0{
+                    } else if is_return == true && bracket_stack.len() == 0{
                         is_return = false;
+                        //bracket_stack.pop();
                         continue;
                     }
                     if block_stack.len() == 0 {
                         local_vec_block.r#type = BlockType::End;
+                        bracket_stack.pop();
                     }
                     local_vec_block.r#type = BlockType::End;
                     local_vec_block.text = String::from("Конец");
                     y_global += 100;
+                    bracket_stack.pop();
                     local_vec_block
                 }
                 s if s.trim_start().starts_with("fn main") => {
