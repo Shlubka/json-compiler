@@ -1,4 +1,4 @@
-fn goyda () {
+/*fn goyda () {
     if a > b {
         println!("a > b");
         println!("a > b");
@@ -10,8 +10,38 @@ fn goyda () {
         println!("a < b");
     }
 }
+*/
 
-fn main () -> i32 {
+
+fn if_else_func_test () {
+    if a > b {
+        if a > c {
+            println!("a > c")
+        }
+        else {
+            println!("a < c")
+        }
+    }
+
+    else {
+        if c > a {
+            println!()
+        }
+        else {
+            println
+        }
+    }
+    if b > c {
+        if c > a {
+            println!()
+        }
+        else {
+            println
+        }
+    }
+}
+
+/*fn main () -> i32 {
     goyda(3, 5);
 
     for i in 1..10 {
@@ -19,3 +49,4 @@ fn main () -> i32 {
     }
     return 1;
 }
+*/

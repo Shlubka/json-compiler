@@ -7,7 +7,7 @@ use crate::mk_json_blocks::{analyze};
 //use crate::lang_json_stuf::{Java, Rust, C, CPlusPlus, Language};
 
 mod lang_vec_stuf;
-use crate::lang_vec_stuf::{Language, Java, Rust, C, CPlusPlus};
+use crate::lang_vec_stuf::{Language, Rust};
 
 use inquire::{Select, Text};
 //use serde_json::{from_str, to_string_pretty};
@@ -74,7 +74,7 @@ fn main() {
 
     match selected_service {
         MkPngScheme::ProgForU => long_string = analyze(analyzed_vector),
-        MkPngScheme::Drawio   => todo!()
+        MkPngScheme::Drawio   => print!("todo!"),
     }
     /*let long_string: String = match selected_service {
         MkPngScheme::Drawio => {

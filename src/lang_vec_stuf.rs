@@ -1,5 +1,4 @@
 use std::io::BufRead;
-use std::process::exit;
 use std::{fs::File, io::BufReader, path::Path};
 
 pub trait Language {
@@ -32,7 +31,7 @@ impl Language for C {
         "C"
     }
 
-    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
+    fn analyze_to_vec(&self, _path: &Path) -> Vec<LocalVecBlock> {
         todo!();
     }
 }
@@ -45,7 +44,7 @@ impl Language for CPlusPlus {
         "CPlusPlus"
     }
 
-    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
+    fn analyze_to_vec(&self, _path: &Path) -> Vec<LocalVecBlock> {
         todo!();
     }
 }
@@ -58,7 +57,7 @@ impl Language for Java {
         "Java"
     }
 
-    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
+    fn analyze_to_vec(&self, _path: &Path) -> Vec<LocalVecBlock> {
         todo!();
     }
 }
@@ -82,15 +81,16 @@ impl Language for Rust {
         let mut block_stack: Vec<String> = Vec::new(); // stack for looking for block
         let mut is_multiline_comment = false;
         let mut is_return = false;
-        let mut is_if = false;
+        let mut is_if = 0;
         let mut is_else = false;
         let mut is_cycle = false;
         let mut x_global = 0;
         let mut y_global = 0;
         let mut is_if_acum = [0, 0, 0];// x_global; y_global; max y in if/else arms
+        //let mut len_count = 0; // count for counting len for create link in sheme
 
-        for (i, line) in reader.lines().enumerate() {
-        println!("len brst == {}", bracket_stack.len());
+        for (_, line) in reader.lines().enumerate() {
+        //println!("len brst == {}", bracket_stack.len());
             let mut local_vec_block = LocalVecBlock {
                 r#type: BlockType::Actoin,
                 text: String::new(),
@@ -108,10 +108,12 @@ impl Language for Rust {
                 }
             }
 
+
             if line.len() == 0 {
                 continue;
             }
 
+            println!("x_global == {x_global} y_global == {y_global}   ");
             return_vec.push(match line {
                 s if s.trim_start().starts_with("/*") => {
                     is_multiline_comment = true;
@@ -119,26 +121,30 @@ impl Language for Rust {
                 }
                 s if s.trim_start().starts_with("//") => continue,
                 s if s.trim_start().starts_with('}') => {
+                    local_vec_block.text = String::from("Конец");
                     if is_cycle == true {
+                        is_cycle = false;
                         local_vec_block.r#type = BlockType::End;
                         local_vec_block.text = String::from("cycle");
-                        bracket_stack.pop();
-                    } else if is_if == true {
+                    }
+                    if is_if > 0 {//&& is_else == false {
+                        //println!("\ngg\n");
                         is_if_acum[2] = y_global;
-                        is_if = false;
+                        is_if -= 0;
                         x_global -= 100;
                         bracket_stack.pop();
                         continue;
-                    } else if is_else == true {
+                    }
+                    if is_else == true {
                         y_global = is_if_acum[2];
                         is_else = false;
                         x_global += 100;
-                        println!("\nshuyli?\n");
+                        //println!("\nshuyli?\n");
                         bracket_stack.pop();
                         continue;
-                    } else if is_return == true && bracket_stack.len() == 0{
+                    }
+                    if is_return == true && bracket_stack.len() == 0{
                         is_return = false;
-                        //bracket_stack.pop();
                         continue;
                     }
                     if block_stack.len() == 0 {
@@ -146,13 +152,13 @@ impl Language for Rust {
                         bracket_stack.pop();
                     }
                     local_vec_block.r#type = BlockType::End;
-                    local_vec_block.text = String::from("Конец");
                     y_global += 100;
                     bracket_stack.pop();
                     local_vec_block
                 }
                 s if s.trim_start().starts_with("fn main") => {
                     println!("start main");
+                    bracket_stack.push('{');
                     block_stack.push("main".to_string());
                     local_vec_block.r#type = BlockType::Start;
                     local_vec_block.text = String::from("Начало");
@@ -165,6 +171,7 @@ impl Language for Rust {
                     let local_str = s.clone().split_whitespace().nth(1).unwrap().to_string();
                     block_stack.push(local_str.to_string());
                     println!("start {}", local_str.clone());
+                    bracket_stack.push('{');
                     local_vec_block.r#type = BlockType::Start;
                     local_vec_block.text = local_str.to_string().clone();
                     y_global += 100;
@@ -191,9 +198,10 @@ impl Language for Rust {
                 s if s.trim_start().starts_with("if") => {
                     block_stack.push("if".to_string());
                     println!("start if");
-                    is_if_acum = [x_global - 100, y_global + 100, 0];
-                    is_if = true;
+                    bracket_stack.push('{');
                     y_global += 100;
+                    is_if_acum = [x_global - 100, y_global, 0];
+                    is_if += 1;
                     x_global += 100;
                     local_vec_block.text = String::from(s.trim_start()[2..s.trim_start().len()-1].to_string().clone());
                     local_vec_block.r#type = BlockType::Condition;
@@ -202,9 +210,10 @@ impl Language for Rust {
                 s if s.trim_start().starts_with("else") => {
                     block_stack.push("else".to_string());
                     println!("start else");
+                    bracket_stack.push('{');
                     is_else = true;
-                    y_global = is_if_acum[1];
-                    x_global = is_if_acum[0];
+                    y_global = is_if_acum[0];
+                    x_global = is_if_acum[1];
                     continue;
                 }
                 s if s.contains("print") => {
@@ -219,6 +228,7 @@ impl Language for Rust {
                 s if s.trim_start().starts_with("loop") => {
                     block_stack.push("loop".to_string());
                     println!("loop");
+                    bracket_stack.push('{');
                     is_cycle = true;
                     y_global += 100;
                     local_vec_block.text = String::from("while true");
@@ -228,6 +238,7 @@ impl Language for Rust {
                 s if s.trim_start().starts_with("for") => {
                     block_stack.push("for".to_string());
                     println!("for");
+                    bracket_stack.push('{');
                     is_cycle = true;
                     y_global += 100;
                     local_vec_block.text = String::from(s.trim_start()[0..s.trim_start().len() -1].to_string().clone());
@@ -237,6 +248,7 @@ impl Language for Rust {
                 s if s.trim_start().starts_with("while") => {
                     block_stack.push("while".to_string());
                     println!("while");
+                    bracket_stack.push('{');
                     is_cycle = true;
                     y_global += 100;
                     local_vec_block.text = String::from(s.trim_start()[0..s.trim_start().len() -1].to_string().clone());
@@ -253,7 +265,7 @@ impl Language for Rust {
         }
 
         if bracket_stack.len() > 0 {
-            println!("stack == 0");
+            //println!("stack == 0");
             panic!("bracket_stack > 0")
         }
 
