@@ -23,22 +23,6 @@ fn if_else_func_test () {
         }
     }
 
-    else {
-        if c > a {
-            println!()
-        }
-        else {
-            println
-        }
-    }
-    if b > c {
-        if c > a {
-            println!()
-        }
-        else {
-            println
-        }
-    }
 }
 
 /*fn main () -> i32 {

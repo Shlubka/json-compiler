@@ -113,6 +113,8 @@ impl Language for Rust {
                 continue;
             }
 
+            //if is_if or is_else
+
             println!("x_global == {x_global} y_global == {y_global}   ");
             return_vec.push(match line {
                 s if s.trim_start().starts_with("/*") => {
