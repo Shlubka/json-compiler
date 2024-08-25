@@ -100,21 +100,21 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
 
         match i.r#type {
             BlockType::Start => {
-                println!("found start {} in vec {} {}", i.text, i.x, i.y);
+                //println!("found start {} in vec {} {}", i.text, i.x, i.y);
                 local_block.text = i.text.clone();
                 local_block.tupe = String::from("Начало / конец");
             }
             BlockType::Condition => {
-                println!("found Condition {} in vec {} {}", i.text, i.x, i.y);
+                //println!("found Condition {} in vec {} {}", i.text, i.x, i.y);
                 local_block.text = i.text.clone();
                 local_block.tupe = String::from("Условие");
             }
             BlockType::Actoin => {
-                println!("found {} in vec {} {}", i.text, i.y, i.x);
+                //println!("found {} in vec {} {}", i.text, i.y, i.x);
                 local_block.text = i.text.clone();
             }
             BlockType::End => {
-                println!("found end in vec {} {} {}", i.y, i.x, i.text);
+                //println!("found end in vec {} {} {}", i.y, i.x, i.text);
                 match i.text == "cycle" {
                     false => {
                         local_block.tupe = String::from("Начало / конец");
@@ -131,14 +131,14 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 }
             }
             BlockType::Print => {
-                println!("found print in vec {} {}", i.y, i.x);
+                //println!("found print in vec {} {}", i.y, i.x);
                 local_block.tupe = String::from("Ввод / вывод");
                 local_block.text = String::from("Вывод строки");
             }
             BlockType::Cycle => {
                 //is_cycle = true;
                 //cycle_acum_y[0] = i.y;
-                println!("found cycle in vec {} {}", i.y, i.x);
+                //println!("found cycle in vec {} {}", i.y, i.x);
                 local_block.tupe = String::from("Условие");
                 local_block.text = i.text.to_string().clone();
             }

@@ -86,11 +86,11 @@ impl Language for Rust {
         let mut is_cycle = false;
         let mut x_global = 0;
         let mut y_global = 0;
-        let mut is_if_acum = [0, 0, 0];// x_global; y_global; max y in if/else arms
-        //let mut len_count = 0; // count for counting len for create link in sheme
+        let mut is_if_acum = [0, 0, 0]; // x_global; y_global; max y in if/else arms
+                                        //let mut len_count = 0; // count for counting len for create link in sheme
 
         for (_, line) in reader.lines().enumerate() {
-        //println!("len brst == {}", bracket_stack.len());
+            //println!("len brst == {}", bracket_stack.len());
             let mut local_vec_block = LocalVecBlock {
                 r#type: BlockType::Actoin,
                 text: String::new(),
@@ -107,7 +107,6 @@ impl Language for Rust {
                     continue;
                 }
             }
-
 
             if line.len() == 0 {
                 continue;
@@ -129,7 +128,8 @@ impl Language for Rust {
                         local_vec_block.r#type = BlockType::End;
                         local_vec_block.text = String::from("cycle");
                     }
-                    if is_if > 0 {//&& is_else == false {
+                    if is_if > 0 {
+                        //&& is_else == false {
                         //println!("\ngg\n");
                         is_if_acum[2] = y_global;
                         is_if -= 0;
@@ -145,7 +145,7 @@ impl Language for Rust {
                         bracket_stack.pop();
                         continue;
                     }
-                    if is_return == true && bracket_stack.len() == 0{
+                    if is_return == true && bracket_stack.len() == 0 {
                         is_return = false;
                         continue;
                     }
@@ -205,7 +205,11 @@ impl Language for Rust {
                     is_if_acum = [x_global - 100, y_global, 0];
                     is_if += 1;
                     x_global += 100;
-                    local_vec_block.text = String::from(s.trim_start()[2..s.trim_start().len()-1].to_string().clone());
+                    local_vec_block.text = String::from(
+                        s.trim_start()[2..s.trim_start().len() - 1]
+                            .to_string()
+                            .clone(),
+                    );
                     local_vec_block.r#type = BlockType::Condition;
                     local_vec_block
                 }
@@ -243,7 +247,11 @@ impl Language for Rust {
                     bracket_stack.push('{');
                     is_cycle = true;
                     y_global += 100;
-                    local_vec_block.text = String::from(s.trim_start()[0..s.trim_start().len() -1].to_string().clone());
+                    local_vec_block.text = String::from(
+                        s.trim_start()[0..s.trim_start().len() - 1]
+                            .to_string()
+                            .clone(),
+                    );
                     local_vec_block.r#type = BlockType::Cycle;
                     local_vec_block
                 }
@@ -253,7 +261,11 @@ impl Language for Rust {
                     bracket_stack.push('{');
                     is_cycle = true;
                     y_global += 100;
-                    local_vec_block.text = String::from(s.trim_start()[0..s.trim_start().len() -1].to_string().clone());
+                    local_vec_block.text = String::from(
+                        s.trim_start()[0..s.trim_start().len() - 1]
+                            .to_string()
+                            .clone(),
+                    );
                     local_vec_block.r#type = BlockType::Cycle;
                     local_vec_block
                 }
