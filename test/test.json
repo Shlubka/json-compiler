@@ -121,7 +121,7 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
+      "x": 0,
       "y": 900,
       "text": "Начало",
       "width": 120,
@@ -136,7 +136,7 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
+      "x": 0,
       "y": 1000,
       "text": "goyda(3, 5);",
       "width": 120,
@@ -151,7 +151,7 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
+      "x": 0,
       "y": 1100,
       "text": "for i in 1..10 ",
       "width": 120,
@@ -166,7 +166,7 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
+      "x": 0,
       "y": 1200,
       "text": "Вывод строки",
       "width": 120,
@@ -181,7 +181,7 @@
       "labelsPosition": 1
     },
     {
-      "x": -200,
+      "x": 0,
       "y": 1300,
       "text": "return 1;",
       "width": 120,
