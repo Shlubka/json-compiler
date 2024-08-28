@@ -109,7 +109,7 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 local_block.text = i.text.clone();
                 local_block.tupe = String::from("Условие");
             }
-            BlockType::Actoin => {
+            BlockType::Action => {
                 //println!("found {} in vec {} {}", i.text, i.y, i.x);
                 local_block.text = i.text.clone();
             }

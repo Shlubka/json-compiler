@@ -9,7 +9,7 @@ pub trait Language {
 pub enum BlockType {
     Start,
     End,
-    Actoin,
+    Action,
     Print,
     Condition,
     Cycle,
@@ -90,14 +90,18 @@ impl Language for Rust {
                                         //let mut len_count = 0; // count for counting len for create link in sheme
 
         for (_, line) in reader.lines().enumerate() {
-            //println!("len brst == {}", bracket_stack.len());
             let mut local_vec_block = LocalVecBlock {
-                r#type: BlockType::Actoin,
+                r#type: BlockType::Action,
                 text: String::new(),
                 x: x_global,
                 y: y_global,
             };
             let line = line.unwrap_or_else(|_e| String::default());
+            println!(
+                "len brst == {} line = {}",
+                bracket_stack.len(),
+                line.clone()
+            );
 
             if is_multiline_comment {
                 if line.trim_start().starts_with("*/") {
@@ -114,172 +118,122 @@ impl Language for Rust {
 
             //if is_if or is_else
 
-            println!("x_global == {x_global} y_global == {y_global}   ");
-            return_vec.push(match line {
-                s if s.trim_start().starts_with("/*") => {
-                    is_multiline_comment = true;
-                    continue;
-                }
-                s if s.trim_start().starts_with("//") => continue,
-                s if s.trim_start().starts_with('}') => {
-                    local_vec_block.text = String::from("Конец");
-                    if is_cycle == true {
-                        is_cycle = false;
+            //println!("x_global == {x_global} y_global == {y_global}   ");
+            match line.trim_start() {
+                s if s.starts_with('}') => {
+                    if let Some(_) = bracket_stack.pop() {
+                        local_vec_block.text = "Конец".to_string();
                         local_vec_block.r#type = BlockType::End;
-                        local_vec_block.text = String::from("cycle");
+                        y_global += 100;
+                        if is_cycle {
+                            is_cycle = false;
+                            local_vec_block.text = "cycle".to_string();
+                        } else if is_else {
+                            y_global = y_global.max(is_if_acum[2]);
+                            is_else = false;
+                            x_global += 100;
+                            continue;
+                        } else if is_if > 0 && !is_else {
+                            is_if_acum[2] = y_global;
+                            is_if -= 1;
+                            continue;
+                        } else if is_return && bracket_stack.is_empty() {
+                            is_return = false;
+                            continue;
+                        }
+                    } else {
+                        panic!("Unmatched closing bracket");
                     }
-                    if is_if > 0 {
-                        //&& is_else == false {
-                        //println!("\ngg\n");
-                        is_if_acum[2] = y_global;
-                        is_if -= 0;
-                        x_global -= 100;
-                        bracket_stack.pop();
-                        continue;
-                    }
-                    if is_else == true {
-                        y_global = is_if_acum[2];
-                        is_else = false;
-                        x_global += 100;
-                        //println!("\nshuyli?\n");
-                        bracket_stack.pop();
-                        continue;
-                    }
-                    if is_return == true && bracket_stack.len() == 0 {
-                        is_return = false;
-                        continue;
-                    }
-                    if block_stack.len() == 0 {
-                        local_vec_block.r#type = BlockType::End;
-                        bracket_stack.pop();
-                    }
-                    local_vec_block.r#type = BlockType::End;
-                    y_global += 100;
-                    bracket_stack.pop();
-                    local_vec_block
                 }
-                s if s.trim_start().starts_with("fn main") => {
-                    println!("start main");
+                s if s.starts_with("fn main") => {
                     bracket_stack.push('{');
                     block_stack.push("main".to_string());
                     local_vec_block.r#type = BlockType::Start;
-                    local_vec_block.text = String::from("Начало");
+                    local_vec_block.text = "Начало".to_string();
                     y_global += 100;
                     local_vec_block.y = y_global;
                     y_global += 100;
-                    local_vec_block
                 }
-                s if s.trim_start().starts_with("fn ") => {
-                    let local_str = s.clone().split_whitespace().nth(1).unwrap().to_string();
-                    block_stack.push(local_str.to_string());
-                    println!("start {}", local_str.clone());
+                s if s.starts_with("fn ") => {
+                    let func_name = s.split_whitespace().nth(1).unwrap().to_string();
+                    block_stack.push(func_name.clone());
                     bracket_stack.push('{');
                     local_vec_block.r#type = BlockType::Start;
-                    local_vec_block.text = local_str.to_string().clone();
+                    local_vec_block.text = func_name;
                     y_global += 100;
                     local_vec_block.y = y_global;
                     y_global += 100;
-                    local_vec_block
                 }
-                s if s.trim_start().starts_with("return") => {
-                    println!("return");
+                s if s.starts_with("return") => {
                     is_return = true;
                     y_global += 100;
                     local_vec_block.r#type = BlockType::End;
-                    local_vec_block.text = String::from(s.trim_start().to_string().clone());
-                    local_vec_block
+                    local_vec_block.text = s.to_string();
                 }
                 s if external_func.iter().any(|kw| s.contains(kw)) => {
                     let func_name = s.split_whitespace().next().unwrap().to_string();
                     block_stack.push(func_name.clone());
-                    local_vec_block.text = func_name.clone();
+                    local_vec_block.text = func_name;
                     y_global += 100;
-                    local_vec_block
                 }
-                s if s.trim_start().starts_with("let") || s.is_empty() => continue,
-                s if s.trim_start().starts_with("if") => {
+                s if s.starts_with("if") => {
                     block_stack.push("if".to_string());
-                    println!("start if");
                     bracket_stack.push('{');
                     y_global += 100;
                     is_if_acum = [x_global - 100, y_global, 0];
                     is_if += 1;
                     x_global += 100;
-                    local_vec_block.text = String::from(
-                        s.trim_start()[2..s.trim_start().len() - 1]
-                            .to_string()
-                            .clone(),
-                    );
+                    local_vec_block.text = s[2..s.len() - 1].to_string();
                     local_vec_block.r#type = BlockType::Condition;
-                    local_vec_block
                 }
-                s if s.trim_start().starts_with("else") => {
+                s if s.starts_with("else") => {
                     block_stack.push("else".to_string());
-                    println!("start else");
                     bracket_stack.push('{');
                     is_else = true;
-                    y_global = is_if_acum[0];
-                    x_global = is_if_acum[1];
+                    x_global = is_if_acum[0];
+                    y_global = is_if_acum[1];
                     continue;
                 }
                 s if s.contains("print") => {
-                    println!("print");
                     local_vec_block.r#type = BlockType::Print;
                     y_global += 100;
-                    local_vec_block
                 }
-
-                s if s.trim_start().starts_with('{') && s.trim_start().len() == 1 => continue,
-
-                s if s.trim_start().starts_with("loop") => {
+                s if s.starts_with('{') && s.len() == 1 => continue,
+                s if s.starts_with("loop") => {
                     block_stack.push("loop".to_string());
-                    println!("loop");
                     bracket_stack.push('{');
                     is_cycle = true;
                     y_global += 100;
-                    local_vec_block.text = String::from("while true");
+                    local_vec_block.text = "while true".to_string();
                     local_vec_block.r#type = BlockType::Cycle;
-                    local_vec_block
                 }
-                s if s.trim_start().starts_with("for") => {
+                s if s.starts_with("for") => {
                     block_stack.push("for".to_string());
-                    println!("for");
                     bracket_stack.push('{');
                     is_cycle = true;
                     y_global += 100;
-                    local_vec_block.text = String::from(
-                        s.trim_start()[0..s.trim_start().len() - 1]
-                            .to_string()
-                            .clone(),
-                    );
+                    local_vec_block.text = s[..s.len() - 1].to_string();
                     local_vec_block.r#type = BlockType::Cycle;
-                    local_vec_block
                 }
-                s if s.trim_start().starts_with("while") => {
+                s if s.starts_with("while") => {
                     block_stack.push("while".to_string());
-                    println!("while");
                     bracket_stack.push('{');
                     is_cycle = true;
                     y_global += 100;
-                    local_vec_block.text = String::from(
-                        s.trim_start()[0..s.trim_start().len() - 1]
-                            .to_string()
-                            .clone(),
-                    );
+                    local_vec_block.text = s[..s.len() - 1].to_string();
                     local_vec_block.r#type = BlockType::Cycle;
-                    local_vec_block
                 }
                 _ => {
-                    println!("action");
                     y_global += 100;
-                    local_vec_block.text = String::from(line.trim_start().to_string().clone());
-                    local_vec_block
+                    local_vec_block.text = line.to_string();
                 }
-            });
+            }
+
+            return_vec.push(local_vec_block);
         }
 
         if bracket_stack.len() > 0 {
-            //println!("stack == 0");
+            println!("stack != 0");
             panic!("bracket_stack > 0")
         }
 
