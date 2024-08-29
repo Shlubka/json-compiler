@@ -68,6 +68,7 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
     //let mut x_max_min_acum = [0, 0]; // min max x for correct arrow adding for cycle
     //let mut is_cycle = false;
     let mut is_end_cycle = false;
+    let mut if_else_acum = [0, 0, 0]; //x, y, ? for loking if else coord
 
     let mut local_full_blocks = FullJson {
         blocks: Vec::<JsBlock>::new(),
@@ -142,6 +143,12 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 local_block.tupe = String::from("Условие");
                 local_block.text = i.text.to_string().clone();
             }
+            BlockType::START_IF => todo!(), //служебные
+            BlockType::END_IF => todo!(),
+            BlockType::START_ELSE => todo!(),
+            BlockType::END_ELSE => todo!(),
+            BlockType::START_LOOP => todo!(),
+            BlockType::END_LOOP => todo!(),
         }
         /*if is_cycle {
             if i.x > x_max_min_acum[0] {

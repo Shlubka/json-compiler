@@ -13,6 +13,12 @@ pub enum BlockType {
     Print,
     Condition,
     Cycle,
+    START_IF, //служебные
+    END_IF,
+    START_ELSE,
+    END_ELSE,
+    START_LOOP,
+    END_LOOP,
     // Добавьте другие возможные типы блоков здесь
 }
 
@@ -145,28 +151,24 @@ impl Language for Rust {
                         panic!("Unmatched closing bracket");
                     }
                 }
-                s if s.starts_with("fn main") => {
-                    bracket_stack.push('{');
-                    block_stack.push("main".to_string());
-                    local_vec_block.r#type = BlockType::Start;
-                    local_vec_block.text = "Начало".to_string();
-                    y_global += 100;
-                    local_vec_block.y = y_global;
-                    y_global += 100;
-                }
                 s if s.starts_with("fn ") => {
-                    let func_name = s.split_whitespace().nth(1).unwrap().to_string();
-                    block_stack.push(func_name.clone());
-                    bracket_stack.push('{');
                     local_vec_block.r#type = BlockType::Start;
-                    local_vec_block.text = func_name;
+                    bracket_stack.push('{');
+                    if s.contains("main") {
+                        block_stack.push("main".to_string());
+                        local_vec_block.text = "Начало".to_string();
+                    } else {
+                        let func_name = s.split_whitespace().nth(1).unwrap().to_string();
+                        block_stack.push(func_name.clone());
+                        local_vec_block.text = func_name;
+                    }
                     y_global += 100;
                     local_vec_block.y = y_global;
                     y_global += 100;
                 }
                 s if s.starts_with("return") => {
                     is_return = true;
-                    y_global += 100;
+                    //y_global += 100;
                     local_vec_block.r#type = BlockType::End;
                     local_vec_block.text = s.to_string();
                 }
