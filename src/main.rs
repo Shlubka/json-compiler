@@ -4,7 +4,7 @@ mod mk_json_blocks;
 use crate::mk_json_blocks::analyze;
 
 mod lang_vec_stuf;
-use crate::lang_vec_stuf::{Language, Rust};
+use crate::lang_vec_stuf::{Language, Rust, C};
 
 use inquire::{Select, Text};
 use std::fs;
@@ -14,7 +14,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let lang = get_language(&args);
     let file_path = get_file_path(&args);
-    let support_language: Vec<Box<dyn Language>> = vec![Box::new(Rust)];
+    let support_language: Vec<Box<dyn Language>> = vec![Box::new(Rust), Box::new(C)];
 
     let selected_language = select_language(&lang, &support_language);
     let path = get_path(&file_path);
