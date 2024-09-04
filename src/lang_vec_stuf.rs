@@ -1,3 +1,4 @@
+use std::env::consts::FAMILY;
 use std::io::BufRead;
 use std::{fs::File, io::BufReader, path::Path};
 
@@ -38,8 +39,25 @@ impl Language for C {
         "C"
     }
 
-    fn analyze_to_vec(&self, _path: &Path) -> Vec<LocalVecBlock> {
-        todo!();
+    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
+        let file = File::open(path).unwrap();
+        let reader = BufReader::new(file);
+
+        let mut state = AnalyzerState::new();
+
+        for line in reader.lines() {
+            let line = line.unwrap_or_else(|_e| String::default());
+            if line.trim_start().starts_with("//") || line.starts_with("#") {
+                continue;
+            }
+            state.process_line_c(&line);
+        }
+
+        if state.bracket_stack.len() > 0 {
+            panic!("bracket_stack > 0");
+        }
+
+        state.return_vec
     }
 }
 
@@ -85,7 +103,7 @@ impl Language for Rust {
 
         for line in reader.lines() {
             let line = line.unwrap_or_else(|_e| String::default());
-            state.process_line(&line);
+            state.process_line_rs(&line);
         }
 
         if state.bracket_stack.len() > 0 {
@@ -129,7 +147,7 @@ impl AnalyzerState {
         }
     }
 
-    fn process_line(&mut self, line: &str) {
+    fn process_line_rs(&mut self, line: &str) {
         let mut local_vec_block = LocalVecBlock {
             r#type: BlockType::Action,
             text: String::new(),
@@ -168,6 +186,79 @@ impl AnalyzerState {
         self.return_vec.push(local_vec_block);
     }
 
+    fn process_line_c(&mut self, line: &str) {
+        let init_prefix = vec![
+            "int", "void", "float", "double", "char", "short", "long", "unsigned", "signed",
+            "const", "volatile",
+        ];
+
+        let memory_prefix = vec!["malloc", "calloc", "realloc", "free"];
+
+        let out_of_func_init_prefix = vec!["struct", "enum", "union"];
+        let mut out_of_func_init_prefix_flag = false;
+        if out_of_func_init_prefix_flag {
+            if self.bracket_stack.len() == 0 {
+                out_of_func_init_prefix_flag = false;
+                self.return_vec.pop();
+                return;
+            }
+        }
+
+        if self.is_multiline_comment {
+            if line.trim_start().starts_with("*/") {
+                self.is_multiline_comment = false;
+            }
+            self.return_vec.pop();
+            return;
+        }
+
+        if line.len() == 0 {
+            //self.return_vec.pop();
+            return;
+        }
+
+        let mut local_vec_block = LocalVecBlock {
+            r#type: BlockType::Action,
+            text: String::new(),
+            x: self.x_global,
+            y: self.y_global,
+        };
+
+        //println!("{}", line);
+        match line.trim_start() {
+            s if s.starts_with("#") && self.bracket_stack.len() == 0 => {}
+            s if s.starts_with('}') => self.handle_closing_bracket(&mut local_vec_block),
+            //s if s.starts_with("fn ") => self.handle_function(&mut local_vec_block, s),
+            s if init_prefix.iter().any(|&prefix| s.starts_with(prefix)) => {
+                self.handle_function_c(&mut local_vec_block, s)
+            }
+            s if memory_prefix.iter().any(|&prefix| s.contains(prefix)) => {
+                self.handle_memory(&mut local_vec_block, s)
+            }
+            s if out_of_func_init_prefix
+                .iter()
+                .any(|&prefix| s.starts_with(prefix)) =>
+            {
+                out_of_func_init_prefix_flag = true;
+                self.bracket_stack.push('{');
+            }
+            s if s.starts_with("return") => self.handle_return(&mut local_vec_block, s),
+            s if self.external_func.iter().any(|kw| s.contains(kw)) => {
+                self.handle_external_func(&mut local_vec_block, s)
+            }
+            s if s.starts_with("if") => self.handle_if(&mut local_vec_block, s),
+            s if s.starts_with("else") => self.handle_else(&mut local_vec_block),
+            s if s.contains("print") => self.handle_print(&mut local_vec_block),
+            s if s.starts_with('{') && s.len() == 1 => return,
+            //s if s.starts_with("loop") => self.handle_loop(&mut local_vec_block),
+            s if s.starts_with("for") => self.handle_for(&mut local_vec_block, s),
+            s if s.starts_with("while") => self.handle_while(&mut local_vec_block, s),
+            _ => self.handle_default(&mut local_vec_block, line),
+        }
+
+        self.return_vec.push(local_vec_block);
+    }
+
     fn handle_closing_bracket(&mut self, block: &mut LocalVecBlock) {
         if let Some(_) = self.bracket_stack.pop() {
             block.text = "Конец".to_string();
@@ -176,6 +267,7 @@ impl AnalyzerState {
             if self.is_cycle {
                 self.is_cycle = false;
                 block.text = "cycle".to_string();
+                block.r#type = BlockType::END_LOOP;
             } else if self.is_else {
                 self.y_global = self.y_global.max(self.is_if_acum[2]);
                 self.is_else = false;
@@ -209,8 +301,29 @@ impl AnalyzerState {
         block.y = self.y_global;
         self.y_global += 100;
     }
+    fn handle_function_c(&mut self, block: &mut LocalVecBlock, line: &str) {
+        if self.bracket_stack.len() == 0 {
+            if !line.contains(";") {
+                block.r#type = BlockType::Start;
+                self.bracket_stack.push('{');
+                if line.contains("main") {
+                    self.block_stack.push("main".to_string());
+                    block.text = "Начало".to_string();
+                } else {
+                    let func_name = line.split_whitespace().nth(1).unwrap().to_string();
+                    self.block_stack.push(func_name.clone());
+                    block.text = func_name;
+                }
+                self.y_global += 100;
+                block.y = self.y_global;
+                self.y_global += 100;
+            }
+        } else {
+        }
+    }
 
     fn handle_return(&mut self, block: &mut LocalVecBlock, line: &str) {
+        println!("{} {} {}", line, self.x_global, self.y_global);
         self.is_return = true;
         block.r#type = BlockType::End;
         block.text = line.to_string();
@@ -272,6 +385,11 @@ impl AnalyzerState {
         self.y_global += 100;
         block.text = line[..line.len() - 1].to_string();
         block.r#type = BlockType::Cycle;
+    }
+
+    fn handle_memory(&mut self, block: &mut LocalVecBlock, line: &str) {
+        self.y_global += 100;
+        block.text = String::from("Веделение памяти")
     }
 
     fn handle_default(&mut self, block: &mut LocalVecBlock, line: &str) {

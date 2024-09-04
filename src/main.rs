@@ -24,7 +24,7 @@ fn main() {
 
     // Get name and create output file.json with input file name
     let output_file_name = path.file_stem().unwrap().to_str().unwrap();
-    let output_file_path = format!("{}.json", output_file_name);
+    let output_file_path = format!("outfiles/{}.json", output_file_name);
     fs::write(output_file_path, long_string.replace("tupe", "type")).expect("Error write");
 }
 
