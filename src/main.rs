@@ -1,7 +1,5 @@
-#![warn(clippy::all, clippy::pedantic)]
-
 mod mk_json_blocks;
-use crate::mk_json_blocks::analyze;
+use crate::mk_json_blocks::create_json_blocks;
 
 mod lang_vec_stuf;
 use crate::lang_vec_stuf::{Language, Rust, C};
@@ -12,34 +10,27 @@ use std::{env, path::PathBuf};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let lang = get_language(&args);
-    let file_path = get_file_path(&args);
+    let lang = get_argument(&args, 1);
+    let file_path = get_argument(&args, 2);
     let support_language: Vec<Box<dyn Language>> = vec![Box::new(Rust), Box::new(C)];
 
-    let selected_language = select_language(&lang, &support_language);
-    let path = get_path(&file_path);
+    let selected_language = select_language(&lang.unwrap(), &support_language);
+    let path = PathBuf::from(file_path.unwrap_or_else(|| Text::new("Path").prompt().unwrap()));
 
     let analyzed_vector = selected_language.analyze_to_vec(&path);
-    let long_string = String::from(analyze(analyzed_vector));
+    let final_string = String::from(create_json_blocks(analyzed_vector));
 
-    // Get name and create output file.json with input file name
     let output_file_name = path.file_stem().unwrap().to_str().unwrap();
-    let output_file_path = format!("outfiles/{}.json", output_file_name);
-    fs::write(output_file_path, long_string.replace("tupe", "type")).expect("Error write");
+    let mut output_file_path = PathBuf::from("outfiles");
+    output_file_path.push(format!("{}.json", output_file_name));
+    fs::write(output_file_path, final_string).expect("Error write");
 }
 
-fn get_language(args: &[String]) -> String {
-    match args.len() > 1 {
-        true => args[1].clone(),
-        false => "default_lang".to_string(),
+fn get_argument(args: &[String], index: usize) -> Option<String> {
+    if args.len() > index {
+        return Some(args[index].clone());
     }
-}
-
-fn get_file_path(args: &[String]) -> String {
-    match args.len() > 2 {
-        true => args[2].clone(),
-        false => "default_file_path".to_string(),
-    }
+    None
 }
 
 fn select_language<'a>(
@@ -63,11 +54,4 @@ fn select_language<'a>(
         .iter()
         .find(|x| x.get_name() == selected_language)
         .unwrap()
-}
-
-fn get_path(file_path: &str) -> PathBuf {
-    match file_path {
-        "default_file_path" => PathBuf::from(Text::new("Path").prompt().unwrap()),
-        _ => PathBuf::from(file_path),
-    }
 }

@@ -28,7 +28,7 @@ struct JsBlock {
     text: String,
     width: i32,
     height: i32,
-    tupe: String,
+    r#type: String,
     is_menu_block: bool,
     font_size: i32,
     text_height: i32,
@@ -62,15 +62,15 @@ impl Adding for Arrow {
     fn adding(&self) {}
 }*/
 
-pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
+pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
+    println!();
     //-> PathBuf {
     let mut cycle_acum = [0, 0]; //start cycle; end cycle
     let mut x_max_min_acum = [0, 0]; // min max x for correct arrow adding for cycle
     let mut is_cycle = false;
     let mut is_end_cycle = false;
-    let mut if_else_acum = [0, 0, 0]; //x, y, ? for loking if else coord
-
-    let mut iter_by_in_vec = 0;
+    // let mut if_else_acum = [0, 0, 0]; //x, y, ? for loking if else coord
+    let mut previos_coord: [i32; 3] = [0, 0, 0];
 
     let mut local_full_blocks = FullJson {
         blocks: Vec::<JsBlock>::new(),
@@ -79,14 +79,24 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
         y0: 0,
     };
 
+    let mut iterator = 0;
     for i in analyzed_vector.iter() {
+        let mut local_arrow = Arrow {
+            start_index: previos_coord[2] as usize,
+            end_index: iterator,
+            start_connector_index: 2,
+            end_connector_index: 0,
+            nodes: Vec::<Node>::new(),
+            counts: vec![1, 1, 1],
+        };
+
         let mut local_block = JsBlock {
             x: i.x,
             y: i.y,
             text: String::new(),
             width: 120,
             height: 60,
-            tupe: String::from("Блок"),
+            r#type: String::from("Блок"),
             is_menu_block: false,
             font_size: 14,
             text_height: 14,
@@ -114,23 +124,22 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
             BlockType::Start => {
                 println!("found start {} in vec {} {}", i.text, i.x, i.y);
                 local_block.text = i.text.clone();
-                local_block.tupe = String::from("Начало / конец");
+                local_block.r#type = String::from("Начало / конец");
             }
             BlockType::Condition => {
                 println!("found Condition {} in vec {} {}", i.text, i.x, i.y);
                 local_block.text = i.text.clone();
-                local_block.tupe = String::from("Условие");
+                local_block.r#type = String::from("Условие");
             }
             BlockType::Action => {
                 println!("found {} in vec {} {}", i.text, i.y, i.x);
-                if i.text.is_empty() {continue;}
                 local_block.text = i.text.clone();
             }
             BlockType::End => {
                 println!("found end in vec {} {} {}", i.y, i.x, i.text);
                 match i.text == "cycle" {
                     false => {
-                        local_block.tupe = String::from("Начало / конец");
+                        local_block.r#type = String::from("Начало / конец");
                         local_block.text = match i.text.is_empty() {
                             false => i.text.clone(),
                             true => "Конец".to_string().clone(),
@@ -138,29 +147,27 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
                     }
                     true => {
                         is_end_cycle = true;
-                        local_block.tupe = String::from("Блок");
+                        local_block.r#type = String::from("Блок");
                         local_block.text = String::from("iter++")
                     }
                 }
             }
             BlockType::Print => {
                 println!("found print in vec {} {}", i.y, i.x);
-                local_block.tupe = String::from("Ввод / вывод");
-                local_block.text = String::from("Вывод строки");
+                local_block.r#type = String::from("Ввод / вывод");
+                if i.text.is_empty() {
+                    local_block.text = String::from("Вывод строки");
+                } else {
+                    local_block.text = String::from(i.text.as_str());
+                }
             }
             BlockType::Cycle => {
                 is_cycle = true;
                 cycle_acum = [i.x, i.y];
                 println!("found cycle in vec {} {}", i.y, i.x);
-                local_block.tupe = String::from("Условие");
+                local_block.r#type = String::from("Условие");
                 local_block.text = i.text.to_string().clone();
             }
-            BlockType::START_IF => todo!(), //служебные
-            BlockType::END_IF => todo!(),
-            BlockType::START_ELSE => todo!(),
-            BlockType::END_ELSE => todo!(),
-            BlockType::START_LOOP => todo!(),
-            BlockType::END_LOOP => {}
         }
         /*if is_cycle {
             if i.x > x_max_min_acum[0] {
@@ -169,7 +176,15 @@ pub fn analyze(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 x_max_min_acum[1] = i.x;
             }
         }*/
-        local_full_blocks.blocks.push(local_block)
+        previos_coord = [i.x, i.y, iterator as i32];
+        iterator += 1;
+        if let Some(last_block) = local_full_blocks.blocks.last() {
+            if *last_block.text.to_string() != "Конец".to_string() {
+                local_full_blocks.arrows.push(local_arrow);
+            }
+        }
+        local_full_blocks.blocks.push(local_block);
+        //local_bloc
     }
     return to_string_pretty(&local_full_blocks).unwrap();
 }
