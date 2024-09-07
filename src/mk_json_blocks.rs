@@ -1,15 +1,7 @@
-//use core::panicking::panic_const::panic_const_neg_overflow;
-//use std::path::{Path, PathBuf};
-
-//use std::sync::Mutex;
 use serde::{Deserialize, Serialize};
 use serde_json::to_string_pretty;
 
 use crate::lang_vec_stuf::{BlockType, LocalVecBlock};
-
-/*trait Adding {
-    fn adding(&self);
-}*/
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -54,19 +46,12 @@ struct Arrow {
     nodes: Vec<Node>,
     counts: Vec<usize>,
 }
-/*impl Adding for JsBlock {
-    fn adding(&self) {}
-}
-
-impl Adding for Arrow {
-    fn adding(&self) {}
-}*/
 
 pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
     println!();
     //-> PathBuf {
-    let mut cycle_acum = [0, 0]; //start cycle; end cycle
-    let mut x_max_min_acum = [0, 0]; // min max x for correct arrow adding for cycle
+    let mut cycle_acum: [i32; 3] = [0, 0, 0]; //start cycle; end cycle
+    let mut x_max_min_acum = [0, -100]; //max min x for correct arrow adding for cycle
     let mut is_cycle = false;
     let mut is_end_cycle = false;
     // let mut if_else_acum = [0, 0, 0]; //x, y, ? for loking if else coord
@@ -112,12 +97,29 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
         }
 
         if is_cycle {
+            println!("is cycle");
+            println!(
+                "{} {} {} {}",
+                i.x, i.y, x_max_min_acum[0], x_max_min_acum[1]
+            );
             if i.x > x_max_min_acum[0] {
                 x_max_min_acum[0] = i.x;
+                println!("more")
             }
             if i.x < x_max_min_acum[1] {
-                x_max_min_acum[1] = i.x
+                x_max_min_acum[1] = i.x;
+                println!("not more")
             }
+        }
+
+        let mut local_text = String::new();
+        if i.text.len() > 14 {
+            println!("enter");
+            let mut chars = i.text.chars();
+            let mid = chars.clone().count() / 2;
+            let first_half: String = chars.by_ref().take(mid).collect();
+            let second_half: String = chars.collect();
+            local_text = format!("{}\n{}", first_half, second_half);
         }
 
         match i.r#type {
@@ -133,7 +135,10 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
             }
             BlockType::Action => {
                 println!("found {} in vec {} {}", i.text, i.y, i.x);
-                local_block.text = i.text.clone();
+                local_block.text = match local_text.is_empty() {
+                    true => i.text.clone(),
+                    false => local_text,
+                }
             }
             BlockType::End => {
                 println!("found end in vec {} {} {}", i.y, i.x, i.text);
@@ -146,7 +151,8 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                         }
                     }
                     true => {
-                        is_end_cycle = true;
+                        //is_end_cycle = true;
+                        is_cycle = false;
                         local_block.r#type = String::from("Блок");
                         local_block.text = String::from("iter++")
                     }
@@ -163,23 +169,45 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
             }
             BlockType::Cycle => {
                 is_cycle = true;
-                cycle_acum = [i.x, i.y];
+                cycle_acum = [i.x, i.y, (iterator) as i32];
                 println!("found cycle in vec {} {}", i.y, i.x);
                 local_block.r#type = String::from("Условие");
                 local_block.text = i.text.to_string().clone();
             }
         }
-        /*if is_cycle {
-            if i.x > x_max_min_acum[0] {
-                x_max_min_acum[0] = i.x;
-            } else if i.x < x_max_min_acum[1] {
-                x_max_min_acum[1] = i.x;
-            }
-        }*/
+
         previos_coord = [i.x, i.y, iterator as i32];
         iterator += 1;
         if let Some(last_block) = local_full_blocks.blocks.last() {
             if *last_block.text.to_string() != "Конец".to_string() {
+                if local_block.text == "iter++" {
+                    local_arrow.start_connector_index = 3;
+                    local_arrow.start_index = iterator - 1;
+                    local_arrow.end_index = cycle_acum[2] as usize;
+                    local_arrow.nodes.extend([
+                        Node {
+                            x: i.x,
+                            y: i.y - 30,
+                        },
+                        Node { x: i.x, y: i.y },
+                        Node {
+                            x: x_max_min_acum[1],
+                            y: i.y,
+                        },
+                        Node {
+                            x: x_max_min_acum[1],
+                            y: cycle_acum[0] - 20,
+                        },
+                        Node {
+                            x: cycle_acum[0],
+                            y: cycle_acum[1] - 50,
+                        },
+                        Node {
+                            x: cycle_acum[0],
+                            y: cycle_acum[1],
+                        },
+                    ]);
+                }
                 local_full_blocks.arrows.push(local_arrow);
             }
         }

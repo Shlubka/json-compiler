@@ -230,7 +230,7 @@ impl AnalyzerState {
             s if s.starts_with("scanf") => self.handle_io(&mut local_vec_block, true),
             s if init_prefix.iter().any(|&prefix| s.starts_with(prefix)) => {
                 if !s.contains(";") {
-                    println!("\nfound new func\n");
+                    //println!("\nfound new func\n");
                     self.handle_function_c(&mut local_vec_block, s)
                 } else {
                     return;
@@ -307,12 +307,14 @@ impl AnalyzerState {
             self.block_stack.push(func_name.clone());
             block.text = func_name;
         }
+        self.x_global = 0;
+        block.x = self.x_global;
         self.y_global += 100;
         block.y = self.y_global;
         self.y_global += 100;
     }
     fn handle_function_c(&mut self, block: &mut LocalVecBlock, line: &str) {
-        println!("\n fount new fn");
+        //println!("\n fount new fn");
         if !line.contains(";") {
             block.r#type = BlockType::Start;
             self.bracket_stack.push('{');
@@ -324,6 +326,8 @@ impl AnalyzerState {
                 self.block_stack.push(func_name.clone());
                 block.text = func_name;
             }
+            self.x_global = 0;
+            block.x = self.x_global;
             self.y_global += 100;
             block.y = self.y_global;
             self.y_global += 100;
@@ -334,7 +338,7 @@ impl AnalyzerState {
         println!("{} {} {}", line, self.x_global, self.y_global);
         self.is_return = true;
         block.r#type = BlockType::End;
-        block.text = line.to_string();
+        block.text = line.trim().to_string();
     }
 
     fn handle_external_func(&mut self, block: &mut LocalVecBlock, line: &str) {
@@ -409,6 +413,6 @@ impl AnalyzerState {
 
     fn handle_default(&mut self, block: &mut LocalVecBlock, line: &str) {
         self.y_global += 100;
-        block.text = line.to_string();
+        block.text = line.trim_start().to_string();
     }
 }
