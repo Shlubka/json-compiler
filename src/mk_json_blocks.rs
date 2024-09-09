@@ -67,8 +67,8 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
     let mut iterator = 0;
     for i in analyzed_vector.iter() {
         let mut local_arrow = Arrow {
-            start_index: previos_coord[2] as usize,
-            end_index: iterator,
+            start_index: iterator,
+            end_index: iterator + 1,
             start_connector_index: 2,
             end_connector_index: 0,
             nodes: Vec::<Node>::new(),
@@ -113,7 +113,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
         }
 
         let mut local_text = String::new();
-        if i.text.len() > 14 {
+        if i.text.len() > 16 {
             println!("enter");
             let mut chars = i.text.chars();
             let mid = chars.clone().count() / 2;
@@ -154,7 +154,58 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                         //is_end_cycle = true;
                         is_cycle = false;
                         local_block.r#type = String::from("Блок");
-                        local_block.text = String::from("iter++")
+                        local_block.text = String::from("iter++");
+
+                        let value = vec![
+                            Node {
+                                x: i.x,
+                                y: i.y - 30,
+                            },
+                            Node { x: i.x, y: i.y },
+                            Node {
+                                x: x_max_min_acum[1],
+                                y: i.y,
+                            },
+                            Node {
+                                x: x_max_min_acum[1],
+                                y: cycle_acum[0] - 20,
+                            },
+                            Node {
+                                x: cycle_acum[0],
+                                y: cycle_acum[1] - 50,
+                            },
+                            Node {
+                                x: cycle_acum[0],
+                                y: cycle_acum[1],
+                            },
+                        ];
+                        let local_arrow_local = Arrow {
+                            start_index: iterator,
+                            end_index: cycle_acum[2] as usize,
+                            start_connector_index: 3,
+                            end_connector_index: 0,
+                            nodes: Vec::from(value),
+                            counts: vec![1, 1, 1, 1, 1],
+                        };
+                        local_full_blocks.arrows.push(local_arrow_local);
+                        local_arrow.start_index = cycle_acum[2] as usize;
+                        local_arrow.end_index = iterator + 1;
+                        local_arrow.start_connector_index = 1;
+                        local_arrow.end_connector_index = 0;
+                        local_arrow.nodes.extend([
+                            Node {
+                                x: x_max_min_acum[0] + 30,
+                                y: cycle_acum[1],
+                            },
+                            Node {
+                                x: x_max_min_acum[0] + 30,
+                                y: i.y + 45,
+                            },
+                            Node {
+                                x: i.x,
+                                y: i.y + 45,
+                            },
+                        ]);
                     }
                 }
             }
@@ -175,44 +226,10 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 local_block.text = i.text.to_string().clone();
             }
         }
-
-        previos_coord = [i.x, i.y, iterator as i32];
-        iterator += 1;
-        if let Some(last_block) = local_full_blocks.blocks.last() {
-            if *last_block.text.to_string() != "Конец".to_string() {
-                if local_block.text == "iter++" {
-                    local_arrow.start_connector_index = 3;
-                    local_arrow.start_index = iterator - 1;
-                    local_arrow.end_index = cycle_acum[2] as usize;
-                    local_arrow.nodes.extend([
-                        Node {
-                            x: i.x,
-                            y: i.y - 30,
-                        },
-                        Node { x: i.x, y: i.y },
-                        Node {
-                            x: x_max_min_acum[1],
-                            y: i.y,
-                        },
-                        Node {
-                            x: x_max_min_acum[1],
-                            y: cycle_acum[0] - 20,
-                        },
-                        Node {
-                            x: cycle_acum[0],
-                            y: cycle_acum[1] - 50,
-                        },
-                        Node {
-                            x: cycle_acum[0],
-                            y: cycle_acum[1],
-                        },
-                    ]);
-                }
-                local_full_blocks.arrows.push(local_arrow);
-            }
-        }
+        local_full_blocks.arrows.push(local_arrow);
         local_full_blocks.blocks.push(local_block);
-        //local_bloc
+        iterator += 1;
     }
+    local_full_blocks.arrows.pop();
     return to_string_pretty(&local_full_blocks).unwrap();
 }

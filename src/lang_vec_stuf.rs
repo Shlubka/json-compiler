@@ -277,6 +277,7 @@ impl AnalyzerState {
             if self.is_cycle {
                 self.is_cycle = false;
                 block.text = "cycle".to_string();
+                //self.x_global -= 20;
                 //block.r#type = BlockType::END_LOOP;
             } else if self.is_else {
                 self.y_global = self.y_global.max(self.is_if_acum[2]);

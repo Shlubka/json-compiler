@@ -1,11 +1,5 @@
 int main(void)
 {
-  srand(time(NULL));
-  int size_mass_col, size_mass_row, MAX_VAL = -40, MIN_VAL = 100;
-
-  printf("Введите кол-во столбцов и через пробел кол-во строк > ");
-  scanf("%d %d", &size_mass_col, &size_mass_row);
-
   int **mass = (int **)malloc(size_mass_col * sizeof(int *));
   for (int i = 0; i < size_mass_col; i++)
   {
@@ -29,8 +23,4 @@ int main(void)
     }
     printf("\n");
   }
-  printf("\n\n");
-
-  printf("разница = %d\n", MAX_VAL - MIN_VAL);
-
 }
