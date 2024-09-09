@@ -20,6 +20,9 @@ int main(void)
       {
         MIN_VAL = mass[i][j];
       }
+      else {
+        printf("goyda");
+      }
     }
     printf("\n");
   }

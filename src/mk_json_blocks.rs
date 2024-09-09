@@ -55,7 +55,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
     let mut is_cycle = false;
     let mut is_end_cycle = false;
     // let mut if_else_acum = [0, 0, 0]; //x, y, ? for loking if else coord
-    let mut previos_coord: [i32; 3] = [0, 0, 0];
+    //let mut previos_coord: [i32; 3] = [0, 0, 0];
 
     let mut local_full_blocks = FullJson {
         blocks: Vec::<JsBlock>::new(),

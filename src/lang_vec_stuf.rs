@@ -7,6 +7,14 @@ pub trait Language {
 }
 
 #[derive(Debug, PartialEq)]
+enum IfOrCycle {
+    If,
+    For,
+    While,
+    Loop,
+}
+
+#[derive(Debug, PartialEq)]
 pub enum BlockType {
     Start,
     End,
@@ -113,12 +121,13 @@ struct AnalyzerState {
     block_stack: Vec<String>,
     is_multiline_comment: bool,
     is_return: bool,
-    is_if: i32,
+    //is_if: i32,
     is_else: bool,
     is_cycle: bool,
     x_global: i32,
     y_global: i32,
-    is_if_acum: [i32; 3],
+    is_if_acum: Vec<[i32; 2]>,
+    if_or_cycle_stack: Vec<IfOrCycle>,
 }
 
 impl AnalyzerState {
@@ -130,12 +139,14 @@ impl AnalyzerState {
             block_stack: Vec::new(),
             is_multiline_comment: false,
             is_return: false,
-            is_if: 0,
+            //is_if: 0,
             is_else: false,
             is_cycle: false,
             x_global: 0,
             y_global: 0,
-            is_if_acum: [0, 0, 0],
+            //is_if_acum: [0, 0, 0],
+            is_if_acum: Vec::<[i32; 2]>::new(),
+            if_or_cycle_stack: Vec::<IfOrCycle>::new(),
         }
     }
 
@@ -271,22 +282,29 @@ impl AnalyzerState {
             return;
         }
         if let Some(_) = self.bracket_stack.pop() {
-            block.text = "Конец".to_string();
+            //block.text = "Конец".to_string();
             block.r#type = BlockType::End;
             self.y_global += 100;
+            match self.if_or_cycle_stack.last().unwrap() {
+                IfOrCycle::For => {}
+                IfOrCycle::If => {}
+                IfOrCycle::Loop => {}
+                IfOrCycle::While => {}
+            }
             if self.is_cycle {
                 self.is_cycle = false;
                 block.text = "cycle".to_string();
                 //self.x_global -= 20;
                 //block.r#type = BlockType::END_LOOP;
             } else if self.is_else {
-                self.y_global = self.y_global.max(self.is_if_acum[2]);
+                self.y_global = self.y_global.max(self.is_if_acum.last().unwrap()[1]);
                 self.is_else = false;
                 self.x_global += 100;
                 return;
-            } else if self.is_if > 0 && !self.is_else {
-                self.is_if_acum[2] = self.y_global;
-                self.is_if -= 1;
+            } else if self.is_if_acum.len() > 0 && !self.is_else {
+                //self.is_if_acum[2] = self.y_global;
+                //self.is_if -= 1;
+                //self.is_if_acum[2] -= 1;
                 return;
             } else if self.is_return && self.bracket_stack.is_empty() {
                 self.is_return = false;
@@ -353,19 +371,18 @@ impl AnalyzerState {
         self.block_stack.push("if".to_string());
         self.bracket_stack.push('{');
         self.y_global += 100;
-        self.is_if_acum = [self.x_global - 100, self.y_global, 0];
-        self.is_if += 1;
+        self.is_if_acum.push([self.x_global - 100, self.y_global]);
         self.x_global += 100;
         block.text = line[2..line.len() - 1].to_string();
         block.r#type = BlockType::Condition;
     }
 
-    fn handle_else(&mut self, block: &mut LocalVecBlock) {
+    fn handle_else(&mut self, _block: &mut LocalVecBlock) {
         self.block_stack.push("else".to_string());
         self.bracket_stack.push('{');
         self.is_else = true;
-        self.x_global = self.is_if_acum[0];
-        self.y_global = self.is_if_acum[1];
+        self.x_global = self.is_if_acum.last().unwrap()[0];
+        self.y_global = self.is_if_acum.last().unwrap()[1];
     }
 
     fn handle_io(&mut self, block: &mut LocalVecBlock, input: bool) {

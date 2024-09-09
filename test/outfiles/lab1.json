@@ -213,6 +213,36 @@
     {
       "x": 200,
       "y": 1500,
+      "text": "",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1300,
+      "text": "Вывод строки",
+      "width": 120,
+      "height": 60,
+      "type": "Ввод / вывод",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1400,
       "text": "Конец",
       "width": 120,
       "height": 60,
@@ -226,7 +256,22 @@
       "labelsPosition": 1
     },
     {
-      "x": 200,
+      "x": 100,
+      "y": 1500,
+      "text": "Конец",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 100,
       "y": 1600,
       "text": "Вывод строки",
       "width": 120,
@@ -241,7 +286,7 @@
       "labelsPosition": 1
     },
     {
-      "x": 200,
+      "x": 100,
       "y": 1700,
       "text": "Конец",
       "width": 120,
@@ -256,7 +301,7 @@
       "labelsPosition": 1
     },
     {
-      "x": 200,
+      "x": 100,
       "y": 1800,
       "text": "Конец",
       "width": 120,
@@ -571,6 +616,42 @@
     {
       "startIndex": 16,
       "endIndex": 17,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 17,
+      "endIndex": 18,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 18,
+      "endIndex": 19,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 19,
+      "endIndex": 20,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
