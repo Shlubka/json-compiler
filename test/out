@@ -1,0 +1,106 @@
+node.kind: source_file    source: fn main() -> i32 {
+    let gg = 0;
+
+    if true {
+        println!("true")
+    } else {
+        println!("false")
+    }
+    for i in 1..10 {
+        println!("all ok");
+    }
+    return 1;
+}
+
+node.kind: function_item    source: fn main() -> i32 {
+    let gg = 0;
+
+    if true {
+        println!("true")
+    } else {
+        println!("false")
+    }
+    for i in 1..10 {
+        println!("all ok");
+    }
+    return 1;
+}
+node.kind: fn    source: fn
+node.kind: identifier    source: main
+node.kind: parameters    source: ()
+node.kind: (    source: (
+node.kind: )    source: )
+node.kind: ->    source: ->
+node.kind: primitive_type    source: i32
+node.kind: block    source: {
+    let gg = 0;
+
+    if true {
+        println!("true")
+    } else {
+        println!("false")
+    }
+    for i in 1..10 {
+        println!("all ok");
+    }
+    return 1;
+}
+node.kind: {    source: {
+node.kind: let_declaration    source: let gg = 0;
+node.kind: expression_statement    source: if true {
+        println!("true")
+    } else {
+        println!("false")
+    }
+node.kind: if_expression    source: if true {
+        println!("true")
+    } else {
+        println!("false")
+    }
+node.kind: if    source: if
+node.kind: boolean_literal    source: true
+node.kind: true    source: true
+node.kind: block    source: {
+        println!("true")
+    }
+node.kind: {    source: {
+node.kind: macro_invocation    source: println!("true")
+node.kind: }    source: }
+node.kind: else_clause    source: else {
+        println!("false")
+    }
+node.kind: else    source: else
+node.kind: block    source: {
+        println!("false")
+    }
+node.kind: {    source: {
+node.kind: macro_invocation    source: println!("false")
+node.kind: }    source: }
+node.kind: expression_statement    source: for i in 1..10 {
+        println!("all ok");
+    }
+node.kind: for_expression    source: for i in 1..10 {
+        println!("all ok");
+    }
+node.kind: for    source: for
+node.kind: identifier    source: i
+node.kind: in    source: in
+node.kind: range_expression    source: 1..10
+node.kind: integer_literal    source: 1
+node.kind: ..    source: ..
+node.kind: integer_literal    source: 10
+node.kind: block    source: {
+        println!("all ok");
+    }
+node.kind: {    source: {
+node.kind: expression_statement    source: println!("all ok");
+node.kind: macro_invocation    source: println!("all ok")
+node.kind: ;    source: ;
+node.kind: }    source: }
+node.kind: expression_statement    source: return 1;
+node.kind: return_expression    source: return 1
+node.kind: return    source: return
+node.kind: integer_literal    source: 1
+node.kind: ;    source: ;
+node.kind: }    source: }
+
