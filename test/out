@@ -57,6 +57,27 @@ Processing node: kind=if_expression, text=if true {
         println!("false")
     }
 push if
+Processing node: kind=if, text=if
+Processing node: kind=boolean_literal, text=true
+Processing node: kind=true, text=true
+Processing node: kind=block, text={
+        println!("true")
+    }
+Processing node: kind={, text={
+Processing node: kind=macro_invocation, text=println!("true")
+Processing node: kind=}, text=}
+Handling If block at 0:100
+Processing node: kind=else_clause, text=else {
+        println!("false")
+    }
+Processing node: kind=else, text=else
+Processing node: kind=block, text={
+        println!("false")
+    }
+Processing node: kind={, text={
+Processing node: kind=macro_invocation, text=println!("false")
+Processing node: kind=}, text=}
+Handling Func block
 Processing node: kind=expression_statement, text=for i in 1..10 {
         println!("all ok");
     }
@@ -67,17 +88,18 @@ Processing node: kind=expression_statement, text=println!("all ok");
 Processing node: kind=macro_invocation, text=println!("all ok")
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Handling For block at 0:200
+Handling For block at 0:1200
 Processing node: kind=expression_statement, text=return 1;
 Processing node: kind=return_expression, text=return 1
+returndf
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Handling If block at 0:100
+skip
 
+index stack is empty
 enter
 is cycle
-0 300 0 -100
+0 1300 0 -100
 is cycle
-0 400 0 -100
-index: 2
-index stack is empty
+0 1400 0 -100
+index: 11
