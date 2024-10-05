@@ -2,9 +2,7 @@ Processing node: kind=source_file, text=fn main() -> i32 {
     let gg = 0;
 
     if true {
-        println!("true")
-    } else {
-        println!("false")
+        println!("inter true")
     }
     for i in 1..10 {
         println!("all ok");
@@ -16,9 +14,7 @@ Processing node: kind=function_item, text=fn main() -> i32 {
     let gg = 0;
 
     if true {
-        println!("true")
-    } else {
-        println!("false")
+        println!("inter true")
     }
     for i in 1..10 {
         println!("all ok");
@@ -35,9 +31,7 @@ Processing node: kind=block, text={
     let gg = 0;
 
     if true {
-        println!("true")
-    } else {
-        println!("false")
+        println!("inter true")
     }
     for i in 1..10 {
         println!("all ok");
@@ -47,37 +41,23 @@ Processing node: kind=block, text={
 Processing node: kind={, text={
 Processing node: kind=let_declaration, text=let gg = 0;
 Processing node: kind=expression_statement, text=if true {
-        println!("true")
-    } else {
-        println!("false")
+        println!("inter true")
     }
 Processing node: kind=if_expression, text=if true {
-        println!("true")
-    } else {
-        println!("false")
+        println!("inter true")
     }
 push if
 Processing node: kind=if, text=if
 Processing node: kind=boolean_literal, text=true
 Processing node: kind=true, text=true
 Processing node: kind=block, text={
-        println!("true")
+        println!("inter true")
     }
 Processing node: kind={, text={
-Processing node: kind=macro_invocation, text=println!("true")
+Processing node: kind=macro_invocation, text=println!("inter true")
 Processing node: kind=}, text=}
+len of block mass = 2
 Handling If block at 0:100
-Processing node: kind=else_clause, text=else {
-        println!("false")
-    }
-Processing node: kind=else, text=else
-Processing node: kind=block, text={
-        println!("false")
-    }
-Processing node: kind={, text={
-Processing node: kind=macro_invocation, text=println!("false")
-Processing node: kind=}, text=}
-Handling Func block
 Processing node: kind=expression_statement, text=for i in 1..10 {
         println!("all ok");
     }
@@ -88,18 +68,12 @@ Processing node: kind=expression_statement, text=println!("all ok");
 Processing node: kind=macro_invocation, text=println!("all ok")
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Handling For block at 0:1200
+len of block mass = 2
+Handling For block at 100:800
 Processing node: kind=expression_statement, text=return 1;
 Processing node: kind=return_expression, text=return 1
 returndf
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
+len of block mass = 1
 skip
-
-index stack is empty
-enter
-is cycle
-0 1300 0 -100
-is cycle
-0 1400 0 -100
-index: 11
