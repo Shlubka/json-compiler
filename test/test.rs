@@ -1,29 +1,8 @@
 fn main() -> i32 {
     let gg = 0;
 
-    if (condition1) {
-        statement1;
-        if (condition2) {
-            statement2;
-            if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
-            } else {
-                statement5;
-            }
-        } else if (condition6) {
-            statement6;
-        } else {
-            statement7;
-        }
-    } else if (condition8) {
-        statement8;
-    } else {
-        statement9;
-    }
 
-    /*for i in 1..10 {
+    for i in 1..10 {
         println!("all ok");
 
         for i in 1..10 {
@@ -56,7 +35,27 @@ fn main() -> i32 {
     }
 
     loop {
-        println!("loop");
+        if (condition1) {
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
+            } else {
+                statement7;
+            }
+        } else if (condition8) {
+            statement8;
+        } else {
+            statement9;
+        }
     }
 
     while i < 10 {
@@ -79,5 +78,5 @@ fn main() -> i32 {
         5 => println!("5"),
         5 => println!("5"),
     }
-    return 1;*/
+    return 1;
 }

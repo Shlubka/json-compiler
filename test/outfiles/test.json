@@ -18,10 +18,10 @@
     {
       "x": 0,
       "y": 100,
-      "text": "if (condition1) ",
+      "text": "for i in 1..10 ",
       "width": 120,
       "height": 60,
-      "type": "Условие",
+      "type": "Цикл for",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -31,12 +31,12 @@
       "labelsPosition": 1
     },
     {
-      "x": 100,
+      "x": 0,
       "y": 200,
-      "text": "statement1",
+      "text": "println!(\"all ok\")",
       "width": 120,
       "height": 60,
-      "type": "Начало / конец",
+      "type": "Ввод / вывод",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -46,12 +46,12 @@
       "labelsPosition": 1
     },
     {
-      "x": 100,
+      "x": 0,
       "y": 300,
-      "text": "if (condition2) ",
+      "text": "for i in 1..10 ",
       "width": 120,
       "height": 60,
-      "type": "Условие",
+      "type": "Цикл for",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -61,12 +61,12 @@
       "labelsPosition": 1
     },
     {
-      "x": 200,
+      "x": 0,
       "y": 400,
-      "text": "statement2",
+      "text": "println!(\"all ok\")",
       "width": 120,
       "height": 60,
-      "type": "Начало / конец",
+      "type": "Ввод / вывод",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -76,114 +76,9 @@
       "labelsPosition": 1
     },
     {
-      "x": 200,
+      "x": 0,
       "y": 500,
-      "text": "if (condition3) ",
-      "width": 120,
-      "height": 60,
-      "type": "Условие",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 300,
-      "y": 600,
-      "text": "statement3",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 300,
-      "y": 700,
-      "text": "}",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 800,
-      "text": "else if (condition4) {\n                statement4;\n     \n       } else {\n                statement5;\n            }",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 600,
-      "text": "else",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 700,
-      "text": "if (condition4) ",
-      "width": 120,
-      "height": 60,
-      "type": "Условие",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 200,
-      "y": 800,
-      "text": "statement4",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 200,
-      "y": 900,
-      "text": "}",
+      "text": "iter++",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -197,11 +92,26 @@
     },
     {
       "x": 0,
-      "y": 1000,
-      "text": "else {\n                s\ntatement5;\n            }",
+      "y": 600,
+      "text": "loop",
       "width": 120,
       "height": 60,
-      "type": "Блок",
+      "type": "Цикл for",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 700,
+      "text": "for i in 1..10 ",
+      "width": 120,
+      "height": 60,
+      "type": "Цикл for",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -213,10 +123,10 @@
     {
       "x": 0,
       "y": 800,
-      "text": "else",
+      "text": "println!(\"all ok\")",
       "width": 120,
       "height": 60,
-      "type": "Блок",
+      "type": "Ввод / вывод",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -228,10 +138,10 @@
     {
       "x": 0,
       "y": 900,
-      "text": "statement5",
+      "text": "for i in 1..10 ",
       "width": 120,
       "height": 60,
-      "type": "Начало / конец",
+      "type": "Цикл for",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -243,10 +153,10 @@
     {
       "x": 0,
       "y": 1000,
-      "text": "}",
+      "text": "println!(\"all ok\")",
       "width": 120,
       "height": 60,
-      "type": "Блок",
+      "type": "Ввод / вывод",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -258,7 +168,7 @@
     {
       "x": 0,
       "y": 1100,
-      "text": "}",
+      "text": "iter++",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -273,7 +183,37 @@
     {
       "x": 0,
       "y": 1200,
-      "text": "else if (condition6) {\n            statement6;\n \n       } else {\n            statement7;\n        }",
+      "text": "loop",
+      "width": 120,
+      "height": 60,
+      "type": "Цикл for",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1300,
+      "text": "println!(\"loop\")",
+      "width": 120,
+      "height": 60,
+      "type": "Ввод / вывод",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1400,
+      "text": "iter++",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -287,7 +227,352 @@
     },
     {
       "x": 0,
-      "y": 400,
+      "y": 1500,
+      "text": "while i < 10 ",
+      "width": 120,
+      "height": 60,
+      "type": "Цикл for",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1600,
+      "text": "println!(\"{i}\")",
+      "width": 120,
+      "height": 60,
+      "type": "Ввод / вывод",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1700,
+      "text": "i += 1",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1800,
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1900,
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2000,
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2100,
+      "text": "while i < 10 ",
+      "width": 120,
+      "height": 60,
+      "type": "Цикл for",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2200,
+      "text": "println!(\"{i}\")",
+      "width": 120,
+      "height": 60,
+      "type": "Ввод / вывод",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2300,
+      "text": "i += 1",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2400,
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2500,
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2600,
+      "text": "loop",
+      "width": 120,
+      "height": 60,
+      "type": "Цикл for",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2700,
+      "text": "if (condition1) ",
+      "width": 120,
+      "height": 60,
+      "type": "Условие",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 300,
+      "y": 2800,
+      "text": "statement1",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 300,
+      "y": 2900,
+      "text": "if (condition2) ",
+      "width": 120,
+      "height": 60,
+      "type": "Условие",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 500,
+      "y": 3000,
+      "text": "statement2",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 500,
+      "y": 3100,
+      "text": "if (condition3) ",
+      "width": 120,
+      "height": 60,
+      "type": "Условие",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 600,
+      "y": 3200,
+      "text": "statement3",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 600,
+      "y": 3300,
+      "text": "}",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 500,
+      "y": 3400,
+      "text": "else if (condition4) ",
+      "width": 120,
+      "height": 60,
+      "type": "Условие",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 500,
+      "y": 3500,
+      "text": "statement4",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 500,
+      "y": 3600,
+      "text": "}",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 400,
+      "y": 3700,
+      "text": "else {\n                    s\ntatement5;\n                }",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 400,
+      "y": 3200,
       "text": "else",
       "width": 120,
       "height": 60,
@@ -301,9 +586,54 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 500,
-      "text": "if (condition6) ",
+      "x": 400,
+      "y": 3300,
+      "text": "statement5",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 400,
+      "y": 3400,
+      "text": "}",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 400,
+      "y": 3500,
+      "text": "}",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 300,
+      "y": 3500,
+      "text": "else if (condition6) ",
       "width": 120,
       "height": 60,
       "type": "Условие",
@@ -316,8 +646,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 100,
-      "y": 600,
+      "x": 300,
+      "y": 3600,
       "text": "statement6",
       "width": 120,
       "height": 60,
@@ -331,8 +661,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 100,
-      "y": 700,
+      "x": 300,
+      "y": 3700,
       "text": "}",
       "width": 120,
       "height": 60,
@@ -346,9 +676,9 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
-      "y": 800,
-      "text": "else {\n            s\ntatement7;\n        }",
+      "x": 100,
+      "y": 3800,
+      "text": "else {\n                s\ntatement7;\n            }",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -361,8 +691,8 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
-      "y": 600,
+      "x": 100,
+      "y": 3000,
       "text": "else",
       "width": 120,
       "height": 60,
@@ -376,8 +706,8 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
-      "y": 700,
+      "x": 100,
+      "y": 3100,
       "text": "statement7",
       "width": 120,
       "height": 60,
@@ -391,8 +721,8 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
-      "y": 800,
+      "x": 100,
+      "y": 3200,
       "text": "}",
       "width": 120,
       "height": 60,
@@ -406,8 +736,8 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
-      "y": 900,
+      "x": 100,
+      "y": 3300,
       "text": "}",
       "width": 120,
       "height": 60,
@@ -421,39 +751,9 @@
       "labelsPosition": 1
     },
     {
-      "x": -100,
-      "y": 1000,
-      "text": "else if (condition8) {\n        statement\n8;\n    } else {\n        statement9;\n    }",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": -100,
-      "y": 200,
-      "text": "else",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": -100,
-      "y": 300,
-      "text": "if (condition8) ",
+      "x": 0,
+      "y": 3600,
+      "text": "else if (condition8) ",
       "width": 120,
       "height": 60,
       "type": "Условие",
@@ -467,7 +767,7 @@
     },
     {
       "x": 0,
-      "y": 400,
+      "y": 3700,
       "text": "statement8",
       "width": 120,
       "height": 60,
@@ -482,7 +782,7 @@
     },
     {
       "x": 0,
-      "y": 500,
+      "y": 3800,
       "text": "}",
       "width": 120,
       "height": 60,
@@ -496,9 +796,9 @@
       "labelsPosition": 1
     },
     {
-      "x": -200,
-      "y": 600,
-      "text": "else {\n        s\ntatement9;\n    }",
+      "x": -300,
+      "y": 3900,
+      "text": "else {\n            s\ntatement9;\n        }",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -511,8 +811,8 @@
       "labelsPosition": 1
     },
     {
-      "x": -200,
-      "y": 400,
+      "x": -300,
+      "y": 2800,
       "text": "else",
       "width": 120,
       "height": 60,
@@ -526,8 +826,8 @@
       "labelsPosition": 1
     },
     {
-      "x": -200,
-      "y": 500,
+      "x": -300,
+      "y": 2900,
       "text": "statement9",
       "width": 120,
       "height": 60,
@@ -541,8 +841,8 @@
       "labelsPosition": 1
     },
     {
-      "x": -200,
-      "y": 600,
+      "x": -300,
+      "y": 3000,
       "text": "}",
       "width": 120,
       "height": 60,
@@ -556,8 +856,113 @@
       "labelsPosition": 1
     },
     {
-      "x": -200,
-      "y": 700,
+      "x": -300,
+      "y": 3100,
+      "text": "}",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": -300,
+      "y": 3700,
+      "text": "while i < 10 ",
+      "width": 120,
+      "height": 60,
+      "type": "Цикл for",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": -300,
+      "y": 3800,
+      "text": "println!(\"{i}\")",
+      "width": 120,
+      "height": 60,
+      "type": "Ввод / вывод",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": -300,
+      "y": 3900,
+      "text": "i += 1",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": -300,
+      "y": 4000,
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": -300,
+      "y": 4100,
+      "text": "match gg {\n        1 => println!(\"1\"),\n        2 => println!(\"2\"),\n        3 => println!(\"3\"),\n        4 => println!(\"4\"),\n        5 => println!(\"5\"),\n        5 => println!(\"5\"),\n        5 => println!(\"5\"\n),\n        5 => println!(\"5\"),\n        5 => println!(\"5\"),\n        5 => println!(\"5\"),\n        5 => println!(\"5\"),\n        5 => println!(\"5\"),\n        5 => println!(\"5\"),\n        5 => println!(\"5\"),\n    }",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": -300,
+      "y": 4200,
+      "text": "Конец",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": -300,
+      "y": 4300,
       "text": "}",
       "width": 120,
       "height": 60,
@@ -634,10 +1039,54 @@
     },
     {
       "startIndex": 5,
+      "endIndex": 3,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": 0,
+          "y": 470
+        },
+        {
+          "x": 0,
+          "y": 500
+        },
+        {
+          "x": -130,
+          "y": 500
+        },
+        {
+          "x": -130,
+          "y": 290
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 3,
       "endIndex": 6,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": -970,
+          "y": 300
+        },
+        {
+          "x": -970,
+          "y": 545
+        },
+        {
+          "x": 0,
+          "y": 545
+        }
+      ],
       "counts": [
         1,
         1,
@@ -706,10 +1155,54 @@
     },
     {
       "startIndex": 11,
+      "endIndex": 9,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": 0,
+          "y": 1070
+        },
+        {
+          "x": 0,
+          "y": 1100
+        },
+        {
+          "x": -160,
+          "y": 1100
+        },
+        {
+          "x": -160,
+          "y": 890
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 9,
       "endIndex": 12,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": -970,
+          "y": 900
+        },
+        {
+          "x": -970,
+          "y": 1145
+        },
+        {
+          "x": 0,
+          "y": 1145
+        }
+      ],
       "counts": [
         1,
         1,
@@ -742,10 +1235,54 @@
     },
     {
       "startIndex": 14,
+      "endIndex": 12,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": 0,
+          "y": 1370
+        },
+        {
+          "x": 0,
+          "y": 1400
+        },
+        {
+          "x": -190,
+          "y": 1400
+        },
+        {
+          "x": -190,
+          "y": 1190
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 12,
       "endIndex": 15,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": -970,
+          "y": 1200
+        },
+        {
+          "x": -970,
+          "y": 1445
+        },
+        {
+          "x": 0,
+          "y": 1445
+        }
+      ],
       "counts": [
         1,
         1,
@@ -790,10 +1327,54 @@
     },
     {
       "startIndex": 18,
+      "endIndex": 15,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": 0,
+          "y": 1770
+        },
+        {
+          "x": 0,
+          "y": 1800
+        },
+        {
+          "x": -220,
+          "y": 1800
+        },
+        {
+          "x": -220,
+          "y": 1490
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 15,
       "endIndex": 19,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": -970,
+          "y": 1500
+        },
+        {
+          "x": -970,
+          "y": 1845
+        },
+        {
+          "x": 0,
+          "y": 1845
+        }
+      ],
       "counts": [
         1,
         1,
@@ -802,10 +1383,54 @@
     },
     {
       "startIndex": 19,
+      "endIndex": 7,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": 0,
+          "y": 1870
+        },
+        {
+          "x": 0,
+          "y": 1900
+        },
+        {
+          "x": -250,
+          "y": 1900
+        },
+        {
+          "x": -250,
+          "y": 690
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 7,
       "endIndex": 20,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": -970,
+          "y": 700
+        },
+        {
+          "x": -970,
+          "y": 1945
+        },
+        {
+          "x": 0,
+          "y": 1945
+        }
+      ],
       "counts": [
         1,
         1,
@@ -814,10 +1439,54 @@
     },
     {
       "startIndex": 20,
+      "endIndex": 6,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": 0,
+          "y": 1970
+        },
+        {
+          "x": 0,
+          "y": 2000
+        },
+        {
+          "x": -280,
+          "y": 2000
+        },
+        {
+          "x": -280,
+          "y": 590
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 6,
       "endIndex": 21,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": -970,
+          "y": 600
+        },
+        {
+          "x": -970,
+          "y": 2045
+        },
+        {
+          "x": 0,
+          "y": 2045
+        }
+      ],
       "counts": [
         1,
         1,
@@ -862,10 +1531,54 @@
     },
     {
       "startIndex": 24,
+      "endIndex": 21,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": 0,
+          "y": 2370
+        },
+        {
+          "x": 0,
+          "y": 2400
+        },
+        {
+          "x": -310,
+          "y": 2400
+        },
+        {
+          "x": -310,
+          "y": 2090
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 21,
       "endIndex": 25,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": -970,
+          "y": 2100
+        },
+        {
+          "x": -970,
+          "y": 2445
+        },
+        {
+          "x": 0,
+          "y": 2445
+        }
+      ],
       "counts": [
         1,
         1,
@@ -874,10 +1587,54 @@
     },
     {
       "startIndex": 25,
+      "endIndex": 1,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": 0,
+          "y": 2470
+        },
+        {
+          "x": 0,
+          "y": 2500
+        },
+        {
+          "x": -340,
+          "y": 2500
+        },
+        {
+          "x": -340,
+          "y": 90
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 1,
       "endIndex": 26,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": -970,
+          "y": 100
+        },
+        {
+          "x": -970,
+          "y": 2545
+        },
+        {
+          "x": 0,
+          "y": 2545
+        }
+      ],
       "counts": [
         1,
         1,
@@ -1007,6 +1764,374 @@
     {
       "startIndex": 36,
       "endIndex": 37,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 37,
+      "endIndex": 38,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 38,
+      "endIndex": 39,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 39,
+      "endIndex": 40,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 40,
+      "endIndex": 41,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 41,
+      "endIndex": 42,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 42,
+      "endIndex": 43,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 43,
+      "endIndex": 44,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 44,
+      "endIndex": 45,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 45,
+      "endIndex": 46,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 46,
+      "endIndex": 47,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 47,
+      "endIndex": 48,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 48,
+      "endIndex": 49,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 49,
+      "endIndex": 50,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 50,
+      "endIndex": 51,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 51,
+      "endIndex": 52,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 52,
+      "endIndex": 53,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 53,
+      "endIndex": 54,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 54,
+      "endIndex": 55,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 55,
+      "endIndex": 56,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 56,
+      "endIndex": 57,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 57,
+      "endIndex": 58,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 58,
+      "endIndex": 59,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 59,
+      "endIndex": 60,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 60,
+      "endIndex": 61,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 61,
+      "endIndex": 58,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": -300,
+          "y": 3970
+        },
+        {
+          "x": -300,
+          "y": 4000
+        },
+        {
+          "x": -330,
+          "y": 4000
+        },
+        {
+          "x": -330,
+          "y": 3690
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 58,
+      "endIndex": 62,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [
+        {
+          "x": -970,
+          "y": 3700
+        },
+        {
+          "x": -970,
+          "y": 4045
+        },
+        {
+          "x": -300,
+          "y": 4045
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 62,
+      "endIndex": 63,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 63,
+      "endIndex": 64,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],

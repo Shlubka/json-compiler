@@ -1,29 +1,8 @@
 Processing node: kind=source_file, text=fn main() -> i32 {
     let gg = 0;
 
-    if (condition1) {
-        statement1;
-        if (condition2) {
-            statement2;
-            if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
-            } else {
-                statement5;
-            }
-        } else if (condition6) {
-            statement6;
-        } else {
-            statement7;
-        }
-    } else if (condition8) {
-        statement8;
-    } else {
-        statement9;
-    }
 
-    /*for i in 1..10 {
+    for i in 1..10 {
         println!("all ok");
 
         for i in 1..10 {
@@ -56,7 +35,27 @@ Processing node: kind=source_file, text=fn main() -> i32 {
     }
 
     loop {
-        println!("loop");
+        if (condition1) {
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
+            } else {
+                statement7;
+            }
+        } else if (condition8) {
+            statement8;
+        } else {
+            statement9;
+        }
     }
 
     while i < 10 {
@@ -79,35 +78,14 @@ Processing node: kind=source_file, text=fn main() -> i32 {
         5 => println!("5"),
         5 => println!("5"),
     }
-    return 1;*/
+    return 1;
 }
 
 Processing node: kind=function_item, text=fn main() -> i32 {
     let gg = 0;
 
-    if (condition1) {
-        statement1;
-        if (condition2) {
-            statement2;
-            if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
-            } else {
-                statement5;
-            }
-        } else if (condition6) {
-            statement6;
-        } else {
-            statement7;
-        }
-    } else if (condition8) {
-        statement8;
-    } else {
-        statement9;
-    }
 
-    /*for i in 1..10 {
+    for i in 1..10 {
         println!("all ok");
 
         for i in 1..10 {
@@ -140,7 +118,27 @@ Processing node: kind=function_item, text=fn main() -> i32 {
     }
 
     loop {
-        println!("loop");
+        if (condition1) {
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
+            } else {
+                statement7;
+            }
+        } else if (condition8) {
+            statement8;
+        } else {
+            statement9;
+        }
     }
 
     while i < 10 {
@@ -163,7 +161,7 @@ Processing node: kind=function_item, text=fn main() -> i32 {
         5 => println!("5"),
         5 => println!("5"),
     }
-    return 1;*/
+    return 1;
 }
 Processing node: kind=fn, text=fn
 Processing node: kind=identifier, text=main
@@ -175,29 +173,8 @@ Processing node: kind=primitive_type, text=i32
 Processing node: kind=block, text={
     let gg = 0;
 
-    if (condition1) {
-        statement1;
-        if (condition2) {
-            statement2;
-            if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
-            } else {
-                statement5;
-            }
-        } else if (condition6) {
-            statement6;
-        } else {
-            statement7;
-        }
-    } else if (condition8) {
-        statement8;
-    } else {
-        statement9;
-    }
 
-    /*for i in 1..10 {
+    for i in 1..10 {
         println!("all ok");
 
         for i in 1..10 {
@@ -230,7 +207,27 @@ Processing node: kind=block, text={
     }
 
     loop {
-        println!("loop");
+        if (condition1) {
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
+            } else {
+                statement7;
+            }
+        } else if (condition8) {
+            statement8;
+        } else {
+            statement9;
+        }
     }
 
     while i < 10 {
@@ -253,144 +250,460 @@ Processing node: kind=block, text={
         5 => println!("5"),
         5 => println!("5"),
     }
-    return 1;*/
+    return 1;
 }
 Processing node: kind={, text={
 Processing node: kind=let_declaration, text=let gg = 0;
+Processing node: kind=expression_statement, text=for i in 1..10 {
+        println!("all ok");
+
+        for i in 1..10 {
+            println!("all ok");
+        }
+
+        loop {
+            for i in 1..10 {
+                println!("all ok");
+
+                for i in 1..10 {
+                    println!("all ok");
+                }
+
+                loop {
+                    println!("loop");
+                }
+
+                while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+            }
+        }
+
+        while i < 10 {
+            println!("{i}");
+            i += 1;
+        }
+    }
+Processing node: kind=for_expression, text=for i in 1..10 {
+        println!("all ok");
+
+        for i in 1..10 {
+            println!("all ok");
+        }
+
+        loop {
+            for i in 1..10 {
+                println!("all ok");
+
+                for i in 1..10 {
+                    println!("all ok");
+                }
+
+                loop {
+                    println!("loop");
+                }
+
+                while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+            }
+        }
+
+        while i < 10 {
+            println!("{i}");
+            i += 1;
+        }
+    }
+push for
+Processing node: kind=expression_statement, text=println!("all ok");
+Processing node: kind=macro_invocation, text=println!("all ok")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=for i in 1..10 {
+            println!("all ok");
+        }
+Processing node: kind=for_expression, text=for i in 1..10 {
+            println!("all ok");
+        }
+push for
+Processing node: kind=expression_statement, text=println!("all ok");
+Processing node: kind=macro_invocation, text=println!("all ok")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+len of block mass = 3
+Handling For block at 0:300
+Processing node: kind=expression_statement, text=loop {
+            for i in 1..10 {
+                println!("all ok");
+
+                for i in 1..10 {
+                    println!("all ok");
+                }
+
+                loop {
+                    println!("loop");
+                }
+
+                while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+            }
+        }
+Processing node: kind=loop_expression, text=loop {
+            for i in 1..10 {
+                println!("all ok");
+
+                for i in 1..10 {
+                    println!("all ok");
+                }
+
+                loop {
+                    println!("loop");
+                }
+
+                while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+            }
+        }
+Processing node: kind=loop, text=loop
+push loop
+Processing node: kind=block, text={
+            for i in 1..10 {
+                println!("all ok");
+
+                for i in 1..10 {
+                    println!("all ok");
+                }
+
+                loop {
+                    println!("loop");
+                }
+
+                while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+            }
+        }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=for i in 1..10 {
+                println!("all ok");
+
+                for i in 1..10 {
+                    println!("all ok");
+                }
+
+                loop {
+                    println!("loop");
+                }
+
+                while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+            }
+Processing node: kind=for_expression, text=for i in 1..10 {
+                println!("all ok");
+
+                for i in 1..10 {
+                    println!("all ok");
+                }
+
+                loop {
+                    println!("loop");
+                }
+
+                while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+            }
+push for
+Processing node: kind=expression_statement, text=println!("all ok");
+Processing node: kind=macro_invocation, text=println!("all ok")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=for i in 1..10 {
+                    println!("all ok");
+                }
+Processing node: kind=for_expression, text=for i in 1..10 {
+                    println!("all ok");
+                }
+push for
+Processing node: kind=expression_statement, text=println!("all ok");
+Processing node: kind=macro_invocation, text=println!("all ok")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+len of block mass = 5
+Handling For block at 0:900
+Processing node: kind=expression_statement, text=loop {
+                    println!("loop");
+                }
+Processing node: kind=loop_expression, text=loop {
+                    println!("loop");
+                }
+Processing node: kind=loop, text=loop
+push loop
+Processing node: kind=block, text={
+                    println!("loop");
+                }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("loop");
+Processing node: kind=macro_invocation, text=println!("loop")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+len of block mass = 5
+Handling Loop block at 0:1200
+Processing node: kind=expression_statement, text=while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+Processing node: kind=while_expression, text=while i < 10 {
+                    println!("{i}");
+                    i += 1;
+                }
+Processing node: kind=expression_statement, text=println!("{i}");
+Processing node: kind=macro_invocation, text=println!("{i}")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=i += 1;
+Processing node: kind=compound_assignment_expr, text=i += 1
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+len of block mass = 5
+Handling While block at 0:1500
+Processing node: kind=}, text=}
+len of block mass = 4
+Handling For block at 0:700
+Processing node: kind=}, text=}
+len of block mass = 3
+Handling Loop block at 0:600
+Processing node: kind=expression_statement, text=while i < 10 {
+            println!("{i}");
+            i += 1;
+        }
+Processing node: kind=while_expression, text=while i < 10 {
+            println!("{i}");
+            i += 1;
+        }
+Processing node: kind=expression_statement, text=println!("{i}");
+Processing node: kind=macro_invocation, text=println!("{i}")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=i += 1;
+Processing node: kind=compound_assignment_expr, text=i += 1
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+len of block mass = 3
+Handling While block at 0:2100
+Processing node: kind=}, text=}
+len of block mass = 2
+Handling For block at 0:100
+Processing node: kind=expression_statement, text=loop {
+        if (condition1) {
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
+            } else {
+                statement7;
+            }
+        } else if (condition8) {
+            statement8;
+        } else {
+            statement9;
+        }
+    }
+Processing node: kind=loop_expression, text=loop {
+        if (condition1) {
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
+            } else {
+                statement7;
+            }
+        } else if (condition8) {
+            statement8;
+        } else {
+            statement9;
+        }
+    }
+Processing node: kind=loop, text=loop
+push loop
+Processing node: kind=block, text={
+        if (condition1) {
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
+            } else {
+                statement7;
+            }
+        } else if (condition8) {
+            statement8;
+        } else {
+            statement9;
+        }
+    }
+Processing node: kind={, text={
 Processing node: kind=expression_statement, text=if (condition1) {
-        statement1;
-        if (condition2) {
-            statement2;
-            if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
             } else {
-                statement5;
+                statement7;
             }
-        } else if (condition6) {
-            statement6;
+        } else if (condition8) {
+            statement8;
         } else {
-            statement7;
+            statement9;
         }
-    } else if (condition8) {
-        statement8;
-    } else {
-        statement9;
-    }
 Processing node: kind=if_expression, text=if (condition1) {
-        statement1;
-        if (condition2) {
-            statement2;
-            if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
+            statement1;
+            if (condition2) {
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
             } else {
-                statement5;
+                statement7;
             }
-        } else if (condition6) {
-            statement6;
+        } else if (condition8) {
+            statement8;
         } else {
-            statement7;
+            statement9;
         }
-    } else if (condition8) {
-        statement8;
-    } else {
-        statement9;
-    }
 push if
+local_offset == 300, else_count = 6, else_if_count == 3
 Processing node: kind=expression_statement, text=statement1;
 Processing node: kind=identifier, text=statement1
 10
 push fn
 Processing node: kind=;, text=;
 Processing node: kind=expression_statement, text=if (condition2) {
-            statement2;
-            if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
             } else {
-                statement5;
+                statement7;
             }
-        } else if (condition6) {
-            statement6;
-        } else {
-            statement7;
-        }
 Processing node: kind=if_expression, text=if (condition2) {
-            statement2;
-            if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
+                statement2;
+                if (condition3) {
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
+            } else if (condition6) {
+                statement6;
             } else {
-                statement5;
+                statement7;
             }
-        } else if (condition6) {
-            statement6;
-        } else {
-            statement7;
-        }
 push if
+local_offset == 200, else_count = 4, else_if_count == 2
 Processing node: kind=expression_statement, text=statement2;
 Processing node: kind=identifier, text=statement2
 10
 push fn
 Processing node: kind=;, text=;
 Processing node: kind=expression_statement, text=if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
-            } else {
-                statement5;
-            }
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
 Processing node: kind=if_expression, text=if (condition3) {
-                statement3;
-            } else if (condition4) {
-                statement4;
-            } else {
-                statement5;
-            }
+                    statement3;
+                } else if (condition4) {
+                    statement4;
+                } else {
+                    statement5;
+                }
 push if
+local_offset == 100, else_count = 2, else_if_count == 1
 Processing node: kind=expression_statement, text=statement3;
 Processing node: kind=identifier, text=statement3
 10
 push fn
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-len of block mass = 7
+len of block mass = 8
 Handling Func block
 Processing node: kind=else_clause, text=else if (condition4) {
-                statement4;
-            } else {
-                statement5;
-            }
-mr penis
-Processing node: kind=else, text=else
-Processing node: kind=if_expression, text=if (condition4) {
-                statement4;
-            } else {
-                statement5;
-            }
+                    statement4;
+                } else {
+                    statement5;
+                }
 push if
+local_offset == 100, else_count = 2, else_if_count == 1
+mr penis
 Processing node: kind=expression_statement, text=statement4;
 Processing node: kind=identifier, text=statement4
 10
 push fn
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-len of block mass = 9
+len of block mass = 10
 Handling Func block
 Processing node: kind=else_clause, text=else {
-                statement5;
-            }
+                    statement5;
+                }
 mr penis
 Processing node: kind=else, text=else
 Processing node: kind=block, text={
-                statement5;
-            }
+                    statement5;
+                }
 Processing node: kind={, text={
 Processing node: kind=expression_statement, text=statement5;
 Processing node: kind=identifier, text=statement5
@@ -398,23 +711,19 @@ Processing node: kind=identifier, text=statement5
 push fn
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-len of block mass = 10
+len of block mass = 11
 Handling Func block
 Processing node: kind=}, text=}
-len of block mass = 9
+len of block mass = 10
+pop else
 Processing node: kind=else_clause, text=else if (condition6) {
-            statement6;
-        } else {
-            statement7;
-        }
-mr penis
-Processing node: kind=else, text=else
-Processing node: kind=if_expression, text=if (condition6) {
-            statement6;
-        } else {
-            statement7;
-        }
+                statement6;
+            } else {
+                statement7;
+            }
 push if
+local_offset == 100, else_count = 2, else_if_count == 1
+mr penis
 Processing node: kind=expression_statement, text=statement6;
 Processing node: kind=identifier, text=statement6
 10
@@ -424,13 +733,13 @@ Processing node: kind=}, text=}
 len of block mass = 12
 Handling Func block
 Processing node: kind=else_clause, text=else {
-            statement7;
-        }
+                statement7;
+            }
 mr penis
 Processing node: kind=else, text=else
 Processing node: kind=block, text={
-            statement7;
-        }
+                statement7;
+            }
 Processing node: kind={, text={
 Processing node: kind=expression_statement, text=statement7;
 Processing node: kind=identifier, text=statement7
@@ -442,35 +751,31 @@ len of block mass = 13
 Handling Func block
 Processing node: kind=}, text=}
 len of block mass = 12
+pop else
 Processing node: kind=else_clause, text=else if (condition8) {
-        statement8;
-    } else {
-        statement9;
-    }
-mr penis
-Processing node: kind=else, text=else
-Processing node: kind=if_expression, text=if (condition8) {
-        statement8;
-    } else {
-        statement9;
-    }
+            statement8;
+        } else {
+            statement9;
+        }
 push if
+local_offset == 100, else_count = 2, else_if_count == 1
+mr penis
 Processing node: kind=expression_statement, text=statement8;
 Processing node: kind=identifier, text=statement8
 10
 push fn
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-len of block mass = 15
+len of block mass = 14
 Handling Func block
 Processing node: kind=else_clause, text=else {
-        statement9;
-    }
+            statement9;
+        }
 mr penis
 Processing node: kind=else, text=else
 Processing node: kind=block, text={
-        statement9;
-    }
+            statement9;
+        }
 Processing node: kind={, text={
 Processing node: kind=expression_statement, text=statement9;
 Processing node: kind=identifier, text=statement9
@@ -478,49 +783,29 @@ Processing node: kind=identifier, text=statement9
 push fn
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-len of block mass = 16
+len of block mass = 15
 Handling Func block
-Processing node: kind=block_comment, text=/*for i in 1..10 {
-        println!("all ok");
-
-        for i in 1..10 {
-            println!("all ok");
-        }
-
-        loop {
-            for i in 1..10 {
-                println!("all ok");
-
-                for i in 1..10 {
-                    println!("all ok");
-                }
-
-                loop {
-                    println!("loop");
-                }
-
-                while i < 10 {
-                    println!("{i}");
-                    i += 1;
-                }
-            }
-        }
-
-        while i < 10 {
-            println!("{i}");
-            i += 1;
-        }
-    }
-
-    loop {
-        println!("loop");
-    }
-
-    while i < 10 {
+Processing node: kind=}, text=}
+len of block mass = 14
+pop else
+Processing node: kind=expression_statement, text=while i < 10 {
         println!("{i}");
         i += 1;
     }
-    match gg {
+Processing node: kind=while_expression, text=while i < 10 {
+        println!("{i}");
+        i += 1;
+    }
+Processing node: kind=expression_statement, text=println!("{i}");
+Processing node: kind=macro_invocation, text=println!("{i}")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=i += 1;
+Processing node: kind=compound_assignment_expr, text=i += 1
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+len of block mass = 14
+Handling While block at -300:3700
+Processing node: kind=expression_statement, text=match gg {
         1 => println!("1"),
         2 => println!("2"),
         3 => println!("3"),
@@ -536,44 +821,114 @@ Processing node: kind=block_comment, text=/*for i in 1..10 {
         5 => println!("5"),
         5 => println!("5"),
     }
-    return 1;*/
+Processing node: kind=match_expression, text=match gg {
+        1 => println!("1"),
+        2 => println!("2"),
+        3 => println!("3"),
+        4 => println!("4"),
+        5 => println!("5"),
+        5 => println!("5"),
+        5 => println!("5"),
+        5 => println!("5"),
+        5 => println!("5"),
+        5 => println!("5"),
+        5 => println!("5"),
+        5 => println!("5"),
+        5 => println!("5"),
+        5 => println!("5"),
+    }
+push match
+Processing node: kind=expression_statement, text=return 1;
+Processing node: kind=return_expression, text=return 1
+push return
+Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-len of block mass = 15
+len of block mass = 13
+pop else
 coords: x=0; y=0
-coords: x=100; y=100
-coords: x=100; y=200
-coords: x=200; y=300
-coords: x=200; y=400
-coords: x=300; y=500
-coords: x=300; y=600
-coords: x=300; y=700
-coords: x=200; y=800
-coords: x=200; y=900
-coords: x=300; y=1000
-coords: x=300; y=1100
-coords: x=300; y=1200
-coords: x=200; y=1300
-coords: x=200; y=1400
-coords: x=200; y=1500
-coords: x=200; y=1600
-coords: x=200; y=1700
-coords: x=100; y=1800
-coords: x=100; y=1900
-coords: x=200; y=2000
-coords: x=200; y=2100
-coords: x=200; y=2200
-coords: x=100; y=2300
-coords: x=100; y=2400
-coords: x=100; y=2500
-coords: x=100; y=2600
-coords: x=100; y=2700
-coords: x=0; y=2800
-coords: x=0; y=2900
+coords: x=0; y=100
+coords: x=0; y=200
+coords: x=0; y=300
+coords: x=0; y=400
+coords: x=0; y=500
+index: 3
+log 400
+coords: x=0; y=600
+coords: x=0; y=700
+coords: x=0; y=800
+coords: x=0; y=900
+coords: x=0; y=1000
+coords: x=0; y=1100
+index: 9
+log 710
+coords: x=0; y=1200
+coords: x=0; y=1300
+coords: x=0; y=1400
+index: 12
+log 1020
+coords: x=0; y=1500
+coords: x=0; y=1600
+coords: x=0; y=1700
+coords: x=0; y=1800
+index: 15
+log 1330
+coords: x=0; y=1900
+index: 7
+log 1640
+coords: x=0; y=2000
+index: 6
+log 1950
+coords: x=0; y=2100
+coords: x=0; y=2200
+coords: x=0; y=2300
+coords: x=0; y=2400
+index: 21
+log 2260
+coords: x=0; y=2500
+index: 1
+log 2570
+coords: x=0; y=2600
+coords: x=0; y=2700
+coords: x=300; y=2800
+more
+coords: x=300; y=2900
+coords: x=500; y=3000
+more
+coords: x=500; y=3100
+coords: x=600; y=3200
+more
+coords: x=600; y=3300
+coords: x=500; y=3400
+coords: x=500; y=3500
+coords: x=500; y=3600
+coords: x=400; y=3700
+coords: x=400; y=3200
+coords: x=400; y=3300
+coords: x=400; y=3400
+coords: x=400; y=3500
+coords: x=300; y=3500
+coords: x=300; y=3600
+coords: x=300; y=3700
+coords: x=100; y=3800
 coords: x=100; y=3000
 coords: x=100; y=3100
 coords: x=100; y=3200
-coords: x=0; y=3300
-coords: x=0; y=3400
-coords: x=0; y=3500
+coords: x=100; y=3300
 coords: x=0; y=3600
 coords: x=0; y=3700
+coords: x=0; y=3800
+coords: x=-300; y=3900
+not more
+coords: x=-300; y=2800
+coords: x=-300; y=2900
+coords: x=-300; y=3000
+coords: x=-300; y=3100
+coords: x=-300; y=3700
+coords: x=-300; y=3800
+coords: x=-300; y=3900
+coords: x=-300; y=4000
+index: 58
+log 900
+coords: x=-300; y=4100
+coords: x=-300; y=4200
+coords: x=-300; y=4300
