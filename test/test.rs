@@ -9,15 +9,6 @@ fn goyda() -> bool {
     if condition1 {
         println!("statement1");
         if condition2 {
-            println!("statement2");
-            if condition3 {
-                println!("statement3");
-            } else if condition4 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-        } else if condition6 {
             println!("statement6");
         } else {
             println!("statement7");
@@ -28,7 +19,7 @@ fn goyda() -> bool {
         println!("statement9");
     }
 
-    true
+    return true;
 }
 
 fn main() -> i32 {
