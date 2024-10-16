@@ -1,10 +1,23 @@
 fn match_test() {
     match gg {
-        1 => println!("1"),
-        2 => println!("2"),
-        3 => println!("3"),
-        4 => println!("4"),
-        5 => println!("5"),
+        1 => {
+            println!("1")
+        }
+        2 => {
+            println!("2");
+            println!("2");
+        }
+        3 => {
+            println!("3");
+            println!("3");
+            println!("3");
+        }
+        4 => {
+            println!("4");
+            println!("4");
+            println!("4");
+            println!("4");
+        }
         _ => println!("other"),
     }
     println!("end");
