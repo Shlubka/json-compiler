@@ -18,7 +18,7 @@
     {
       "x": 0,
       "y": 100,
-      "text": "match gg {\n        1 => println!(\"1\"),\n        2 => println!(\"2\"),\n        3 => println!(\"3\"),\n        4 => println!(\"4\"),\n        5 => println!(\"5\"),\n        _ => println!(\"other\"),\n    }",
+      "text": "match gg ",
       "width": 120,
       "height": 60,
       "type": "Условие",
@@ -31,23 +31,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 300,
-      "text": "match",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 500,
+      "x": -600,
+      "y": 200,
       "text": "1 => prin\ntln!(\"1\"),",
       "width": 120,
       "height": 60,
@@ -61,8 +46,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 600,
+      "x": -600,
+      "y": 300,
       "text": "1",
       "width": 120,
       "height": 60,
@@ -76,8 +61,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 700,
+      "x": -600,
+      "y": 400,
       "text": "1",
       "width": 120,
       "height": 60,
@@ -91,8 +76,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 800,
+      "x": -600,
+      "y": 500,
       "text": "=>",
       "width": 120,
       "height": 60,
@@ -106,8 +91,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 900,
+      "x": -600,
+      "y": 600,
       "text": "println!(\"1\")",
       "width": 120,
       "height": 60,
@@ -121,23 +106,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 1000,
-      "text": ",",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 1100,
+      "x": -300,
+      "y": 200,
       "text": "2 => prin\ntln!(\"2\"),",
       "width": 120,
       "height": 60,
@@ -151,8 +121,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 1200,
+      "x": -300,
+      "y": 300,
       "text": "2",
       "width": 120,
       "height": 60,
@@ -166,8 +136,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 1300,
+      "x": -300,
+      "y": 400,
       "text": "2",
       "width": 120,
       "height": 60,
@@ -181,8 +151,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 1400,
+      "x": -300,
+      "y": 500,
       "text": "=>",
       "width": 120,
       "height": 60,
@@ -196,8 +166,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 1500,
+      "x": -300,
+      "y": 600,
       "text": "println!(\"2\")",
       "width": 120,
       "height": 60,
@@ -212,22 +182,7 @@
     },
     {
       "x": 0,
-      "y": 1600,
-      "text": ",",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 1700,
+      "y": 200,
       "text": "3 => prin\ntln!(\"3\"),",
       "width": 120,
       "height": 60,
@@ -242,7 +197,7 @@
     },
     {
       "x": 0,
-      "y": 1800,
+      "y": 300,
       "text": "3",
       "width": 120,
       "height": 60,
@@ -257,7 +212,7 @@
     },
     {
       "x": 0,
-      "y": 1900,
+      "y": 400,
       "text": "3",
       "width": 120,
       "height": 60,
@@ -272,7 +227,7 @@
     },
     {
       "x": 0,
-      "y": 2000,
+      "y": 500,
       "text": "=>",
       "width": 120,
       "height": 60,
@@ -287,7 +242,7 @@
     },
     {
       "x": 0,
-      "y": 2100,
+      "y": 600,
       "text": "println!(\"3\")",
       "width": 120,
       "height": 60,
@@ -301,23 +256,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 2200,
-      "text": ",",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 2300,
+      "x": 300,
+      "y": 200,
       "text": "4 => prin\ntln!(\"4\"),",
       "width": 120,
       "height": 60,
@@ -331,8 +271,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 2400,
+      "x": 300,
+      "y": 300,
       "text": "4",
       "width": 120,
       "height": 60,
@@ -346,8 +286,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 2500,
+      "x": 300,
+      "y": 400,
       "text": "4",
       "width": 120,
       "height": 60,
@@ -361,8 +301,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 2600,
+      "x": 300,
+      "y": 500,
       "text": "=>",
       "width": 120,
       "height": 60,
@@ -376,8 +316,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 2700,
+      "x": 300,
+      "y": 600,
       "text": "println!(\"4\")",
       "width": 120,
       "height": 60,
@@ -391,23 +331,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 2800,
-      "text": ",",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 2900,
+      "x": 600,
+      "y": 200,
       "text": "5 => prin\ntln!(\"5\"),",
       "width": 120,
       "height": 60,
@@ -421,8 +346,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3000,
+      "x": 600,
+      "y": 300,
       "text": "5",
       "width": 120,
       "height": 60,
@@ -436,8 +361,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3100,
+      "x": 600,
+      "y": 400,
       "text": "5",
       "width": 120,
       "height": 60,
@@ -451,8 +376,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3200,
+      "x": 600,
+      "y": 500,
       "text": "=>",
       "width": 120,
       "height": 60,
@@ -466,8 +391,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3300,
+      "x": 600,
+      "y": 600,
       "text": "println!(\"5\")",
       "width": 120,
       "height": 60,
@@ -481,23 +406,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3400,
-      "text": ",",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 3500,
+      "x": 900,
+      "y": 200,
       "text": "_ => printl\nn!(\"other\"),",
       "width": 120,
       "height": 60,
@@ -511,8 +421,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3600,
+      "x": 900,
+      "y": 300,
       "text": "_",
       "width": 120,
       "height": 60,
@@ -526,8 +436,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3700,
+      "x": 900,
+      "y": 400,
       "text": "_",
       "width": 120,
       "height": 60,
@@ -541,8 +451,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3800,
+      "x": 900,
+      "y": 500,
       "text": "=>",
       "width": 120,
       "height": 60,
@@ -556,8 +466,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 3900,
+      "x": 900,
+      "y": 600,
       "text": "println!(\"other\")",
       "width": 120,
       "height": 60,
@@ -572,11 +482,11 @@
     },
     {
       "x": 0,
-      "y": 4000,
-      "text": ",",
+      "y": 750,
+      "text": "println!(\"end\")",
       "width": 120,
       "height": 60,
-      "type": "Блок",
+      "type": "Ввод / вывод",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -602,7 +512,7 @@
     {
       "startIndex": 1,
       "endIndex": 2,
-      "startConnectorIndex": 1,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
@@ -972,72 +882,84 @@
       ]
     },
     {
-      "startIndex": 32,
-      "endIndex": 33,
+      "startIndex": 6,
+      "endIndex": 32,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
+        1,
+        1,
         1,
         1,
         1
       ]
     },
     {
-      "startIndex": 33,
-      "endIndex": 34,
+      "startIndex": 11,
+      "endIndex": 32,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
+        1,
+        1,
         1,
         1,
         1
       ]
     },
     {
-      "startIndex": 34,
-      "endIndex": 35,
+      "startIndex": 16,
+      "endIndex": 32,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
+        1,
+        1,
         1,
         1,
         1
       ]
     },
     {
-      "startIndex": 35,
-      "endIndex": 36,
+      "startIndex": 21,
+      "endIndex": 32,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
+        1,
+        1,
         1,
         1,
         1
       ]
     },
     {
-      "startIndex": 36,
-      "endIndex": 37,
+      "startIndex": 26,
+      "endIndex": 32,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
+        1,
+        1,
         1,
         1,
         1
       ]
     },
     {
-      "startIndex": 37,
-      "endIndex": 38,
+      "startIndex": 31,
+      "endIndex": 32,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
+        1,
+        1,
         1,
         1,
         1

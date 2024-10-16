@@ -7,6 +7,7 @@ fn match_test() {
         5 => println!("5"),
         _ => println!("other"),
     }
+    println!("end");
 }
 
 /*
