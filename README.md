@@ -6,7 +6,8 @@
 - если выбрали [xml](https://app.diagrams.net/)
 # Todo
 - [ ] xml
-- [x] анализ с учётом неизвестной глубины вложенности (частично)
+- [x] анализ с учётом неизвестной глубины вложенности
+- [x] переход на [tree-sitter](https://tree-sitter.github.io/tree-sitter/)
 - [ ] swich-case (без привязки к языку)
 - [ ] ==другие языки==
 - [ ] selenium

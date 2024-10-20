@@ -1,9 +1,10 @@
-#![warn(clippy::all, clippy::pedantic)]
-
 [package]
 name = "json-compiler"
 version = "0.1.0"
 edition = "2021"
+
+[build-dependencies]
+cc = "*"
 
 [dependencies]
 inquire = "0.7.5"
@@ -12,3 +13,10 @@ lazy_static = "1.5.0"
 rust-fuzzy-search = "0.1.1"
 serde = { version = "1.0.204", features = ["derive"] }
 serde_json = "1.0.120"
+
+# Tree-sitter and related dependencies
+tree-sitter-c = "0.23.0"
+tree-sitter = "0.22"
+tree-sitter-rust = "0.21"
+dialoguer = "0.11.0"
+tree-sitter-zig = "1.0.2"

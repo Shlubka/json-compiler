@@ -1,17 +1,23 @@
-use std::io::BufRead;
-use std::{fs::File, io::BufReader, path::Path};
+use core::borrow;
+
+use tree_sitter::{Node, Parser};
 
 pub trait Language {
     fn get_name(&self) -> &'static str;
-    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock>;
+    fn analyze_to_vec(&self, source_code: String) -> Vec<LocalVecBlock>;
 }
 
 #[derive(Debug, PartialEq)]
-enum IfOrCycle {
-    If,
-    For,
-    While,
-    Loop,
+enum CodeBlock {
+    Else(i32, i32),
+    Match(i32, i32, usize),
+    If(i32, i32, i32),
+    For(i32, i32),
+    While(i32, i32),
+    Loop(i32, i32),
+    Func,
+    Return,
+    Continue,
 }
 
 #[derive(Debug, PartialEq)]
@@ -22,6 +28,8 @@ pub enum BlockType {
     Print,
     Condition,
     Cycle,
+    Else,
+    EndMatchArm,
 }
 
 pub struct LocalVecBlock {
@@ -32,6 +40,306 @@ pub struct LocalVecBlock {
 }
 
 #[derive(Default)]
+pub struct Rust;
+
+impl Language for Rust {
+    fn get_name(&self) -> &'static str {
+        "Rust"
+    }
+
+    fn analyze_to_vec(&self, source_code: String) -> Vec<LocalVecBlock> {
+        fn traverse_ast(
+            node: Node,
+            source: &[u8],
+            blocks: &mut Vec<LocalVecBlock>,
+            y_offset: &mut i32,
+            x_offset: &mut i32,
+            block_vec: &mut Vec<CodeBlock>,
+            skip_until_brace: &mut bool,
+            is_return: &mut bool,
+            if_else_stack: &mut Vec<(i32, i32)>,
+            y_if_max: &mut i32,
+        ) {
+            //println!("y_offset == {}", y_offset);
+            let text = node.utf8_text(source).unwrap_or("").to_string();
+
+            if *skip_until_brace {
+                if text.as_str() == "{" {
+                    *skip_until_brace = false;
+                    let mut cursor = node.walk();
+                    for child in node.children(&mut cursor) {
+                        traverse_ast(
+                            child,
+                            source,
+                            blocks,
+                            y_offset,
+                            x_offset,
+                            block_vec,
+                            skip_until_brace,
+                            is_return,
+                            if_else_stack,
+                            y_if_max,
+                        );
+                    }
+                    return;
+                } else {
+                    let mut cursor = node.walk();
+                    for child in node.children(&mut cursor) {
+                        traverse_ast(
+                            child,
+                            source,
+                            blocks,
+                            y_offset,
+                            x_offset,
+                            block_vec,
+                            skip_until_brace,
+                            is_return,
+                            if_else_stack,
+                            y_if_max,
+                        );
+                    }
+                    return;
+                }
+            }
+            println!("Processing node: kind={}, text={}", node.kind(), text);
+
+            //*y_offset += (text.lines().count() * 10) as i32;
+            let mut local_block = LocalVecBlock {
+                r#type: BlockType::Action,
+                text: text.clone(),
+                x: *x_offset,
+                y: *y_offset,
+            };
+
+            match node.kind() {
+                "let_declaration" | "parameters" | "->" | "primitive_type" | ";"
+                | "block_comment" | "line_comment" | "match" | "=>" | "use_declaration"
+                | "generic_type" => {
+                    return;
+                }
+                "loop_expression"
+                | "function_item"
+                | "block"
+                | "expression_statement"
+                | "source_file"
+                | "match_arm"
+                | "fn" => {
+                    let mut cursor = node.walk();
+                    for child in node.children(&mut cursor) {
+                        traverse_ast(
+                            child,
+                            source,
+                            blocks,
+                            y_offset,
+                            x_offset,
+                            block_vec,
+                            skip_until_brace,
+                            is_return,
+                            if_else_stack,
+                            y_if_max,
+                        );
+                    }
+                    return;
+                }
+                "{" => {
+                    /*if let Some(CodeBlock::Match(_, _)) = block_vec.last() {
+                        println!("push continue");
+                        block_vec.push(CodeBlock::Continue);
+                    }*/
+                    return;
+                }
+                "call_expression" => {
+                    blocks.push(local_block);
+                    *y_offset += 100;
+                    return;
+                }
+                "identifier" => {
+                    identifier(y_offset, text, block_vec, blocks, local_block);
+                    return;
+                }
+                "if_expression" => {
+                    if_expression(
+                        &mut local_block,
+                        skip_until_brace,
+                        y_if_max,
+                        y_offset,
+                        x_offset,
+                        if_else_stack,
+                        block_vec,
+                        text,
+                    );
+                }
+                "else_clause" => {
+                    else_clause(
+                        text,
+                        &mut local_block,
+                        skip_until_brace,
+                        y_if_max,
+                        y_offset,
+                        x_offset,
+                        if_else_stack,
+                        block_vec,
+                    );
+                    //*y_offset -= 100;
+                }
+                "else" => {
+                    else_handler(&mut local_block, y_offset, x_offset, block_vec);
+                }
+                "match_expression" => {
+                    match_expression(&mut local_block, x_offset, y_offset, text, block_vec);
+                    //return;
+                }
+                "match_pattern" => {
+                    //возможно насрал, посмотрим по поведению
+                    if let Some(CodeBlock::Match(_, to_y, count)) = block_vec.last_mut() {
+                        //*count -= 1;
+                        *x_offset += 300;
+                        *y_offset = *to_y;
+                    } else {
+                        for i in block_vec.iter_mut().rev() {
+                            if let CodeBlock::Match(_, to_y, count) = i {
+                                //*count -= 1;
+                                *x_offset += 300;
+                                *y_offset = *to_y;
+                                break;
+                            }
+                        }
+                    }
+                    local_block.x = *x_offset;
+                    local_block.y = *y_offset;
+                    blocks.push(local_block);
+                    *y_offset += 100;
+                    return;
+                }
+                "return_expression" => {
+                    return_expression(y_offset, y_if_max, local_block, blocks, is_return);
+                    return;
+                }
+                "macro_invocation" => {
+                    macro_invocation(y_offset, y_if_max, text, local_block, blocks);
+                    return;
+                }
+                "binary_expression"
+                | "compound_assignment_expr"
+                | "break_expression"
+                | "assignment_expression"
+                | "continue_expression" => {
+                    blocks.push(local_block);
+                    *y_offset += 100;
+                    return;
+                }
+                "loop" => {
+                    loop_handler(y_offset, x_offset, y_if_max, block_vec, &mut local_block);
+                }
+                "for_expression" => {
+                    for_expression(
+                        y_offset,
+                        x_offset,
+                        y_if_max,
+                        text,
+                        block_vec,
+                        skip_until_brace,
+                        &mut local_block,
+                    );
+                }
+                "while_expression" => {
+                    while_expression(
+                        y_offset,
+                        x_offset,
+                        y_if_max,
+                        text,
+                        block_vec,
+                        skip_until_brace,
+                        &mut local_block,
+                    );
+                }
+                "," => {
+                    local_block.r#type = BlockType::EndMatchArm;
+                    println!("push end match arm");
+                    if *y_if_max < *y_offset {
+                        *y_if_max = *y_if_max;
+                    }
+                }
+                "}" => {
+                    closing_brecket_handler(
+                        if_else_stack,
+                        y_if_max,
+                        y_offset,
+                        x_offset,
+                        is_return,
+                        block_vec,
+                        &mut local_block,
+                    );
+                }
+                _ => {
+                    if text.contains("else") {
+                        local_block.text = "blablabla".to_string();
+                    }
+                    //panic!("unknown type \"{}\"", node.kind())
+                }
+            }
+
+            blocks.push(local_block);
+            *y_offset += 100;
+
+            let mut cursor = node.walk();
+            for child in node.children(&mut cursor) {
+                traverse_ast(
+                    child,
+                    source,
+                    blocks,
+                    y_offset,
+                    x_offset,
+                    block_vec,
+                    skip_until_brace,
+                    is_return,
+                    if_else_stack,
+                    y_if_max,
+                );
+            }
+        }
+
+        let mut block_vec: Vec<CodeBlock> = Vec::new();
+        let mut if_else_stack: Vec<(i32, i32)> = Vec::new();
+        let mut y_if_max: i32 = 0;
+
+        //                             x    y
+        //let mut coord_check: HashSet<(i32, i32)> = HashSet::new();
+        let mut is_return = false;
+
+        let mut parser = Parser::new();
+        parser
+            .set_language(&tree_sitter_rust::language())
+            .expect("Error loading Rust grammar");
+        let tree = parser.parse(source_code.clone(), None).unwrap();
+
+        let root_node = tree.root_node();
+        let mut blocks = Vec::<LocalVecBlock>::new();
+        let mut y_offset = 0;
+        let mut x_offset = 0;
+        let mut skip_until_brace = false;
+
+        traverse_ast(
+            root_node,
+            source_code.as_bytes(),
+            &mut blocks,
+            &mut y_offset,
+            &mut x_offset,
+            &mut block_vec,
+            &mut skip_until_brace,
+            &mut is_return,
+            &mut if_else_stack,
+            &mut y_if_max,
+        );
+        /*if !block_vec.is_empty() {
+            println!("!stack contents!\n{:#?}", block_vec);
+            panic!("WRONE CODE")
+        }*/
+        blocks
+    }
+}
+
+#[derive(Default)]
 pub struct C;
 
 impl Language for C {
@@ -39,25 +347,8 @@ impl Language for C {
         "C"
     }
 
-    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
-        let file = File::open(path).unwrap();
-        let reader = BufReader::new(file);
-
-        let mut state = AnalyzerState::new();
-
-        for line in reader.lines() {
-            let line = line.unwrap_or_else(|_e| String::default());
-            if line.trim_start().starts_with("//") || line.starts_with("#") {
-                continue;
-            }
-            state.process_line_c(&line);
-        }
-
-        if state.bracket_stack.len() > 0 {
-            panic!("bracket_stack > 0");
-        }
-
-        state.return_vec
+    fn analyze_to_vec(&self, _source_code: String) -> Vec<LocalVecBlock> {
+        todo!()
     }
 }
 
@@ -69,7 +360,7 @@ impl Language for CPlusPlus {
         "CPlusPlus"
     }
 
-    fn analyze_to_vec(&self, _path: &Path) -> Vec<LocalVecBlock> {
+    fn analyze_to_vec(&self, _source_code: String) -> Vec<LocalVecBlock> {
         todo!();
     }
 }
@@ -82,355 +373,346 @@ impl Language for Java {
         "Java"
     }
 
-    fn analyze_to_vec(&self, _path: &Path) -> Vec<LocalVecBlock> {
+    fn analyze_to_vec(&self, _source_code: String) -> Vec<LocalVecBlock> {
         todo!();
     }
 }
 
-#[derive(Default)]
-pub struct Rust;
+//handlers
+/*
+node: Node,
+source: &[u8],
+blocks: &mut Vec<LocalVecBlock>,
+y_offset: &mut i32,
+x_offset: &mut i32,
+block_vec: &mut Vec<CodeBlock>,
+skip_until_brace: &mut bool,
+is_return: &mut bool,
+if_else_stack: &mut Vec<(i32, i32)>,
+y_if_max: &mut i32,
+mut local_block: LocalVecBlock,
+*/
 
-impl Language for Rust {
-    fn get_name(&self) -> &'static str {
-        "Rust"
-    }
-
-    fn analyze_to_vec(&self, path: &Path) -> Vec<LocalVecBlock> {
-        let file = File::open(path).unwrap();
-        let reader = BufReader::new(file);
-
-        let mut state = AnalyzerState::new();
-
-        for line in reader.lines() {
-            let line = line.unwrap_or_else(|_e| String::default());
-            state.process_line_rs(&line);
-        }
-
-        if state.bracket_stack.len() > 0 {
-            panic!("bracket_stack > 0");
-        }
-
-        state.return_vec
-    }
+fn else_handler(
+    local_block: &mut LocalVecBlock,
+    y_offset: &mut i32,
+    x_offset: &mut i32,
+    block_vec: &mut Vec<CodeBlock>,
+) {
+    println!("create else info block");
+    local_block.x = *x_offset;
+    *y_offset -= 100;
+    local_block.r#type = BlockType::Else
 }
 
-struct AnalyzerState {
-    bracket_stack: Vec<char>,
-    external_func: Vec<String>,
-    return_vec: Vec<LocalVecBlock>,
-    block_stack: Vec<String>,
-    is_multiline_comment: bool,
-    is_return: bool,
-    //is_if: i32,
-    is_else: bool,
-    is_cycle: bool,
-    x_global: i32,
-    y_global: i32,
-    is_if_acum: Vec<[i32; 2]>,
-    if_or_cycle_stack: Vec<IfOrCycle>,
+fn else_clause(
+    text: String,
+    local_block: &mut LocalVecBlock,
+    skip_until_brace: &mut bool,
+    y_if_max: &mut i32,
+    y_offset: &mut i32,
+    x_offset: &mut i32,
+    if_else_stack: &mut Vec<(i32, i32)>,
+    block_vec: &mut Vec<CodeBlock>,
+) {
+    if text.contains("if") {
+        if_expression(
+            local_block,
+            skip_until_brace,
+            y_if_max,
+            y_offset,
+            x_offset,
+            if_else_stack,
+            block_vec,
+            text,
+        );
+    } else {
+        println!("mr penis");
+        let return_to = if_else_stack.pop().unwrap();
+        *x_offset = return_to.0;
+        *y_offset = return_to.1;
+        //пока хз как себя поведет
+        if *y_offset > *y_if_max {
+            *y_if_max = *y_offset;
+        }
+        block_vec.push(CodeBlock::Else(*x_offset, *y_offset));
+        local_block.x = *x_offset;
+        return;
+    }
+    //continue;
 }
 
-impl AnalyzerState {
-    fn new() -> Self {
-        Self {
-            bracket_stack: Vec::new(),
-            external_func: Vec::new(),
-            return_vec: Vec::new(),
-            block_stack: Vec::new(),
-            is_multiline_comment: false,
-            is_return: false,
-            //is_if: 0,
-            is_else: false,
-            is_cycle: false,
-            x_global: 0,
-            y_global: 0,
-            //is_if_acum: [0, 0, 0],
-            is_if_acum: Vec::<[i32; 2]>::new(),
-            if_or_cycle_stack: Vec::<IfOrCycle>::new(),
-        }
+fn if_expression(
+    local_block: &mut LocalVecBlock,
+    skip_until_brace: &mut bool,
+    y_if_max: &mut i32,
+    y_offset: &mut i32,
+    x_offset: &mut i32,
+    if_else_stack: &mut Vec<(i32, i32)>,
+    block_vec: &mut Vec<CodeBlock>,
+    text: String,
+) {
+    println!("push if");
+
+    let else_count = text.matches("else").count() as i32;
+    let else_if_count = text.matches("else if").count() as i32;
+    let local_offset = ((else_count - else_if_count) * 100) as i32;
+
+    println!("local_offset == {local_offset}, else_count = {else_count}, else_if_count == {else_if_count}");
+    block_vec.push(CodeBlock::If(*x_offset, *y_offset, local_offset));
+    if_else_stack.push((*x_offset - local_offset, *y_offset));
+    //пока хз как себя поведет
+    if *y_offset > *y_if_max {
+        *y_if_max = *y_offset;
     }
+    local_block.r#type = BlockType::Condition;
+    let mut first_line = text.lines().next().unwrap_or("").to_string();
+    first_line.pop();
+    local_block.text = first_line;
+    //*y_offset += 100;
+    local_block.x = *x_offset;
+    *x_offset += local_offset;
+    *skip_until_brace = true;
+    //blocks.push(local_block);
+    //return;
+}
 
-    fn process_line_rs(&mut self, line: &str) {
-        let mut local_vec_block = LocalVecBlock {
-            r#type: BlockType::Action,
-            text: String::new(),
-            x: self.x_global,
-            y: self.y_global,
-        };
-
-        if self.is_multiline_comment {
-            if line.trim_start().starts_with("*/") {
-                self.is_multiline_comment = false;
-            }
+fn closing_brecket_handler(
+    if_else_stack: &mut Vec<(i32, i32)>,
+    y_if_max: &mut i32,
+    y_offset: &mut i32,
+    x_offset: &mut i32,
+    is_return: &mut bool,
+    block_vec: &mut Vec<CodeBlock>,
+    local_block: &mut LocalVecBlock,
+) {
+    println!("len of block mass = {}", block_vec.len());
+    if *is_return && *block_vec.last().unwrap() == CodeBlock::Func {
+        *is_return = false;
+        block_vec.pop();
+        println!("skip");
+        return;
+    }
+    //local_block.y = *y_offset;
+    //*y_offset += 10;
+    match block_vec.last_mut().unwrap() {
+        CodeBlock::Return => {
+            println!("add return");
+            local_block.text = "Конец".to_string();
+            local_block.r#type = BlockType::End;
+            block_vec.pop();
+        }
+        CodeBlock::If(x, y, offset) => {
+            println!("Handling If block at {x}:{y}");
+            local_block.r#type = BlockType::End;
+            //local_block.text = format!("{x}:{y}");
+            local_block.text = "condition".to_string();
+            block_vec.pop();
+            *y_if_max = *y_offset
+        }
+        CodeBlock::For(x, y) => {
+            println!("Handling For block at {x}:{y}");
+            local_block.r#type = BlockType::End;
+            local_block.text = format!("{x}:{y}");
+            block_vec.pop();
+        }
+        CodeBlock::While(x, y) => {
+            println!("Handling While block at {x}:{y}");
+            local_block.r#type = BlockType::End;
+            local_block.text = format!("{x}:{y}");
+            block_vec.pop();
+        }
+        CodeBlock::Loop(x, y) => {
+            println!("Handling Loop block at {x}:{y}");
+            local_block.r#type = BlockType::End;
+            local_block.text = format!("{x}:{y}");
+            block_vec.pop();
+        }
+        CodeBlock::Func => {
+            println!("Handling Func block");
+            //local_block.r#type = BlockType::End;
+            block_vec.pop();
+        }
+        CodeBlock::Continue => {
+            block_vec.pop();
             return;
         }
-
-        if line.len() == 0 {
-            return;
-        }
-
-        match line.trim_start() {
-            s if s.starts_with('}') => self.handle_closing_bracket(&mut local_vec_block, false),
-            s if s.starts_with("fn ") => self.handle_function(&mut local_vec_block, s),
-            s if s.starts_with("return") => self.handle_return(&mut local_vec_block, s),
-            s if self.external_func.iter().any(|kw| s.contains(kw)) => {
-                self.handle_external_func(&mut local_vec_block, s)
-            }
-            s if s.starts_with("if") => self.handle_if(&mut local_vec_block, s),
-            s if s.starts_with("else") => self.handle_else(&mut local_vec_block),
-            s if s.contains("print") => self.handle_io(&mut local_vec_block, false),
-            s if s.starts_with('{') && s.len() == 1 => return,
-            s if s.starts_with("loop") => self.handle_loop(&mut local_vec_block),
-            s if s.starts_with("for") => self.handle_for(&mut local_vec_block, s),
-            s if s.starts_with("while") => self.handle_while(&mut local_vec_block, s),
-            _ => self.handle_default(&mut local_vec_block, line),
-        }
-
-        self.return_vec.push(local_vec_block);
-    }
-
-    fn process_line_c(&mut self, line: &str) {
-        let init_prefix = vec![
-            "int", "void", "float", "double", "char", "short", "long", "unsigned", "signed",
-            "const", "volatile",
-        ];
-
-        let memory_prefix = vec!["malloc", "calloc", "realloc", "free"];
-
-        let out_of_func_init_prefix = vec!["struct", "enum", "union"];
-        let mut out_of_func_init_prefix_flag = false;
-        if out_of_func_init_prefix_flag {
-            //if self.bracket_stack.last().unwrap().to_string() == "o" {
-            if self.bracket_stack.len() == 0 {
-                out_of_func_init_prefix_flag = false;
-                self.return_vec.pop();
-                return;
-            }
-        }
-
-        if self.is_multiline_comment {
-            if line.trim_start().starts_with("*/") {
-                self.is_multiline_comment = false;
-            }
-            self.return_vec.pop();
-            return;
-        }
-
-        if line.len() == 0 {
-            //self.return_vec.pop();
-            return;
-        }
-
-        let mut local_vec_block = LocalVecBlock {
-            r#type: BlockType::Action,
-            text: String::new(),
-            x: self.x_global,
-            y: self.y_global,
-        };
-
-        println!("{} {}", self.bracket_stack.len(), line);
-        match line.trim_start() {
-            s if s.starts_with("/*") => {
-                self.is_multiline_comment = true;
-                return;
-            }
-            s if s.starts_with("#") && self.bracket_stack.len() == 0 => {}
-            s if s.starts_with('}') => {
-                self.handle_closing_bracket(&mut local_vec_block, false) //out_of_func_init_prefix_flag)
-            }
-            s if s.starts_with("scanf") => self.handle_io(&mut local_vec_block, true),
-            s if init_prefix.iter().any(|&prefix| s.starts_with(prefix)) => {
-                if !s.contains(";") {
-                    //println!("\nfound new func\n");
-                    self.handle_function_c(&mut local_vec_block, s)
-                } else {
-                    return;
-                }
-            }
-            s if memory_prefix.iter().any(|&prefix| s.contains(prefix)) => {
-                self.handle_memory(&mut local_vec_block, s)
-            }
-            s if out_of_func_init_prefix
-                .iter()
-                .any(|&prefix| s.starts_with(prefix)) =>
-            {
-                out_of_func_init_prefix_flag = true;
-                if self.bracket_stack.len() == 0 {
-                    self.bracket_stack.push('{');
-                }
-            }
-            s if s.starts_with("return") => self.handle_return(&mut local_vec_block, s),
-            s if self.external_func.iter().any(|kw| s.contains(kw)) => {
-                self.handle_external_func(&mut local_vec_block, s)
-            }
-            s if s.starts_with("if") => self.handle_if(&mut local_vec_block, s),
-            s if s.starts_with("else") => self.handle_else(&mut local_vec_block),
-            s if s.contains("print") => self.handle_io(&mut local_vec_block, false),
-            s if s.starts_with('{') && s.len() == 1 => return,
-            //s if s.starts_with("loop") => self.handle_loop(&mut local_vec_block),
-            s if s.starts_with("for") => self.handle_for(&mut local_vec_block, s),
-            s if s.starts_with("while") => self.handle_while(&mut local_vec_block, s),
-            _ => self.handle_default(&mut local_vec_block, line),
-        }
-
-        self.return_vec.push(local_vec_block);
-    }
-
-    fn handle_closing_bracket(&mut self, block: &mut LocalVecBlock, out_of_fn: bool) {
-        if out_of_fn {
-            self.bracket_stack.pop();
-            return;
-        }
-        if let Some(_) = self.bracket_stack.pop() {
-            //block.text = "Конец".to_string();
-            block.r#type = BlockType::End;
-            self.y_global += 100;
-            match self.if_or_cycle_stack.last().unwrap() {
-                IfOrCycle::For => {}
-                IfOrCycle::If => {}
-                IfOrCycle::Loop => {}
-                IfOrCycle::While => {}
-            }
-            if self.is_cycle {
-                self.is_cycle = false;
-                block.text = "cycle".to_string();
-                //self.x_global -= 20;
-                //block.r#type = BlockType::END_LOOP;
-            } else if self.is_else {
-                self.y_global = self.y_global.max(self.is_if_acum.last().unwrap()[1]);
-                self.is_else = false;
-                self.x_global += 100;
-                return;
-            } else if self.is_if_acum.len() > 0 && !self.is_else {
-                //self.is_if_acum[2] = self.y_global;
-                //self.is_if -= 1;
-                //self.is_if_acum[2] -= 1;
-                return;
-            } else if self.is_return && self.bracket_stack.is_empty() {
-                self.is_return = false;
-                return;
-            }
-        } else {
-            panic!("Unmatched closing bracket");
-        }
-    }
-
-    fn handle_function(&mut self, block: &mut LocalVecBlock, line: &str) {
-        block.r#type = BlockType::Start;
-        self.bracket_stack.push('{');
-        if line.contains("main") {
-            self.block_stack.push("main".to_string());
-            block.text = "Начало".to_string();
-        } else {
-            let func_name = line.split_whitespace().nth(1).unwrap().to_string();
-            self.block_stack.push(func_name.clone());
-            block.text = func_name;
-        }
-        self.x_global = 0;
-        block.x = self.x_global;
-        self.y_global += 100;
-        block.y = self.y_global;
-        self.y_global += 100;
-    }
-    fn handle_function_c(&mut self, block: &mut LocalVecBlock, line: &str) {
-        //println!("\n fount new fn");
-        if !line.contains(";") {
-            block.r#type = BlockType::Start;
-            self.bracket_stack.push('{');
-            if line.contains("main") {
-                self.block_stack.push("main".to_string());
-                block.text = "Начало".to_string();
+        CodeBlock::Match(back_x, back_y, count) => {
+            if *count > 0 {
+                *count -= 1; // Уменьшаем счетчик на 1
+                println!("skip pop");
+                local_block.r#type = BlockType::EndMatchArm;
             } else {
-                let func_name = line.split_whitespace().nth(1).unwrap().to_string();
-                self.block_stack.push(func_name.clone());
-                block.text = func_name;
+                *x_offset = *back_x;
+                *y_offset = *y_if_max + 50;
+                block_vec.pop();
+                local_block.text = String::from("match");
+                local_block.r#type = BlockType::End;
             }
-            self.x_global = 0;
-            block.x = self.x_global;
-            self.y_global += 100;
-            block.y = self.y_global;
-            self.y_global += 100;
+        }
+        CodeBlock::Else(_, _) => {
+            println!("pop else");
+            local_block.r#type = BlockType::End;
+            local_block.text = "condition".to_string();
+            //local_block.r#type = BlockType::End;
+            block_vec.pop();
+            //if_else_stack.pop();
+            if *y_if_max > *y_offset {
+                *y_offset = *y_if_max
+            }
+            /*if if_else_stack.is_empty() {
+                *y_if_max = 0;
+            }*/
         }
     }
+}
 
-    fn handle_return(&mut self, block: &mut LocalVecBlock, line: &str) {
-        println!("{} {} {}", line, self.x_global, self.y_global);
-        self.is_return = true;
-        block.r#type = BlockType::End;
-        block.text = line.trim().to_string();
-    }
-
-    fn handle_external_func(&mut self, block: &mut LocalVecBlock, line: &str) {
-        let func_name = line.split_whitespace().next().unwrap().to_string();
-        self.block_stack.push(func_name.clone());
-        block.text = func_name;
-        self.y_global += 100;
-    }
-
-    fn handle_if(&mut self, block: &mut LocalVecBlock, line: &str) {
-        self.block_stack.push("if".to_string());
-        self.bracket_stack.push('{');
-        self.y_global += 100;
-        self.is_if_acum.push([self.x_global - 100, self.y_global]);
-        self.x_global += 100;
-        block.text = line[2..line.len() - 1].to_string();
-        block.r#type = BlockType::Condition;
-    }
-
-    fn handle_else(&mut self, _block: &mut LocalVecBlock) {
-        self.block_stack.push("else".to_string());
-        self.bracket_stack.push('{');
-        self.is_else = true;
-        self.x_global = self.is_if_acum.last().unwrap()[0];
-        self.y_global = self.is_if_acum.last().unwrap()[1];
-    }
-
-    fn handle_io(&mut self, block: &mut LocalVecBlock, input: bool) {
-        block.r#type = BlockType::Print;
-        if input {
-            block.text = String::from("Ввод")
+fn identifier(
+    y_offset: &mut i32,
+    text: String,
+    block_vec: &mut Vec<CodeBlock>,
+    blocks: &mut Vec<LocalVecBlock>,
+    mut local_block: LocalVecBlock,
+) {
+    if text.len() > 2 {
+        println!("{}", text.len());
+        println!("push fn");
+        block_vec.push(CodeBlock::Func);
+        if text.contains("main") {
+            local_block.text = "Начало".to_string();
         }
-        self.y_global += 100;
+        local_block.r#type = BlockType::Start;
+        blocks.push(local_block);
+        *y_offset += 100;
     }
+}
 
-    fn handle_loop(&mut self, block: &mut LocalVecBlock) {
-        self.block_stack.push("loop".to_string());
-        self.bracket_stack.push('{');
-        self.is_cycle = true;
-        self.y_global += 100;
-        block.text = "while true".to_string();
-        block.r#type = BlockType::Cycle;
+fn while_expression(
+    y_offset: &mut i32,
+    x_offset: &mut i32,
+    y_if_max: &mut i32,
+    text: String,
+    block_vec: &mut Vec<CodeBlock>,
+    skip_until_brace: &mut bool,
+    local_block: &mut LocalVecBlock,
+) {
+    let mut first_line = text.lines().next().unwrap_or("").to_string();
+    first_line.pop();
+    local_block.text = first_line;
+    block_vec.push(CodeBlock::While(*x_offset, *y_offset));
+    //пока хз как себя поведет
+    if *y_offset > *y_if_max {
+        *y_if_max = *y_offset;
     }
+    local_block.r#type = BlockType::Cycle;
+    *skip_until_brace = true;
+}
 
-    fn handle_for(&mut self, block: &mut LocalVecBlock, line: &str) {
-        self.block_stack.push("for".to_string());
-        self.bracket_stack.push('{');
-        self.is_cycle = true;
-        self.y_global += 100;
-        block.text = line[..line.len() - 1].to_string();
-        block.r#type = BlockType::Cycle;
+fn loop_handler(
+    y_offset: &mut i32,
+    x_offset: &mut i32,
+    y_if_max: &mut i32,
+    block_vec: &mut Vec<CodeBlock>,
+    local_block: &mut LocalVecBlock,
+) {
+    println!("push loop");
+    block_vec.push(CodeBlock::Loop(*x_offset, *y_offset));
+    //пока хз как себя поведет
+    if *y_offset > *y_if_max {
+        *y_if_max = *y_offset;
     }
+    local_block.r#type = BlockType::Cycle;
+}
 
-    fn handle_while(&mut self, block: &mut LocalVecBlock, line: &str) {
-        self.block_stack.push("while".to_string());
-        self.bracket_stack.push('{');
-        self.is_cycle = true;
-        self.y_global += 100;
-        block.text = line[..line.len() - 1].to_string();
-        block.r#type = BlockType::Cycle;
+fn for_expression(
+    y_offset: &mut i32,
+    x_offset: &mut i32,
+    y_if_max: &mut i32,
+    text: String,
+    block_vec: &mut Vec<CodeBlock>,
+    skip_until_brace: &mut bool,
+    local_block: &mut LocalVecBlock,
+) {
+    println!("push for");
+    *skip_until_brace = true;
+    let mut first_line = text.lines().next().unwrap_or("").to_string();
+    first_line.pop();
+    local_block.text = first_line;
+    local_block.r#type = BlockType::Cycle;
+    //пока хз как себя поведет
+    if *y_offset > *y_if_max {
+        *y_if_max = *y_offset;
     }
+    block_vec.push(CodeBlock::For(*x_offset, *y_offset));
+    //return;
+}
 
-    fn handle_memory(&mut self, block: &mut LocalVecBlock, line: &str) {
-        self.y_global += 100;
-        if line.starts_with("free") || line.starts_with("drop") {
-            block.text = String::from("Очистка памяти")
+fn macro_invocation(
+    y_offset: &mut i32,
+    y_if_max: &mut i32,
+    text: String,
+    mut local_block: LocalVecBlock,
+    blocks: &mut Vec<LocalVecBlock>,
+) {
+    if text.contains("print") {
+        if text.contains("}") {
+            local_block.text = String::from("Вывод переменной");
         } else {
-            block.text = String::from("Веделение памяти")
+            local_block.text = String::from("Вывод строки");
         }
+        local_block.r#type = BlockType::Print;
     }
+    blocks.push(local_block);
+    //пока хз как себя поведет
+    if *y_offset > *y_if_max {
+        *y_if_max = *y_offset;
+    }
+    *y_offset += 100;
+}
 
-    fn handle_default(&mut self, block: &mut LocalVecBlock, line: &str) {
-        self.y_global += 100;
-        block.text = line.trim_start().to_string();
+fn return_expression(
+    y_offset: &mut i32,
+    y_if_max: &mut i32,
+    mut local_block: LocalVecBlock,
+    blocks: &mut Vec<LocalVecBlock>,
+    is_return: &mut bool,
+) {
+    *is_return = true;
+    println!("push return");
+    local_block.text = "Конец".to_string();
+    local_block.r#type = BlockType::End;
+    //пока хз как себя поведет
+    if *y_offset > *y_if_max {
+        *y_if_max = *y_offset;
     }
+    blocks.push(local_block);
+    *y_offset += 100;
+}
+
+fn match_expression(
+    local_block: &mut LocalVecBlock,
+    x_offset: &mut i32,
+    y_offset: &mut i32,
+    text: String,
+    block_vec: &mut Vec<CodeBlock>,
+) {
+    if text.matches("match").count() > 1 {
+        panic!("incorrect use of macth")
+    }
+    println!("push match");
+    let arrow_count = text.matches("=>").count();
+    let inter_block_count = arrow_count - text.matches(",").count();
+    block_vec.push(CodeBlock::Match(
+        *x_offset,
+        *y_offset + 100,
+        inter_block_count,
+    ));
+    *x_offset -= (arrow_count * 150 as usize) as i32;
+    //block_vec.push(CodeBlock::Match(*x_offset, *y_offset));
+    let mut first_line = text.lines().next().unwrap_or("").to_string();
+    first_line.pop();
+    local_block.text = first_line;
+    local_block.r#type = BlockType::Condition;
+    //blocks.push(local_block);
+    *y_offset -= 100;
 }
