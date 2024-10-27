@@ -86,6 +86,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
     let mut is_cycle = 0;
     let mut last_condition_index = Vec::new();
     let mut match_arm = Vec::<usize>::new();
+    let mut look_for_cond_xy = Vec::new();
 
     let mut local_full_blocks = FullJson {
         blocks: Vec::<JsBlock>::new(),
@@ -138,7 +139,8 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 if i.text.contains("match") {
                     local_arrow.start_connector_index = 2;
                 } else {
-                    local_arrow.start_connector_index = 1
+                    local_arrow.start_connector_index = 1;
+                    look_for_cond_xy.push((i.x, i.y, iterator));
                 }
             }
             BlockType::Action => {
@@ -161,6 +163,16 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
             }
             BlockType::End => {
                 if i.text == "condition" {
+                    //continue;
+                    //if следующий блок != else
+                    let (_, _, to_iterator) = look_for_cond_xy.pop().unwrap();
+                    local_arrow.start_index = to_iterator;
+                    local_arrow.end_index = iterator;
+                    local_arrow.start_connector_index = 3;
+                    local_arrow.end_connector_index = 0;
+                    local_arrow.nodes = Vec::new();
+                    local_arrow.counts = vec![1, 1, 1, 1, 1];
+                    local_full_blocks.arrows.push(local_arrow);
                     continue;
                 }
                 if i.text.contains("match") {
@@ -177,16 +189,8 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                     }
                     continue;
                 }
-
                 // Обработка блока "Конец"
-                if i.text == "Конец" {
-                    local_block.r#type = String::from("Начало / конец");
-                    local_block.text = if i.text.is_empty() {
-                        "Конец".to_string()
-                    } else {
-                        i.text.clone()
-                    };
-                } else {
+                if i.text.contains(":") {
                     // Получение индекса цикла из стека
                     let cycle_index = if let Some(index) = cycle_acum.last() {
                         println!("index: {index}");
@@ -259,6 +263,13 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                         },
                     ]);
                     x_min_max_acum[1] += 10;
+                } else {
+                    local_block.r#type = String::from("Начало / конец");
+                    local_block.text = if i.text.is_empty() {
+                        "Конец".to_string()
+                    } else {
+                        i.text.clone()
+                    };
                 }
             }
             BlockType::Print => {
@@ -280,6 +291,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 local_block.text.clone_from(&i.text.to_string())
             }
             BlockType::Else => {
+                //local_full_blocks.arrows.pop();
                 println!("else goyda");
                 local_full_blocks.arrows.pop();
                 local_arrow.start_index = last_condition_index.pop().unwrap();
@@ -297,3 +309,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
     local_full_blocks.arrows.pop();
     to_string_pretty(&local_full_blocks).unwrap()
 }
+
+fn _add_arrow_after() {}
+fn _add_arrow_before() {}
+fn _add_arrow_to() {}

@@ -1,5 +1,3 @@
-use core::borrow;
-
 use tree_sitter::{Node, Parser};
 
 pub trait Language {
@@ -32,6 +30,7 @@ pub enum BlockType {
     EndMatchArm,
 }
 
+#[derive(Debug)]
 pub struct LocalVecBlock {
     pub r#type: BlockType,
     pub text: String,
@@ -114,7 +113,7 @@ impl Language for Rust {
             match node.kind() {
                 "let_declaration" | "parameters" | "->" | "primitive_type" | ";"
                 | "block_comment" | "line_comment" | "match" | "=>" | "use_declaration"
-                | "generic_type" => {
+                | "generic_type" | "type_item" | "attribute_item" | "struct_item" => {
                     return;
                 }
                 "loop_expression"
@@ -154,7 +153,7 @@ impl Language for Rust {
                     return;
                 }
                 "identifier" => {
-                    identifier(y_offset, text, block_vec, blocks, local_block);
+                    identifier(x_offset, y_offset, text, block_vec, blocks, local_block);
                     return;
                 }
                 "if_expression" => {
@@ -170,6 +169,24 @@ impl Language for Rust {
                     );
                 }
                 "else_clause" => {
+                    /*if !text.contains("if") {
+                        let mut cursor = node.walk();
+                        for child in node.children(&mut cursor) {
+                            traverse_ast(
+                                child,
+                                source,
+                                blocks,
+                                y_offset,
+                                x_offset,
+                                block_vec,
+                                skip_until_brace,
+                                is_return,
+                                if_else_stack,
+                                y_if_max,
+                            );
+                        }
+                        return;
+                    }*/
                     else_clause(
                         text,
                         &mut local_block,
@@ -180,6 +197,7 @@ impl Language for Rust {
                         if_else_stack,
                         block_vec,
                     );
+                    //return;
                     //*y_offset -= 100;
                 }
                 "else" => {
@@ -212,7 +230,7 @@ impl Language for Rust {
                     return;
                 }
                 "return_expression" => {
-                    return_expression(y_offset, y_if_max, local_block, blocks, is_return);
+                    return_expression(y_offset, y_if_max, local_block, blocks, is_return, text);
                     return;
                 }
                 "macro_invocation" => {
@@ -270,13 +288,12 @@ impl Language for Rust {
                         block_vec,
                         &mut local_block,
                     );
-                }
-                _ => {
-                    if text.contains("else") {
-                        local_block.text = "blablabla".to_string();
+                    if local_block.text == String::from("drop") {
+                        return;
                     }
-                    //panic!("unknown type \"{}\"", node.kind())
+                    //*y_offset -= 100;
                 }
+                _ => {}
             }
 
             blocks.push(local_block);
@@ -331,10 +348,11 @@ impl Language for Rust {
             &mut if_else_stack,
             &mut y_if_max,
         );
-        /*if !block_vec.is_empty() {
+        if !block_vec.is_empty() {
             println!("!stack contents!\n{:#?}", block_vec);
             panic!("WRONE CODE")
-        }*/
+        }
+        println!("Final block vector: {:#?}", blocks);
         blocks
     }
 }
@@ -428,14 +446,16 @@ fn else_clause(
         );
     } else {
         println!("mr penis");
+        local_block.text = String::from("mr penis");
         let return_to = if_else_stack.pop().unwrap();
         *x_offset = return_to.0;
         *y_offset = return_to.1;
         //пока хз как себя поведет
-        if *y_offset > *y_if_max {
-            *y_if_max = *y_offset;
+        if *y_offset - 100 > *y_if_max {
+            *y_if_max = *y_offset - 100;
         }
         block_vec.push(CodeBlock::Else(*x_offset, *y_offset));
+        local_block.r#type = BlockType::Else;
         local_block.x = *x_offset;
         return;
     }
@@ -457,6 +477,10 @@ fn if_expression(
     let else_count = text.matches("else").count() as i32;
     let else_if_count = text.matches("else if").count() as i32;
     let local_offset = ((else_count - else_if_count) * 100) as i32;
+    let local_offest_fin = match local_offset {
+        0 => 100,
+        _ => local_offset,
+    };
 
     println!("local_offset == {local_offset}, else_count = {else_count}, else_if_count == {else_if_count}");
     block_vec.push(CodeBlock::If(*x_offset, *y_offset, local_offset));
@@ -471,7 +495,7 @@ fn if_expression(
     local_block.text = first_line;
     //*y_offset += 100;
     local_block.x = *x_offset;
-    *x_offset += local_offset;
+    *x_offset += local_offest_fin;
     *skip_until_brace = true;
     //blocks.push(local_block);
     //return;
@@ -486,13 +510,10 @@ fn closing_brecket_handler(
     block_vec: &mut Vec<CodeBlock>,
     local_block: &mut LocalVecBlock,
 ) {
+    println!("{:?}", block_vec.last());
     println!("len of block mass = {}", block_vec.len());
-    if *is_return && *block_vec.last().unwrap() == CodeBlock::Func {
-        *is_return = false;
-        block_vec.pop();
-        println!("skip");
-        return;
-    }
+    /*if *is_return && *block_vec.last().unwrap() == CodeBlock::Func {
+    }*/
     //local_block.y = *y_offset;
     //*y_offset += 10;
     match block_vec.last_mut().unwrap() {
@@ -500,6 +521,7 @@ fn closing_brecket_handler(
             println!("add return");
             local_block.text = "Конец".to_string();
             local_block.r#type = BlockType::End;
+            //local_block.x -= 200;
             block_vec.pop();
         }
         CodeBlock::If(x, y, offset) => {
@@ -508,7 +530,9 @@ fn closing_brecket_handler(
             //local_block.text = format!("{x}:{y}");
             local_block.text = "condition".to_string();
             block_vec.pop();
-            *y_if_max = *y_offset
+            *y_if_max = *y_offset;
+            *x_offset -= 100;
+            *y_offset -= 100;
         }
         CodeBlock::For(x, y) => {
             println!("Handling For block at {x}:{y}");
@@ -530,14 +554,22 @@ fn closing_brecket_handler(
         }
         CodeBlock::Func => {
             println!("Handling Func block");
-            //local_block.r#type = BlockType::End;
+            local_block.r#type = BlockType::End;
             block_vec.pop();
+            if *is_return {
+                *is_return = false;
+                local_block.text = "drop".to_string();
+                println!("skip brecket");
+                //drop(*local_block);
+                //я блять хуй знает, но он почемуто не скипает добавление этого блока
+                return;
+            }
         }
         CodeBlock::Continue => {
             block_vec.pop();
             return;
         }
-        CodeBlock::Match(back_x, back_y, count) => {
+        CodeBlock::Match(back_x, _, count) => {
             if *count > 0 {
                 *count -= 1; // Уменьшаем счетчик на 1
                 println!("skip pop");
@@ -553,13 +585,14 @@ fn closing_brecket_handler(
         CodeBlock::Else(_, _) => {
             println!("pop else");
             local_block.r#type = BlockType::End;
-            local_block.text = "condition".to_string();
+            local_block.text = "drop".to_string();
             //local_block.r#type = BlockType::End;
             block_vec.pop();
             //if_else_stack.pop();
             if *y_if_max > *y_offset {
                 *y_offset = *y_if_max
             }
+            *x_offset += 100;
             /*if if_else_stack.is_empty() {
                 *y_if_max = 0;
             }*/
@@ -568,6 +601,7 @@ fn closing_brecket_handler(
 }
 
 fn identifier(
+    x_offset: &mut i32,
     y_offset: &mut i32,
     text: String,
     block_vec: &mut Vec<CodeBlock>,
@@ -575,6 +609,8 @@ fn identifier(
     mut local_block: LocalVecBlock,
 ) {
     if text.len() > 2 {
+        *x_offset = 0;
+        local_block.x = 0;
         println!("{}", text.len());
         println!("push fn");
         block_vec.push(CodeBlock::Func);
@@ -676,10 +712,15 @@ fn return_expression(
     mut local_block: LocalVecBlock,
     blocks: &mut Vec<LocalVecBlock>,
     is_return: &mut bool,
+    text: String,
 ) {
     *is_return = true;
     println!("push return");
-    local_block.text = "Конец".to_string();
+    if text.trim_start() == "return;" {
+        local_block.text = "Конец".to_string();
+    } else {
+        local_block.text = text;
+    }
     local_block.r#type = BlockType::End;
     //пока хз как себя поведет
     if *y_offset > *y_if_max {

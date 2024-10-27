@@ -14,14 +14,14 @@ fn read_from_keyboard() -> u32 {
 
     let trimmed = input_text.trim();
     if let Ok(i) = trimmed.parse::<u32>() {
-        i
+        return i;
     } else {
         println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        10
+        return 10;
     }
 }
 
-fn create_graph(size: usize) -> Vec<Vec<u32>> {
+/*fn create_graph(size: usize) -> Vec<Vec<u32>> {
     let mut rng = rand::thread_rng();
     let mut graf = vec![vec![0u32; size]; size];
 
@@ -35,7 +35,7 @@ fn create_graph(size: usize) -> Vec<Vec<u32>> {
         }
     }
 
-    graf
+    return graf;
 }
 
 fn visit_rec(graf: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, node: u32, size: u32) {
@@ -81,7 +81,7 @@ fn create_adjacency_list(graf: &Vec<Vec<u32>>) -> Vec<Vec<u32>> {
         }
     }
 
-    adj_list
+    return adj_list;
 }
 
 fn visit_rec_adj_list(adj_list: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, node: u32) {
@@ -148,6 +148,7 @@ fn main() {
     visit_no_rec_adj_list(&adj_list, &mut visited, 0);
     println!();
 }
+*/
 
 Processing node: kind=use_declaration, text=use rand::Rng;
 Processing node: kind=use_declaration, text=use std::collections::VecDeque;
@@ -164,10 +165,10 @@ Processing node: kind=function_item, text=fn read_from_keyboard() -> u32 {
 
     let trimmed = input_text.trim();
     if let Ok(i) = trimmed.parse::<u32>() {
-        i
+        return i;
     } else {
         println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        10
+        return 10;
     }
 }
 Processing node: kind=fn, text=fn
@@ -186,10 +187,10 @@ Processing node: kind=block, text={
 
     let trimmed = input_text.trim();
     if let Ok(i) = trimmed.parse::<u32>() {
-        i
+        return i;
     } else {
         println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        10
+        return 10;
     }
 }
 Processing node: kind={, text={
@@ -206,993 +207,50 @@ Processing node: kind=call_expression, text=io::stdin()
 Processing node: kind=;, text=;
 Processing node: kind=let_declaration, text=let trimmed = input_text.trim();
 Processing node: kind=expression_statement, text=if let Ok(i) = trimmed.parse::<u32>() {
-        i
+        return i;
     } else {
         println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        10
+        return 10;
     }
 Processing node: kind=if_expression, text=if let Ok(i) = trimmed.parse::<u32>() {
-        i
+        return i;
     } else {
         println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        10
+        return 10;
     }
 push if
 local_offset == 100, else_count = 1, else_if_count == 0
-Processing node: kind=identifier, text=i
+Processing node: kind=expression_statement, text=return i;
+Processing node: kind=return_expression, text=return i
+push return
+Processing node: kind=;, text=;
 Processing node: kind=}, text=}
+Some(If(0, 300, 100))
 len of block mass = 2
 Handling If block at 0:300
 Processing node: kind=else_clause, text=else {
         println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        10
+        return 10;
     }
-mr penis
 Processing node: kind=else, text=else
 create else info block
 Processing node: kind=block, text={
         println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        10
+        return 10;
     }
 Processing node: kind={, text={
 Processing node: kind=expression_statement, text=println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
 Processing node: kind=macro_invocation, text=println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m")
 Processing node: kind=;, text=;
-Processing node: kind=integer_literal, text=10
+Processing node: kind=expression_statement, text=return 10;
+Processing node: kind=return_expression, text=return 10
+push return
+Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-len of block mass = 2
-pop else
-Processing node: kind=}, text=}
+Some(Func)
 len of block mass = 1
 Handling Func block
-Processing node: kind=function_item, text=fn create_graph(size: usize) -> Vec<Vec<u32>> {
-    let mut rng = rand::thread_rng();
-    let mut graf = vec![vec![0u32; size]; size];
-
-    for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-
-    graf
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=create_graph
-12
-push fn
-Processing node: kind=parameters, text=(size: usize)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<Vec<u32>>
-Processing node: kind=block, text={
-    let mut rng = rand::thread_rng();
-    let mut graf = vec![vec![0u32; size]; size];
-
-    for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-
-    graf
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let mut rng = rand::thread_rng();
-Processing node: kind=let_declaration, text=let mut graf = vec![vec![0u32; size]; size];
-Processing node: kind=expression_statement, text=for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-Processing node: kind=for_expression, text=for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-push for
-Processing node: kind=expression_statement, text=for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-Processing node: kind=for_expression, text=for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-push for
-Processing node: kind=expression_statement, text=if i == j {
-                continue;
-            }
-Processing node: kind=if_expression, text=if i == j {
-                continue;
-            }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=continue;
-Processing node: kind=continue_expression, text=continue
-Processing node: kind=continue, text=continue
-Processing node: kind=;, text=;
+skip brecket
 Processing node: kind=}, text=}
-len of block mass = 4
-Handling If block at -100:1100
-Processing node: kind=expression_statement, text=graf[i][j] = rng.gen::<u32>() % 2;
-Processing node: kind=assignment_expression, text=graf[i][j] = rng.gen::<u32>() % 2
-Processing node: kind=index_expression, text=graf[i][j]
-Processing node: kind=index_expression, text=graf[i]
-Processing node: kind=identifier, text=graf
-4
-push fn
-Processing node: kind=[, text=[
-Processing node: kind=identifier, text=i
-Processing node: kind=], text=]
-Processing node: kind=[, text=[
-Processing node: kind=identifier, text=j
-Processing node: kind=], text=]
-Processing node: kind==, text==
-Processing node: kind=binary_expression, text=rng.gen::<u32>() % 2
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=graf[j][i] = graf[i][j];
-Processing node: kind=assignment_expression, text=graf[j][i] = graf[i][j]
-Processing node: kind=index_expression, text=graf[j][i]
-Processing node: kind=index_expression, text=graf[j]
-Processing node: kind=identifier, text=graf
-4
-push fn
-Processing node: kind=[, text=[
-Processing node: kind=identifier, text=j
-Processing node: kind=], text=]
-Processing node: kind=[, text=[
-Processing node: kind=identifier, text=i
-Processing node: kind=], text=]
-Processing node: kind==, text==
-Processing node: kind=index_expression, text=graf[i][j]
-Processing node: kind=index_expression, text=graf[i]
-Processing node: kind=identifier, text=graf
-4
-push fn
-Processing node: kind=[, text=[
-Processing node: kind=identifier, text=i
-Processing node: kind=], text=]
-Processing node: kind=[, text=[
-Processing node: kind=identifier, text=j
-Processing node: kind=], text=]
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 6
-Handling Func block
-Processing node: kind=}, text=}
-len of block mass = 5
-Handling Func block
-Processing node: kind=identifier, text=graf
-4
-push fn
-Processing node: kind=}, text=}
-len of block mass = 5
-Handling Func block
-Processing node: kind=function_item, text=fn visit_rec(graf: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, node: u32, size: u32) {
-    if visited.insert(node) {
-        print!("{} ", node + 1);
-        for j in 0..size {
-            if graf[node as usize][j as usize] == 1 {
-                visit_rec(graf, visited, j, size);
-            }
-        }
-    }
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=visit_rec
-9
-push fn
-Processing node: kind=parameters, text=(graf: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, node: u32, size: u32)
-Processing node: kind=block, text={
-    if visited.insert(node) {
-        print!("{} ", node + 1);
-        for j in 0..size {
-            if graf[node as usize][j as usize] == 1 {
-                visit_rec(graf, visited, j, size);
-            }
-        }
-    }
-}
-Processing node: kind={, text={
-Processing node: kind=expression_statement, text=if visited.insert(node) {
-        print!("{} ", node + 1);
-        for j in 0..size {
-            if graf[node as usize][j as usize] == 1 {
-                visit_rec(graf, visited, j, size);
-            }
-        }
-    }
-Processing node: kind=if_expression, text=if visited.insert(node) {
-        print!("{} ", node + 1);
-        for j in 0..size {
-            if graf[node as usize][j as usize] == 1 {
-                visit_rec(graf, visited, j, size);
-            }
-        }
-    }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=print!("{} ", node + 1);
-Processing node: kind=macro_invocation, text=print!("{} ", node + 1)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for j in 0..size {
-            if graf[node as usize][j as usize] == 1 {
-                visit_rec(graf, visited, j, size);
-            }
-        }
-Processing node: kind=for_expression, text=for j in 0..size {
-            if graf[node as usize][j as usize] == 1 {
-                visit_rec(graf, visited, j, size);
-            }
-        }
-push for
-Processing node: kind=expression_statement, text=if graf[node as usize][j as usize] == 1 {
-                visit_rec(graf, visited, j, size);
-            }
-Processing node: kind=if_expression, text=if graf[node as usize][j as usize] == 1 {
-                visit_rec(graf, visited, j, size);
-            }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=visit_rec(graf, visited, j, size);
-Processing node: kind=call_expression, text=visit_rec(graf, visited, j, size)
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 8
-Handling If block at -100:4900
-Processing node: kind=}, text=}
-len of block mass = 7
-Handling For block at -100:4800
-Processing node: kind=}, text=}
-len of block mass = 6
-Handling If block at -100:4600
-Processing node: kind=}, text=}
-len of block mass = 5
-Handling Func block
-Processing node: kind=function_item, text=fn visit_no_rec(graf: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, size: u32) {
-    let mut stack = VecDeque::new();
-    stack.push_back(0);
-
-    while let Some(node) = stack.pop_back() {
-        if visited.contains(&node) {
-            continue;
-        }
-
-        print!("{} ", node + 1);
-        visited.insert(node);
-
-        for j in (0..size).rev() {
-            if graf[node as usize][j as usize] == 1 && !visited.contains(&j) {
-                stack.push_back(j);
-            }
-        }
-    }
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=visit_no_rec
-12
-push fn
-Processing node: kind=parameters, text=(graf: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, size: u32)
-Processing node: kind=block, text={
-    let mut stack = VecDeque::new();
-    stack.push_back(0);
-
-    while let Some(node) = stack.pop_back() {
-        if visited.contains(&node) {
-            continue;
-        }
-
-        print!("{} ", node + 1);
-        visited.insert(node);
-
-        for j in (0..size).rev() {
-            if graf[node as usize][j as usize] == 1 && !visited.contains(&j) {
-                stack.push_back(j);
-            }
-        }
-    }
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let mut stack = VecDeque::new();
-Processing node: kind=expression_statement, text=stack.push_back(0);
-Processing node: kind=call_expression, text=stack.push_back(0)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=while let Some(node) = stack.pop_back() {
-        if visited.contains(&node) {
-            continue;
-        }
-
-        print!("{} ", node + 1);
-        visited.insert(node);
-
-        for j in (0..size).rev() {
-            if graf[node as usize][j as usize] == 1 && !visited.contains(&j) {
-                stack.push_back(j);
-            }
-        }
-    }
-Processing node: kind=while_expression, text=while let Some(node) = stack.pop_back() {
-        if visited.contains(&node) {
-            continue;
-        }
-
-        print!("{} ", node + 1);
-        visited.insert(node);
-
-        for j in (0..size).rev() {
-            if graf[node as usize][j as usize] == 1 && !visited.contains(&j) {
-                stack.push_back(j);
-            }
-        }
-    }
-Processing node: kind=expression_statement, text=if visited.contains(&node) {
-            continue;
-        }
-Processing node: kind=if_expression, text=if visited.contains(&node) {
-            continue;
-        }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=continue;
-Processing node: kind=continue_expression, text=continue
-Processing node: kind=continue, text=continue
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 7
-Handling If block at -100:5800
-Processing node: kind=expression_statement, text=print!("{} ", node + 1);
-Processing node: kind=macro_invocation, text=print!("{} ", node + 1)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visited.insert(node);
-Processing node: kind=call_expression, text=visited.insert(node)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for j in (0..size).rev() {
-            if graf[node as usize][j as usize] == 1 && !visited.contains(&j) {
-                stack.push_back(j);
-            }
-        }
-Processing node: kind=for_expression, text=for j in (0..size).rev() {
-            if graf[node as usize][j as usize] == 1 && !visited.contains(&j) {
-                stack.push_back(j);
-            }
-        }
-push for
-Processing node: kind=expression_statement, text=if graf[node as usize][j as usize] == 1 && !visited.contains(&j) {
-                stack.push_back(j);
-            }
-Processing node: kind=if_expression, text=if graf[node as usize][j as usize] == 1 && !visited.contains(&j) {
-                stack.push_back(j);
-            }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=stack.push_back(j);
-Processing node: kind=call_expression, text=stack.push_back(j)
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 8
-Handling If block at -100:6500
-Processing node: kind=}, text=}
-len of block mass = 7
-Handling For block at -100:6400
-Processing node: kind=}, text=}
-len of block mass = 6
-Handling While block at -100:5700
-Processing node: kind=}, text=}
-len of block mass = 5
-Handling Func block
-Processing node: kind=function_item, text=fn create_adjacency_list(graf: &Vec<Vec<u32>>) -> Vec<Vec<u32>> {
-    let size = graf.len();
-    let mut adj_list = vec![vec![]; size];
-
-    for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j as u32);
-            }
-        }
-    }
-
-    adj_list
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=create_adjacency_list
-21
-push fn
-Processing node: kind=parameters, text=(graf: &Vec<Vec<u32>>)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<Vec<u32>>
-Processing node: kind=block, text={
-    let size = graf.len();
-    let mut adj_list = vec![vec![]; size];
-
-    for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j as u32);
-            }
-        }
-    }
-
-    adj_list
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let size = graf.len();
-Processing node: kind=let_declaration, text=let mut adj_list = vec![vec![]; size];
-Processing node: kind=expression_statement, text=for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j as u32);
-            }
-        }
-    }
-Processing node: kind=for_expression, text=for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j as u32);
-            }
-        }
-    }
-push for
-Processing node: kind=expression_statement, text=for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j as u32);
-            }
-        }
-Processing node: kind=for_expression, text=for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j as u32);
-            }
-        }
-push for
-Processing node: kind=expression_statement, text=if graf[i][j] == 1 {
-                adj_list[i].push(j as u32);
-            }
-Processing node: kind=if_expression, text=if graf[i][j] == 1 {
-                adj_list[i].push(j as u32);
-            }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=adj_list[i].push(j as u32);
-Processing node: kind=call_expression, text=adj_list[i].push(j as u32)
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 8
-Handling If block at -100:7400
-Processing node: kind=}, text=}
-len of block mass = 7
-Handling For block at -100:7300
-Processing node: kind=}, text=}
-len of block mass = 6
-Handling For block at -100:7200
-Processing node: kind=identifier, text=adj_list
-8
-push fn
-Processing node: kind=}, text=}
-len of block mass = 6
-Handling Func block
-Processing node: kind=function_item, text=fn visit_rec_adj_list(adj_list: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, node: u32) {
-    if visited.insert(node) {
-        print!("{} ", node + 1);
-        for &neighbor in &adj_list[node as usize] {
-            visit_rec_adj_list(adj_list, visited, neighbor);
-        }
-    }
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=visit_rec_adj_list
-18
-push fn
-Processing node: kind=parameters, text=(adj_list: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, node: u32)
-Processing node: kind=block, text={
-    if visited.insert(node) {
-        print!("{} ", node + 1);
-        for &neighbor in &adj_list[node as usize] {
-            visit_rec_adj_list(adj_list, visited, neighbor);
-        }
-    }
-}
-Processing node: kind={, text={
-Processing node: kind=expression_statement, text=if visited.insert(node) {
-        print!("{} ", node + 1);
-        for &neighbor in &adj_list[node as usize] {
-            visit_rec_adj_list(adj_list, visited, neighbor);
-        }
-    }
-Processing node: kind=if_expression, text=if visited.insert(node) {
-        print!("{} ", node + 1);
-        for &neighbor in &adj_list[node as usize] {
-            visit_rec_adj_list(adj_list, visited, neighbor);
-        }
-    }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=print!("{} ", node + 1);
-Processing node: kind=macro_invocation, text=print!("{} ", node + 1)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for &neighbor in &adj_list[node as usize] {
-            visit_rec_adj_list(adj_list, visited, neighbor);
-        }
-Processing node: kind=for_expression, text=for &neighbor in &adj_list[node as usize] {
-            visit_rec_adj_list(adj_list, visited, neighbor);
-        }
-push for
-Processing node: kind=expression_statement, text=visit_rec_adj_list(adj_list, visited, neighbor);
-Processing node: kind=call_expression, text=visit_rec_adj_list(adj_list, visited, neighbor)
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 8
-Handling For block at -100:8400
-Processing node: kind=}, text=}
-len of block mass = 7
-Handling If block at -100:8200
-Processing node: kind=}, text=}
-len of block mass = 6
-Handling Func block
-Processing node: kind=function_item, text=fn visit_no_rec_adj_list(adj_list: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, node: u32){
-    let mut stack = VecDeque::new();
-    stack.push_back(node);
-    while let Some(node) = stack.pop_back() {
-        if visited.contains(&node) {
-            continue;
-        }
-
-        print!("{} ", node + 1);
-        visited.insert(node);
-
-        for j in adj_list[node as usize].iter().rev() {
-            if !visited.contains(&j) {
-                stack.push_back(*j);
-            }
-        }
-    }
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=visit_no_rec_adj_list
-21
-push fn
-Processing node: kind=parameters, text=(adj_list: &Vec<Vec<u32>>, visited: &mut HashSet<u32>, node: u32)
-Processing node: kind=block, text={
-    let mut stack = VecDeque::new();
-    stack.push_back(node);
-    while let Some(node) = stack.pop_back() {
-        if visited.contains(&node) {
-            continue;
-        }
-
-        print!("{} ", node + 1);
-        visited.insert(node);
-
-        for j in adj_list[node as usize].iter().rev() {
-            if !visited.contains(&j) {
-                stack.push_back(*j);
-            }
-        }
-    }
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let mut stack = VecDeque::new();
-Processing node: kind=expression_statement, text=stack.push_back(node);
-Processing node: kind=call_expression, text=stack.push_back(node)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=while let Some(node) = stack.pop_back() {
-        if visited.contains(&node) {
-            continue;
-        }
-
-        print!("{} ", node + 1);
-        visited.insert(node);
-
-        for j in adj_list[node as usize].iter().rev() {
-            if !visited.contains(&j) {
-                stack.push_back(*j);
-            }
-        }
-    }
-Processing node: kind=while_expression, text=while let Some(node) = stack.pop_back() {
-        if visited.contains(&node) {
-            continue;
-        }
-
-        print!("{} ", node + 1);
-        visited.insert(node);
-
-        for j in adj_list[node as usize].iter().rev() {
-            if !visited.contains(&j) {
-                stack.push_back(*j);
-            }
-        }
-    }
-Processing node: kind=expression_statement, text=if visited.contains(&node) {
-            continue;
-        }
-Processing node: kind=if_expression, text=if visited.contains(&node) {
-            continue;
-        }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=continue;
-Processing node: kind=continue_expression, text=continue
-Processing node: kind=continue, text=continue
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 8
-Handling If block at -100:9200
-Processing node: kind=expression_statement, text=print!("{} ", node + 1);
-Processing node: kind=macro_invocation, text=print!("{} ", node + 1)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visited.insert(node);
-Processing node: kind=call_expression, text=visited.insert(node)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for j in adj_list[node as usize].iter().rev() {
-            if !visited.contains(&j) {
-                stack.push_back(*j);
-            }
-        }
-Processing node: kind=for_expression, text=for j in adj_list[node as usize].iter().rev() {
-            if !visited.contains(&j) {
-                stack.push_back(*j);
-            }
-        }
-push for
-Processing node: kind=expression_statement, text=if !visited.contains(&j) {
-                stack.push_back(*j);
-            }
-Processing node: kind=if_expression, text=if !visited.contains(&j) {
-                stack.push_back(*j);
-            }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=stack.push_back(*j);
-Processing node: kind=call_expression, text=stack.push_back(*j)
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 9
-Handling If block at -100:9900
-Processing node: kind=}, text=}
-len of block mass = 8
-Handling For block at -100:9800
-Processing node: kind=}, text=}
-len of block mass = 7
-Handling While block at -100:9100
-Processing node: kind=}, text=}
-len of block mass = 6
-Handling Func block
-Processing node: kind=function_item, text=fn main() {
-    let mut visited = HashSet::<u32>::new();
-    print!("Enter graph size, more than 0 (one number for line and column) > ");
-    let size = read_from_keyboard();
-    let graf = create_graph(size as usize);
-
-    println!("Graph:");
-    for row in &graf {
-        println!("{row:?}");
-    }
-
-    println!("Recursive:");
-    visit_rec(&graf, &mut visited, 0, size);
-
-    visited.clear();
-
-    println!("\nNon-recursive:");
-    visit_no_rec(&graf, &mut visited, size);
-    println!();
-
-    visited.clear();
-    let adj_list = create_adjacency_list(&graf);
-    println!("Adjacency list");
-    for row in &adj_list {
-        println!("{row:?}");
-    }
-    println!("\nRecursive (adjacency list):");
-    visit_rec_adj_list(&adj_list, &mut visited, 0);
-    println!();
-
-
-    visited.clear();
-    println!("\nNon-recursive (adjacency list):");
-    visit_no_rec_adj_list(&adj_list, &mut visited, 0);
-    println!();
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=main
-4
-push fn
-Processing node: kind=parameters, text=()
-Processing node: kind=block, text={
-    let mut visited = HashSet::<u32>::new();
-    print!("Enter graph size, more than 0 (one number for line and column) > ");
-    let size = read_from_keyboard();
-    let graf = create_graph(size as usize);
-
-    println!("Graph:");
-    for row in &graf {
-        println!("{row:?}");
-    }
-
-    println!("Recursive:");
-    visit_rec(&graf, &mut visited, 0, size);
-
-    visited.clear();
-
-    println!("\nNon-recursive:");
-    visit_no_rec(&graf, &mut visited, size);
-    println!();
-
-    visited.clear();
-    let adj_list = create_adjacency_list(&graf);
-    println!("Adjacency list");
-    for row in &adj_list {
-        println!("{row:?}");
-    }
-    println!("\nRecursive (adjacency list):");
-    visit_rec_adj_list(&adj_list, &mut visited, 0);
-    println!();
-
-
-    visited.clear();
-    println!("\nNon-recursive (adjacency list):");
-    visit_no_rec_adj_list(&adj_list, &mut visited, 0);
-    println!();
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let mut visited = HashSet::<u32>::new();
-Processing node: kind=expression_statement, text=print!("Enter graph size, more than 0 (one number for line and column) > ");
-Processing node: kind=macro_invocation, text=print!("Enter graph size, more than 0 (one number for line and column) > ")
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let size = read_from_keyboard();
-Processing node: kind=let_declaration, text=let graf = create_graph(size as usize);
-Processing node: kind=expression_statement, text=println!("Graph:");
-Processing node: kind=macro_invocation, text=println!("Graph:")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for row in &graf {
-        println!("{row:?}");
-    }
-Processing node: kind=for_expression, text=for row in &graf {
-        println!("{row:?}");
-    }
-push for
-Processing node: kind=expression_statement, text=println!("{row:?}");
-Processing node: kind=macro_invocation, text=println!("{row:?}")
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 7
-Handling For block at -100:10800
-Processing node: kind=expression_statement, text=println!("Recursive:");
-Processing node: kind=macro_invocation, text=println!("Recursive:")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visit_rec(&graf, &mut visited, 0, size);
-Processing node: kind=call_expression, text=visit_rec(&graf, &mut visited, 0, size)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visited.clear();
-Processing node: kind=call_expression, text=visited.clear()
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!("\nNon-recursive:");
-Processing node: kind=macro_invocation, text=println!("\nNon-recursive:")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visit_no_rec(&graf, &mut visited, size);
-Processing node: kind=call_expression, text=visit_no_rec(&graf, &mut visited, size)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!();
-Processing node: kind=macro_invocation, text=println!()
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visited.clear();
-Processing node: kind=call_expression, text=visited.clear()
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let adj_list = create_adjacency_list(&graf);
-Processing node: kind=expression_statement, text=println!("Adjacency list");
-Processing node: kind=macro_invocation, text=println!("Adjacency list")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for row in &adj_list {
-        println!("{row:?}");
-    }
-Processing node: kind=for_expression, text=for row in &adj_list {
-        println!("{row:?}");
-    }
-push for
-Processing node: kind=expression_statement, text=println!("{row:?}");
-Processing node: kind=macro_invocation, text=println!("{row:?}")
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 7
-Handling For block at -100:11900
-Processing node: kind=expression_statement, text=println!("\nRecursive (adjacency list):");
-Processing node: kind=macro_invocation, text=println!("\nRecursive (adjacency list):")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visit_rec_adj_list(&adj_list, &mut visited, 0);
-Processing node: kind=call_expression, text=visit_rec_adj_list(&adj_list, &mut visited, 0)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!();
-Processing node: kind=macro_invocation, text=println!()
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visited.clear();
-Processing node: kind=call_expression, text=visited.clear()
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!("\nNon-recursive (adjacency list):");
-Processing node: kind=macro_invocation, text=println!("\nNon-recursive (adjacency list):")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=visit_no_rec_adj_list(&adj_list, &mut visited, 0);
-Processing node: kind=call_expression, text=visit_no_rec_adj_list(&adj_list, &mut visited, 0)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!();
-Processing node: kind=macro_invocation, text=println!()
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-len of block mass = 6
-Handling Func block
-coords: x=0; y=0
-coords: x=0; y=100
-coords: x=0; y=200
-coords: x=0; y=300
-coords: x=100; y=400
-coords: x=-100; y=500
-coords: x=-100; y=400
-else goyda
-coords: x=-100; y=400
-coords: x=-100; y=500
-coords: x=-100; y=600
-coords: x=-100; y=700
-coords: x=-100; y=800
-coords: x=-100; y=900
-coords: x=-100; y=1000
-more
-coords: x=-100; y=1100
-coords: x=-100; y=1200
-coords: x=-100; y=1300
-coords: x=-100; y=1400
-coords: x=-100; y=1500
-coords: x=-100; y=1600
-coords: x=-100; y=1700
-coords: x=-100; y=1800
-coords: x=-100; y=1900
-coords: x=-100; y=2000
-coords: x=-100; y=2100
-coords: x=-100; y=2200
-coords: x=-100; y=2300
-coords: x=-100; y=2400
-coords: x=-100; y=2500
-coords: x=-100; y=2600
-coords: x=-100; y=2700
-coords: x=-100; y=2800
-coords: x=-100; y=2900
-coords: x=-100; y=3000
-coords: x=-100; y=3100
-coords: x=-100; y=3200
-coords: x=-100; y=3300
-coords: x=-100; y=3400
-coords: x=-100; y=3500
-coords: x=-100; y=3600
-coords: x=-100; y=3700
-coords: x=-100; y=3800
-coords: x=-100; y=3900
-coords: x=-100; y=4000
-coords: x=-100; y=4100
-coords: x=-100; y=4200
-coords: x=-100; y=4300
-coords: x=-100; y=4400
-coords: x=-100; y=4500
-coords: x=-100; y=4600
-coords: x=-100; y=4700
-coords: x=-100; y=4800
-coords: x=-100; y=4900
-coords: x=-100; y=5000
-coords: x=-100; y=5100
-coords: x=-100; y=5200
-index: 42
-log -130
-coords: x=-100; y=5300
-coords: x=-100; y=5400
-coords: x=-100; y=5500
-coords: x=-100; y=5600
-coords: x=-100; y=5700
-coords: x=-100; y=5800
-coords: x=-100; y=5900
-coords: x=-100; y=6000
-coords: x=-100; y=6100
-coords: x=-100; y=6200
-coords: x=-100; y=6300
-coords: x=-100; y=6400
-coords: x=-100; y=6500
-coords: x=-100; y=6600
-coords: x=-100; y=6700
-coords: x=-100; y=6800
-index: 54
-log -160
-coords: x=-100; y=6900
-index: 48
-log -190
-coords: x=-100; y=7000
-coords: x=-100; y=7100
-coords: x=-100; y=7200
-coords: x=-100; y=7300
-coords: x=-100; y=7400
-coords: x=-100; y=7500
-coords: x=-100; y=7600
-coords: x=-100; y=7700
-index: 61
-log -220
-coords: x=-100; y=7800
-index: 60
-log -250
-coords: x=-100; y=7900
-coords: x=-100; y=8000
-coords: x=-100; y=8100
-coords: x=-100; y=8200
-coords: x=-100; y=8300
-coords: x=-100; y=8400
-coords: x=-100; y=8500
-coords: x=-100; y=8600
-index: 70
-log -280
-coords: x=-100; y=8700
-coords: x=-100; y=8800
-coords: x=-100; y=8900
-coords: x=-100; y=9000
-coords: x=-100; y=9100
-coords: x=-100; y=9200
-coords: x=-100; y=9300
-coords: x=-100; y=9400
-coords: x=-100; y=9500
-coords: x=-100; y=9600
-coords: x=-100; y=9700
-coords: x=-100; y=9800
-coords: x=-100; y=9900
-coords: x=-100; y=10000
-coords: x=-100; y=10100
-coords: x=-100; y=10200
-index: 81
-log -310
-coords: x=-100; y=10300
-index: 75
-log -340
-coords: x=-100; y=10400
-coords: x=-100; y=10500
-coords: x=-100; y=10600
-coords: x=-100; y=10700
-coords: x=-100; y=10800
-coords: x=-100; y=10900
-coords: x=-100; y=11000
-index: 89
-log -370
-coords: x=-100; y=11100
-coords: x=-100; y=11200
-coords: x=-100; y=11300
-coords: x=-100; y=11400
-coords: x=-100; y=11500
-coords: x=-100; y=11600
-coords: x=-100; y=11700
-coords: x=-100; y=11800
-coords: x=-100; y=11900
-coords: x=-100; y=12000
-coords: x=-100; y=12100
-index: 100
-log -400
-coords: x=-100; y=12200
-coords: x=-100; y=12300
-coords: x=-100; y=12400
-coords: x=-100; y=12500
-coords: x=-100; y=12600
-coords: x=-100; y=12700
-coords: x=-100; y=12800
-coords: x=-100; y=12900
+None
+len of block mass = 0
