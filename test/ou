@@ -544,34 +544,14 @@ coords: x=0; y=300
 push iterator [3]
 coords: x=100; y=400
 enter in check funk
-2
-more
-after check [0, 160]
+not more
 coords: x=100; y=500
 coords: x=0; y=500
 enter in check funk
-2
-after check [0, 160]
 coords: x=0; y=600
 enter in check funk
-2
-after check [0, 160]
 coords: x=0; y=700
 index: 2
-arrow after cycle
-
-metirial:
-x_m_m_a == [-10, 170]
-all current: x == 0, y == 700
-to: 200
-
 coords: x=0; y=800
 index: 1
-arrow after cycle
-
-metirial:
-x_m_m_a == [-20, 190]
-all current: x == 0, y == 800
-to: 100
-
 coords: x=0; y=900

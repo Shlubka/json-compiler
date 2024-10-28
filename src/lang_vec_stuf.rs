@@ -113,7 +113,7 @@ impl Language for Rust {
             match node.kind() {
                 "let_declaration" | "parameters" | "->" | "primitive_type" | ";"
                 | "block_comment" | "line_comment" | "match" | "=>" | "use_declaration"
-                | "generic_type" | "type_item" | "attribute_item" | "struct_item" => {
+                | "generic_type" | "type_item" | "attribute_item" | "struct_item" | "{" => {
                     return;
                 }
                 "loop_expression"
@@ -140,18 +140,6 @@ impl Language for Rust {
                     }
                     return;
                 }
-                "{" => {
-                    /*if let Some(CodeBlock::Match(_, _)) = block_vec.last() {
-                        println!("push continue");
-                        block_vec.push(CodeBlock::Continue);
-                    }*/
-                    return;
-                }
-                "call_expression" => {
-                    blocks.push(local_block);
-                    *y_offset += 100;
-                    return;
-                }
                 "identifier" => {
                     identifier(x_offset, y_offset, text, block_vec, blocks, local_block);
                     return;
@@ -169,24 +157,6 @@ impl Language for Rust {
                     );
                 }
                 "else_clause" => {
-                    /*if !text.contains("if") {
-                        let mut cursor = node.walk();
-                        for child in node.children(&mut cursor) {
-                            traverse_ast(
-                                child,
-                                source,
-                                blocks,
-                                y_offset,
-                                x_offset,
-                                block_vec,
-                                skip_until_brace,
-                                is_return,
-                                if_else_stack,
-                                y_if_max,
-                            );
-                        }
-                        return;
-                    }*/
                     else_clause(
                         text,
                         &mut local_block,
@@ -237,7 +207,8 @@ impl Language for Rust {
                     macro_invocation(y_offset, y_if_max, text, local_block, blocks);
                     return;
                 }
-                "binary_expression"
+                "call_expression"
+                | "binary_expression"
                 | "compound_assignment_expr"
                 | "break_expression"
                 | "assignment_expression"
@@ -275,7 +246,8 @@ impl Language for Rust {
                     local_block.r#type = BlockType::EndMatchArm;
                     println!("push end match arm");
                     if *y_if_max < *y_offset {
-                        *y_if_max = *y_if_max;
+                        //*y_if_max = *y_if_max; //что за хуйню написал
+                        *y_if_max = *y_offset;
                     }
                 }
                 "}" => {
@@ -420,7 +392,8 @@ fn else_handler(
     println!("create else info block");
     local_block.x = *x_offset;
     *y_offset -= 100;
-    local_block.r#type = BlockType::Else
+    local_block.r#type = BlockType::Else;
+    local_block.text = "continue".to_string()
 }
 
 fn else_clause(
@@ -528,7 +501,7 @@ fn closing_brecket_handler(
             println!("Handling If block at {x}:{y}");
             local_block.r#type = BlockType::End;
             //local_block.text = format!("{x}:{y}");
-            local_block.text = "condition".to_string();
+            local_block.text = "end if".to_string();
             block_vec.pop();
             *y_if_max = *y_offset;
             *x_offset -= 100;
@@ -585,7 +558,7 @@ fn closing_brecket_handler(
         CodeBlock::Else(_, _) => {
             println!("pop else");
             local_block.r#type = BlockType::End;
-            local_block.text = "drop".to_string();
+            local_block.text = "end else".to_string();
             //local_block.r#type = BlockType::End;
             block_vec.pop();
             //if_else_stack.pop();
