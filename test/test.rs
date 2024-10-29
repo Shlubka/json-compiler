@@ -83,7 +83,7 @@ fn match_test() {
     println!("end");
 }
 
-/*
+
 fn goyda() -> bool {
     let condition1 = true;
     let condition2 = true;
@@ -139,4 +139,4 @@ fn main() -> i32 {
 
     return 1;
 }
-*/
+

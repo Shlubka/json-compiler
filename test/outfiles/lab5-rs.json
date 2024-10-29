@@ -63,7 +63,7 @@
     {
       "x": 100,
       "y": 400,
-      "text": "return i",
+      "text": "return Some(i)",
       "width": 120,
       "height": 60,
       "type": "Начало / конец",
@@ -93,7 +93,7 @@
     {
       "x": -100,
       "y": 500,
-      "text": "return 10",
+      "text": "return None",
       "width": 120,
       "height": 60,
       "type": "Начало / конец",
@@ -108,7 +108,7 @@
     {
       "x": 0,
       "y": 700,
-      "text": "create_graph",
+      "text": "create_and_fill_graph",
       "width": 120,
       "height": 60,
       "type": "Начало / конец",
@@ -183,7 +183,7 @@
     {
       "x": 0,
       "y": 1200,
-      "text": "graf[i][j] = rng\n.gen::<u32>() % 2",
+      "text": "graf[i][j] = rng\n.gen::<u8>() % 2",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -213,96 +213,6 @@
     {
       "x": 0,
       "y": 1400,
-      "text": "iter++",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 1500,
-      "text": "iter++",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 1600,
-      "text": "return graf",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 1700,
-      "text": "create_adjacency_list",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 1800,
-      "text": "for i in 0..size ",
-      "width": 120,
-      "height": 60,
-      "type": "Цикл for",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 1900,
-      "text": "for j in 0..size ",
-      "width": 120,
-      "height": 60,
-      "type": "Цикл for",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 2000,
       "text": "if graf[i][j] == 1 ",
       "width": 120,
       "height": 60,
@@ -317,11 +227,101 @@
     },
     {
       "x": 100,
-      "y": 2100,
-      "text": "adj_list[\ni].push(j)",
+      "y": 1500,
+      "text": "graf_size += 1",
       "width": 120,
       "height": 60,
       "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1600,
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1700,
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1800,
+      "text": "Вывод переменной",
+      "width": 120,
+      "height": 60,
+      "type": "Ввод / вывод",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 1900,
+      "text": "return graf",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2000,
+      "text": "create_incidence_matrix",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2100,
+      "text": "for i in 0..size ",
+      "width": 120,
+      "height": 60,
+      "type": "Цикл for",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -333,10 +333,10 @@
     {
       "x": 0,
       "y": 2200,
-      "text": "iter++",
+      "text": "for j in i + 1..size ",
       "width": 120,
       "height": 60,
-      "type": "Блок",
+      "type": "Цикл for",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -348,7 +348,22 @@
     {
       "x": 0,
       "y": 2300,
-      "text": "iter++",
+      "text": "if adjacency_matrix[i][j] == 1 ",
+      "width": 120,
+      "height": 60,
+      "type": "Условие",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 100,
+      "y": 2400,
+      "text": "incidence_matrix[\ni][edge_index] = 1",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -361,27 +376,12 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
-      "y": 2400,
-      "text": "return adj_list",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
+      "x": 100,
       "y": 2500,
-      "text": "bfs_matrix",
+      "text": "incidence_matrix[\nj][edge_index] = 1",
       "width": 120,
       "height": 60,
-      "type": "Начало / конец",
+      "type": "Блок",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -391,9 +391,9 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
+      "x": 100,
       "y": 2600,
-      "text": "queue.push_\nback(start)",
+      "text": "edge_index += 1",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -408,7 +408,7 @@
     {
       "x": 0,
       "y": 2700,
-      "text": "distances[\nstart] = 0",
+      "text": "iter++",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -423,7 +423,52 @@
     {
       "x": 0,
       "y": 2800,
-      "text": "while let Some(vertex) = queue.pop_front() ",
+      "text": "iter++",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 2900,
+      "text": "return incidence_matrix",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 3000,
+      "text": "determine_graph_size",
+      "width": 120,
+      "height": 60,
+      "type": "Начало / конец",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 3100,
+      "text": "for row in incidence_matrix ",
       "width": 120,
       "height": 60,
       "type": "Цикл for",
@@ -437,38 +482,8 @@
     },
     {
       "x": 0,
-      "y": 2900,
-      "text": "if !visited[vertex] ",
-      "width": 120,
-      "height": 60,
-      "type": "Условие",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 3000,
-      "text": "visited[ver\ntex] = true",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 3100,
-      "text": "for neighbour in 0..num_vertices ",
+      "y": 3200,
+      "text": "for &value in row ",
       "width": 120,
       "height": 60,
       "type": "Цикл for",
@@ -481,9 +496,9 @@
       "labelsPosition": 1
     },
     {
-      "x": 100,
-      "y": 3200,
-      "text": "if graf[vertex][neighbour] == 1 && !visited[neighbour] ",
+      "x": 0,
+      "y": 3300,
+      "text": "if value == 1 ",
       "width": 120,
       "height": 60,
       "type": "Условие",
@@ -496,24 +511,9 @@
       "labelsPosition": 1
     },
     {
-      "x": 200,
-      "y": 3300,
-      "text": "queue.push_ba\nck(neighbour)",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 200,
+      "x": 100,
       "y": 3400,
-      "text": "distances[neighbour] =\n distances[vertex] + 1",
+      "text": "size += 1",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -528,7 +528,7 @@
     {
       "x": 100,
       "y": 3500,
-      "text": "iter++",
+      "text": "break",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -558,10 +558,10 @@
     {
       "x": 0,
       "y": 3700,
-      "text": "return distances",
+      "text": "iter++",
       "width": 120,
       "height": 60,
-      "type": "Начало / конец",
+      "type": "Блок",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -573,7 +573,7 @@
     {
       "x": 0,
       "y": 3800,
-      "text": "bfs_list",
+      "text": "return size",
       "width": 120,
       "height": 60,
       "type": "Начало / конец",
@@ -588,10 +588,10 @@
     {
       "x": 0,
       "y": 3900,
-      "text": "queue.push_\nback(start)",
+      "text": "find_isolated_terminal_dominant_vertices",
       "width": 120,
       "height": 60,
-      "type": "Блок",
+      "type": "Начало / конец",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -603,7 +603,7 @@
     {
       "x": 0,
       "y": 4000,
-      "text": "distances[\nstart] = 0",
+      "text": "(Vec<usize>, Vec<u\nsize>, Vec<usize>)",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -618,7 +618,37 @@
     {
       "x": 0,
       "y": 4100,
-      "text": "while let Some(vertex) = queue.pop_front() ",
+      "text": "(",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 4400,
+      "text": ")",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 0,
+      "y": 4500,
+      "text": "for i in 0..size ",
       "width": 120,
       "height": 60,
       "type": "Цикл for",
@@ -632,38 +662,8 @@
     },
     {
       "x": 0,
-      "y": 4200,
-      "text": "if !visited[vertex] ",
-      "width": 120,
-      "height": 60,
-      "type": "Условие",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 4300,
-      "text": "visited[ver\ntex] = true",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 4400,
-      "text": "for &neighbour in &adj_list[vertex] ",
+      "y": 4600,
+      "text": "for j in 0..size ",
       "width": 120,
       "height": 60,
       "type": "Цикл for",
@@ -676,9 +676,9 @@
       "labelsPosition": 1
     },
     {
-      "x": 100,
-      "y": 4500,
-      "text": "if !visited[neighbour] ",
+      "x": 0,
+      "y": 4700,
+      "text": "if adjacency_matrix[i][j] == 1 ",
       "width": 120,
       "height": 60,
       "type": "Условие",
@@ -691,39 +691,9 @@
       "labelsPosition": 1
     },
     {
-      "x": 200,
-      "y": 4600,
-      "text": "queue.push_ba\nck(neighbour)",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 200,
-      "y": 4700,
-      "text": "distances[neighbour] =\n distances[vertex] + 1",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
       "x": 100,
       "y": 4800,
-      "text": "iter++",
+      "text": "count += 1",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -753,10 +723,10 @@
     {
       "x": 0,
       "y": 5000,
-      "text": "return distances",
+      "text": "if count == 0 ",
       "width": 120,
       "height": 60,
-      "type": "Начало / конец",
+      "type": "Условие",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -766,24 +736,9 @@
       "labelsPosition": 1
     },
     {
-      "x": 0,
+      "x": 100,
       "y": 5100,
-      "text": "dfs_matrix",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 5200,
-      "text": "distances[\nstart] = 0",
+      "text": "isolated.push(i)",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -797,11 +752,26 @@
     },
     {
       "x": 0,
-      "y": 5300,
-      "text": "while let Some(vertex) = stack.pop() ",
+      "y": 5200,
+      "text": "else if count == 1 ",
       "width": 120,
       "height": 60,
-      "type": "Цикл for",
+      "type": "Условие",
+      "isMenuBlock": false,
+      "fontSize": 14,
+      "textHeight": 14,
+      "isBold": false,
+      "isItalic": false,
+      "textAlign": "",
+      "labelsPosition": 1
+    },
+    {
+      "x": 100,
+      "y": 5300,
+      "text": "terminal.push(i)",
+      "width": 120,
+      "height": 60,
+      "type": "Блок",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -813,7 +783,7 @@
     {
       "x": 0,
       "y": 5400,
-      "text": "if !visited[vertex] ",
+      "text": "else if count == size - 1 ",
       "width": 120,
       "height": 60,
       "type": "Условие",
@@ -828,7 +798,7 @@
     {
       "x": 100,
       "y": 5500,
-      "text": "visited[ver\ntex] = true",
+      "text": "dominant.push(i)",
       "width": 120,
       "height": 60,
       "type": "Блок",
@@ -841,12 +811,12 @@
       "labelsPosition": 1
     },
     {
-      "x": 100,
+      "x": 0,
       "y": 5600,
-      "text": "for neighbour in (0..num_vertices).rev() ",
+      "text": "iter++",
       "width": 120,
       "height": 60,
-      "type": "Цикл for",
+      "type": "Блок",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -856,12 +826,12 @@
       "labelsPosition": 1
     },
     {
-      "x": 100,
+      "x": 0,
       "y": 5700,
-      "text": "if graf[vertex][neighbour] == 1 && !visited[neighbour] ",
+      "text": "return (isolated, terminal, dominant)",
       "width": 120,
       "height": 60,
-      "type": "Условие",
+      "type": "Начало / конец",
       "isMenuBlock": false,
       "fontSize": 14,
       "textHeight": 14,
@@ -871,263 +841,8 @@
       "labelsPosition": 1
     },
     {
-      "x": 200,
+      "x": 0,
       "y": 5800,
-      "text": "stack.push\n(neighbour)",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 200,
-      "y": 5900,
-      "text": "distances[neighbour] =\n distances[vertex] + 1",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 6000,
-      "text": "iter++",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 6100,
-      "text": "iter++",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 6200,
-      "text": "return distances",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 6300,
-      "text": "dfs_list",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 6400,
-      "text": "distances[\nstart] = 0",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 6500,
-      "text": "while let Some(vertex) = stack.pop() ",
-      "width": 120,
-      "height": 60,
-      "type": "Цикл for",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 6600,
-      "text": "if !visited[vertex] ",
-      "width": 120,
-      "height": 60,
-      "type": "Условие",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 6700,
-      "text": "visited[ver\ntex] = true",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 6800,
-      "text": "for &neighbour in adj_list[vertex].iter().rev() ",
-      "width": 120,
-      "height": 60,
-      "type": "Цикл for",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 6900,
-      "text": "if !visited[neighbour] ",
-      "width": 120,
-      "height": 60,
-      "type": "Условие",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 200,
-      "y": 7000,
-      "text": "stack.push\n(neighbour)",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 200,
-      "y": 7100,
-      "text": "distances[neighbour] =\n distances[vertex] + 1",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 100,
-      "y": 7200,
-      "text": "iter++",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 7300,
-      "text": "iter++",
-      "width": 120,
-      "height": 60,
-      "type": "Блок",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 7400,
-      "text": "return distances",
-      "width": 120,
-      "height": 60,
-      "type": "Начало / конец",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 7500,
       "text": "Начало",
       "width": 120,
       "height": 60,
@@ -1142,7 +857,7 @@
     },
     {
       "x": 0,
-      "y": 7600,
+      "y": 5900,
       "text": "Вывод строки",
       "width": 120,
       "height": 60,
@@ -1157,7 +872,7 @@
     },
     {
       "x": 0,
-      "y": 7700,
+      "y": 6000,
       "text": "Вывод строки",
       "width": 120,
       "height": 60,
@@ -1172,7 +887,7 @@
     },
     {
       "x": 0,
-      "y": 7800,
+      "y": 6100,
       "text": "for row in &graf ",
       "width": 120,
       "height": 60,
@@ -1187,7 +902,7 @@
     },
     {
       "x": 0,
-      "y": 7900,
+      "y": 6200,
       "text": "Вывод переменной",
       "width": 120,
       "height": 60,
@@ -1202,7 +917,7 @@
     },
     {
       "x": 0,
-      "y": 8000,
+      "y": 6300,
       "text": "iter++",
       "width": 120,
       "height": 60,
@@ -1217,7 +932,7 @@
     },
     {
       "x": 0,
-      "y": 8100,
+      "y": 6400,
       "text": "Вывод строки",
       "width": 120,
       "height": 60,
@@ -1232,53 +947,8 @@
     },
     {
       "x": 0,
-      "y": 8200,
-      "text": "Вывод переменной",
-      "width": 120,
-      "height": 60,
-      "type": "Ввод / вывод",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 8300,
-      "text": "Вывод переменной",
-      "width": 120,
-      "height": 60,
-      "type": "Ввод / вывод",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 8400,
-      "text": "Вывод строки",
-      "width": 120,
-      "height": 60,
-      "type": "Ввод / вывод",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 8500,
-      "text": "for row in &adj_list ",
+      "y": 6500,
+      "text": "for row in &incidence_matrix ",
       "width": 120,
       "height": 60,
       "type": "Цикл for",
@@ -1292,7 +962,7 @@
     },
     {
       "x": 0,
-      "y": 8600,
+      "y": 6600,
       "text": "Вывод переменной",
       "width": 120,
       "height": 60,
@@ -1307,7 +977,7 @@
     },
     {
       "x": 0,
-      "y": 8700,
+      "y": 6700,
       "text": "iter++",
       "width": 120,
       "height": 60,
@@ -1322,22 +992,7 @@
     },
     {
       "x": 0,
-      "y": 8800,
-      "text": "Вывод строки",
-      "width": 120,
-      "height": 60,
-      "type": "Ввод / вывод",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 8900,
+      "y": 6800,
       "text": "Вывод переменной",
       "width": 120,
       "height": 60,
@@ -1352,7 +1007,7 @@
     },
     {
       "x": 0,
-      "y": 9000,
+      "y": 6900,
       "text": "Вывод переменной",
       "width": 120,
       "height": 60,
@@ -1367,22 +1022,7 @@
     },
     {
       "x": 0,
-      "y": 9100,
-      "text": "Вывод строки",
-      "width": 120,
-      "height": 60,
-      "type": "Ввод / вывод",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 9200,
+      "y": 7000,
       "text": "Вывод переменной",
       "width": 120,
       "height": 60,
@@ -1397,7 +1037,7 @@
     },
     {
       "x": 0,
-      "y": 9300,
+      "y": 7100,
       "text": "Вывод переменной",
       "width": 120,
       "height": 60,
@@ -1412,52 +1052,7 @@
     },
     {
       "x": 0,
-      "y": 9400,
-      "text": "Вывод строки",
-      "width": 120,
-      "height": 60,
-      "type": "Ввод / вывод",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 9500,
-      "text": "Вывод переменной",
-      "width": 120,
-      "height": 60,
-      "type": "Ввод / вывод",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 9600,
-      "text": "Вывод переменной",
-      "width": 120,
-      "height": 60,
-      "type": "Ввод / вывод",
-      "isMenuBlock": false,
-      "fontSize": 14,
-      "textHeight": 14,
-      "isBold": false,
-      "isItalic": false,
-      "textAlign": "",
-      "labelsPosition": 1
-    },
-    {
-      "x": 0,
-      "y": 9600,
+      "y": 7100,
       "text": "Конец",
       "width": 120,
       "height": 60,
@@ -1644,20 +1239,58 @@
     },
     {
       "startIndex": 14,
+      "endIndex": 15,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 15,
+      "endIndex": 16,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 14,
+      "endIndex": 16,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 16,
       "endIndex": 9,
       "startConnectorIndex": 3,
       "endConnectorIndex": 3,
       "nodes": [
         {
           "x": -60,
-          "y": 1400
+          "y": 1600
         },
         {
           "x": -90,
-          "y": 1400
+          "y": 1600
         },
         {
-          "x": -90,
+          "x": -40,
           "y": 900
         },
         {
@@ -1679,7 +1312,7 @@
     },
     {
       "startIndex": 9,
-      "endIndex": 15,
+      "endIndex": 17,
       "startConnectorIndex": 1,
       "endConnectorIndex": 0,
       "nodes": [
@@ -1693,15 +1326,15 @@
         },
         {
           "x": 180,
-          "y": 1450
+          "y": 1650
         },
         {
           "x": 0,
-          "y": 1450
+          "y": 1650
         },
         {
           "x": 0,
-          "y": 1470
+          "y": 1670
         }
       ],
       "counts": [
@@ -1713,21 +1346,21 @@
       ]
     },
     {
-      "startIndex": 15,
+      "startIndex": 17,
       "endIndex": 8,
       "startConnectorIndex": 3,
       "endConnectorIndex": 3,
       "nodes": [
         {
           "x": -60,
-          "y": 1500
+          "y": 1700
         },
         {
           "x": -90,
-          "y": 1500
+          "y": 1700
         },
         {
-          "x": -90,
+          "x": -60,
           "y": 800
         },
         {
@@ -1749,7 +1382,7 @@
     },
     {
       "startIndex": 8,
-      "endIndex": 16,
+      "endIndex": 18,
       "startConnectorIndex": 1,
       "endConnectorIndex": 0,
       "nodes": [
@@ -1763,32 +1396,20 @@
         },
         {
           "x": 200,
-          "y": 1550
+          "y": 1750
         },
         {
           "x": 0,
-          "y": 1550
+          "y": 1750
         },
         {
           "x": 0,
-          "y": 1570
+          "y": 1770
         }
       ],
       "counts": [
         1,
         1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 17,
-      "endIndex": 18,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
         1,
         1,
         1
@@ -1807,21 +1428,9 @@
       ]
     },
     {
-      "startIndex": 19,
-      "endIndex": 20,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
       "startIndex": 20,
       "endIndex": 21,
-      "startConnectorIndex": 1,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
@@ -1843,84 +1452,12 @@
       ]
     },
     {
-      "startIndex": 20,
-      "endIndex": 22,
-      "startConnectorIndex": 3,
+      "startIndex": 22,
+      "endIndex": 23,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 22,
-      "endIndex": 19,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": -60,
-          "y": 2200
-        },
-        {
-          "x": -90,
-          "y": 2200
-        },
-        {
-          "x": -90,
-          "y": 1900
-        },
-        {
-          "x": -80,
-          "y": 1900
-        },
-        {
-          "x": -60,
-          "y": 1900
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 19,
-      "endIndex": 23,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 60,
-          "y": 1900
-        },
-        {
-          "x": 180,
-          "y": 1900
-        },
-        {
-          "x": 180,
-          "y": 2250
-        },
-        {
-          "x": 0,
-          "y": 2250
-        },
-        {
-          "x": 0,
-          "y": 2270
-        }
-      ],
-      "counts": [
-        1,
-        1,
         1,
         1,
         1
@@ -1928,69 +1465,23 @@
     },
     {
       "startIndex": 23,
-      "endIndex": 18,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": -60,
-          "y": 2300
-        },
-        {
-          "x": -90,
-          "y": 2300
-        },
-        {
-          "x": -90,
-          "y": 1800
-        },
-        {
-          "x": -80,
-          "y": 1800
-        },
-        {
-          "x": -60,
-          "y": 1800
-        }
-      ],
+      "endIndex": 24,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [],
       "counts": [
-        1,
-        1,
         1,
         1,
         1
       ]
     },
     {
-      "startIndex": 18,
-      "endIndex": 24,
-      "startConnectorIndex": 1,
+      "startIndex": 24,
+      "endIndex": 25,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 60,
-          "y": 1800
-        },
-        {
-          "x": 200,
-          "y": 1800
-        },
-        {
-          "x": 200,
-          "y": 2350
-        },
-        {
-          "x": 0,
-          "y": 2350
-        },
-        {
-          "x": 0,
-          "y": 2370
-        }
-      ],
+      "nodes": [],
       "counts": [
-        1,
-        1,
         1,
         1,
         1
@@ -2021,12 +1512,84 @@
       ]
     },
     {
-      "startIndex": 27,
-      "endIndex": 28,
-      "startConnectorIndex": 2,
+      "startIndex": 23,
+      "endIndex": 27,
+      "startConnectorIndex": 3,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 27,
+      "endIndex": 22,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": -60,
+          "y": 2700
+        },
+        {
+          "x": -90,
+          "y": 2700
+        },
+        {
+          "x": -30,
+          "y": 2200
+        },
+        {
+          "x": -80,
+          "y": 2200
+        },
+        {
+          "x": -60,
+          "y": 2200
+        }
+      ],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 22,
+      "endIndex": 28,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [
+        {
+          "x": 60,
+          "y": 2200
+        },
+        {
+          "x": 180,
+          "y": 2200
+        },
+        {
+          "x": 180,
+          "y": 2750
+        },
+        {
+          "x": 0,
+          "y": 2750
+        },
+        {
+          "x": 0,
+          "y": 2770
+        }
+      ],
+      "counts": [
+        1,
+        1,
         1,
         1,
         1
@@ -2034,23 +1597,69 @@
     },
     {
       "startIndex": 28,
-      "endIndex": 29,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
+      "endIndex": 21,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": -60,
+          "y": 2800
+        },
+        {
+          "x": -90,
+          "y": 2800
+        },
+        {
+          "x": -50,
+          "y": 2100
+        },
+        {
+          "x": -80,
+          "y": 2100
+        },
+        {
+          "x": -60,
+          "y": 2100
+        }
+      ],
       "counts": [
+        1,
+        1,
         1,
         1,
         1
       ]
     },
     {
-      "startIndex": 29,
-      "endIndex": 30,
+      "startIndex": 21,
+      "endIndex": 29,
       "startConnectorIndex": 1,
       "endConnectorIndex": 0,
-      "nodes": [],
+      "nodes": [
+        {
+          "x": 60,
+          "y": 2100
+        },
+        {
+          "x": 200,
+          "y": 2100
+        },
+        {
+          "x": 200,
+          "y": 2850
+        },
+        {
+          "x": 0,
+          "y": 2850
+        },
+        {
+          "x": 0,
+          "y": 2870
+        }
+      ],
       "counts": [
+        1,
+        1,
         1,
         1,
         1
@@ -2083,7 +1692,7 @@
     {
       "startIndex": 32,
       "endIndex": 33,
-      "startConnectorIndex": 1,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
@@ -2095,7 +1704,7 @@
     {
       "startIndex": 33,
       "endIndex": 34,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
@@ -2117,91 +1726,19 @@
       ]
     },
     {
-      "startIndex": 32,
-      "endIndex": 35,
-      "startConnectorIndex": 3,
+      "startIndex": 35,
+      "endIndex": 36,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
         1,
         1,
-        1,
-        1,
         1
       ]
     },
     {
-      "startIndex": 35,
-      "endIndex": 31,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": 40,
-          "y": 3500
-        },
-        {
-          "x": 10,
-          "y": 3500
-        },
-        {
-          "x": 10,
-          "y": 3100
-        },
-        {
-          "x": 20,
-          "y": 3100
-        },
-        {
-          "x": 40,
-          "y": 3100
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 31,
-      "endIndex": 36,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 160,
-          "y": 3100
-        },
-        {
-          "x": 280,
-          "y": 3100
-        },
-        {
-          "x": 280,
-          "y": 3550
-        },
-        {
-          "x": 100,
-          "y": 3550
-        },
-        {
-          "x": 100,
-          "y": 3570
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 29,
+      "startIndex": 33,
       "endIndex": 36,
       "startConnectorIndex": 3,
       "endConnectorIndex": 0,
@@ -2216,7 +1753,7 @@
     },
     {
       "startIndex": 36,
-      "endIndex": 28,
+      "endIndex": 32,
       "startConnectorIndex": 3,
       "endConnectorIndex": 3,
       "nodes": [
@@ -2229,16 +1766,16 @@
           "y": 3600
         },
         {
-          "x": -90,
-          "y": 2800
+          "x": -30,
+          "y": 3200
         },
         {
           "x": -80,
-          "y": 2800
+          "y": 3200
         },
         {
           "x": -60,
-          "y": 2800
+          "y": 3200
         }
       ],
       "counts": [
@@ -2250,21 +1787,21 @@
       ]
     },
     {
-      "startIndex": 28,
+      "startIndex": 32,
       "endIndex": 37,
       "startConnectorIndex": 1,
       "endConnectorIndex": 0,
       "nodes": [
         {
           "x": 60,
-          "y": 2800
+          "y": 3200
         },
         {
-          "x": 300,
-          "y": 2800
+          "x": 180,
+          "y": 3200
         },
         {
-          "x": 300,
+          "x": 180,
           "y": 3650
         },
         {
@@ -2285,12 +1822,70 @@
       ]
     },
     {
-      "startIndex": 38,
-      "endIndex": 39,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
+      "startIndex": 37,
+      "endIndex": 31,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": -60,
+          "y": 3700
+        },
+        {
+          "x": -90,
+          "y": 3700
+        },
+        {
+          "x": -50,
+          "y": 3100
+        },
+        {
+          "x": -80,
+          "y": 3100
+        },
+        {
+          "x": -60,
+          "y": 3100
+        }
+      ],
       "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 31,
+      "endIndex": 38,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [
+        {
+          "x": 60,
+          "y": 3100
+        },
+        {
+          "x": 200,
+          "y": 3100
+        },
+        {
+          "x": 200,
+          "y": 3750
+        },
+        {
+          "x": 0,
+          "y": 3750
+        },
+        {
+          "x": 0,
+          "y": 3770
+        }
+      ],
+      "counts": [
+        1,
+        1,
         1,
         1,
         1
@@ -2335,7 +1930,7 @@
     {
       "startIndex": 42,
       "endIndex": 43,
-      "startConnectorIndex": 1,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
@@ -2393,20 +1988,8 @@
       ]
     },
     {
-      "startIndex": 47,
-      "endIndex": 48,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
       "startIndex": 45,
-      "endIndex": 48,
+      "endIndex": 47,
       "startConnectorIndex": 3,
       "endConnectorIndex": 0,
       "nodes": [],
@@ -2419,30 +2002,30 @@
       ]
     },
     {
-      "startIndex": 48,
+      "startIndex": 47,
       "endIndex": 44,
       "startConnectorIndex": 3,
       "endConnectorIndex": 3,
       "nodes": [
         {
-          "x": 40,
-          "y": 4800
+          "x": -60,
+          "y": 4900
         },
         {
-          "x": 10,
-          "y": 4800
+          "x": -90,
+          "y": 4900
         },
         {
-          "x": 10,
-          "y": 4400
+          "x": -30,
+          "y": 4600
         },
         {
-          "x": 20,
-          "y": 4400
+          "x": -80,
+          "y": 4600
         },
         {
-          "x": 40,
-          "y": 4400
+          "x": -60,
+          "y": 4600
         }
       ],
       "counts": [
@@ -2455,104 +2038,20 @@
     },
     {
       "startIndex": 44,
-      "endIndex": 49,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 160,
-          "y": 4400
-        },
-        {
-          "x": 280,
-          "y": 4400
-        },
-        {
-          "x": 280,
-          "y": 4850
-        },
-        {
-          "x": 100,
-          "y": 4850
-        },
-        {
-          "x": 100,
-          "y": 4870
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 42,
-      "endIndex": 49,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 49,
-      "endIndex": 41,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": -60,
-          "y": 4900
-        },
-        {
-          "x": -90,
-          "y": 4900
-        },
-        {
-          "x": -90,
-          "y": 4100
-        },
-        {
-          "x": -80,
-          "y": 4100
-        },
-        {
-          "x": -60,
-          "y": 4100
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 41,
-      "endIndex": 50,
+      "endIndex": 48,
       "startConnectorIndex": 1,
       "endConnectorIndex": 0,
       "nodes": [
         {
           "x": 60,
-          "y": 4100
+          "y": 4600
         },
         {
-          "x": 300,
-          "y": 4100
+          "x": 180,
+          "y": 4600
         },
         {
-          "x": 300,
+          "x": 180,
           "y": 4950
         },
         {
@@ -2573,6 +2072,56 @@
       ]
     },
     {
+      "startIndex": 48,
+      "endIndex": 49,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 49,
+      "endIndex": 50,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 48,
+      "endIndex": 50,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 50,
+      "endIndex": 51,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
       "startIndex": 51,
       "endIndex": 52,
       "startConnectorIndex": 2,
@@ -2585,9 +2134,23 @@
       ]
     },
     {
+      "startIndex": 50,
+      "endIndex": 52,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
       "startIndex": 52,
       "endIndex": 53,
-      "startConnectorIndex": 2,
+      "startConnectorIndex": 1,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
@@ -2609,24 +2172,84 @@
       ]
     },
     {
-      "startIndex": 54,
-      "endIndex": 55,
-      "startConnectorIndex": 1,
+      "startIndex": 52,
+      "endIndex": 54,
+      "startConnectorIndex": 3,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
+        1,
+        1,
         1,
         1,
         1
       ]
     },
     {
-      "startIndex": 55,
-      "endIndex": 56,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
+      "startIndex": 54,
+      "endIndex": 43,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": -60,
+          "y": 5600
+        },
+        {
+          "x": -90,
+          "y": 5600
+        },
+        {
+          "x": -80,
+          "y": 4500
+        },
+        {
+          "x": -80,
+          "y": 4500
+        },
+        {
+          "x": -60,
+          "y": 4500
+        }
+      ],
       "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 43,
+      "endIndex": 55,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [
+        {
+          "x": 60,
+          "y": 4500
+        },
+        {
+          "x": 200,
+          "y": 4500
+        },
+        {
+          "x": 200,
+          "y": 5650
+        },
+        {
+          "x": 0,
+          "y": 5650
+        },
+        {
+          "x": 0,
+          "y": 5670
+        }
+      ],
+      "counts": [
+        1,
+        1,
         1,
         1,
         1
@@ -2647,7 +2270,7 @@
     {
       "startIndex": 57,
       "endIndex": 58,
-      "startConnectorIndex": 1,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
@@ -2681,98 +2304,12 @@
       ]
     },
     {
-      "startIndex": 57,
-      "endIndex": 60,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
       "startIndex": 60,
-      "endIndex": 56,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": 40,
-          "y": 6000
-        },
-        {
-          "x": 10,
-          "y": 6000
-        },
-        {
-          "x": 10,
-          "y": 5600
-        },
-        {
-          "x": 20,
-          "y": 5600
-        },
-        {
-          "x": 40,
-          "y": 5600
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 56,
       "endIndex": 61,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 160,
-          "y": 5600
-        },
-        {
-          "x": 280,
-          "y": 5600
-        },
-        {
-          "x": 280,
-          "y": 6050
-        },
-        {
-          "x": 100,
-          "y": 6050
-        },
-        {
-          "x": 100,
-          "y": 6070
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 54,
-      "endIndex": 61,
-      "startConnectorIndex": 3,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
-        1,
-        1,
         1,
         1,
         1
@@ -2780,29 +2317,29 @@
     },
     {
       "startIndex": 61,
-      "endIndex": 53,
+      "endIndex": 59,
       "startConnectorIndex": 3,
       "endConnectorIndex": 3,
       "nodes": [
         {
           "x": -60,
-          "y": 6100
+          "y": 6300
         },
         {
           "x": -90,
-          "y": 6100
+          "y": 6300
         },
         {
-          "x": -90,
-          "y": 5300
+          "x": -20,
+          "y": 6100
         },
         {
           "x": -80,
-          "y": 5300
+          "y": 6100
         },
         {
           "x": -60,
-          "y": 5300
+          "y": 6100
         }
       ],
       "counts": [
@@ -2814,35 +2351,47 @@
       ]
     },
     {
-      "startIndex": 53,
+      "startIndex": 59,
       "endIndex": 62,
       "startConnectorIndex": 1,
       "endConnectorIndex": 0,
       "nodes": [
         {
           "x": 60,
-          "y": 5300
+          "y": 6100
         },
         {
-          "x": 300,
-          "y": 5300
+          "x": 20,
+          "y": 6100
         },
         {
-          "x": 300,
-          "y": 6150
-        },
-        {
-          "x": 0,
-          "y": 6150
+          "x": 20,
+          "y": 6350
         },
         {
           "x": 0,
-          "y": 6170
+          "y": 6350
+        },
+        {
+          "x": 0,
+          "y": 6370
         }
       ],
       "counts": [
         1,
         1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 62,
+      "endIndex": 63,
+      "startConnectorIndex": 2,
+      "endConnectorIndex": 0,
+      "nodes": [],
+      "counts": [
         1,
         1,
         1
@@ -2874,11 +2423,69 @@
     },
     {
       "startIndex": 65,
-      "endIndex": 66,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
+      "endIndex": 63,
+      "startConnectorIndex": 3,
+      "endConnectorIndex": 3,
+      "nodes": [
+        {
+          "x": -60,
+          "y": 6700
+        },
+        {
+          "x": -90,
+          "y": 6700
+        },
+        {
+          "x": -40,
+          "y": 6500
+        },
+        {
+          "x": -80,
+          "y": 6500
+        },
+        {
+          "x": -60,
+          "y": 6500
+        }
+      ],
       "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "startIndex": 63,
+      "endIndex": 66,
+      "startConnectorIndex": 1,
+      "endConnectorIndex": 0,
+      "nodes": [
+        {
+          "x": 60,
+          "y": 6500
+        },
+        {
+          "x": 40,
+          "y": 6500
+        },
+        {
+          "x": 40,
+          "y": 6750
+        },
+        {
+          "x": 0,
+          "y": 6750
+        },
+        {
+          "x": 0,
+          "y": 6770
+        }
+      ],
+      "counts": [
+        1,
+        1,
         1,
         1,
         1
@@ -2887,7 +2494,7 @@
     {
       "startIndex": 66,
       "endIndex": 67,
-      "startConnectorIndex": 1,
+      "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],
       "counts": [
@@ -2923,578 +2530,6 @@
     {
       "startIndex": 69,
       "endIndex": 70,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 70,
-      "endIndex": 71,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 71,
-      "endIndex": 72,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 69,
-      "endIndex": 72,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 72,
-      "endIndex": 68,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": 40,
-          "y": 7200
-        },
-        {
-          "x": 10,
-          "y": 7200
-        },
-        {
-          "x": 10,
-          "y": 6800
-        },
-        {
-          "x": 20,
-          "y": 6800
-        },
-        {
-          "x": 40,
-          "y": 6800
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 68,
-      "endIndex": 73,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 160,
-          "y": 6800
-        },
-        {
-          "x": 280,
-          "y": 6800
-        },
-        {
-          "x": 280,
-          "y": 7250
-        },
-        {
-          "x": 100,
-          "y": 7250
-        },
-        {
-          "x": 100,
-          "y": 7270
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 66,
-      "endIndex": 73,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 73,
-      "endIndex": 65,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": -60,
-          "y": 7300
-        },
-        {
-          "x": -90,
-          "y": 7300
-        },
-        {
-          "x": -90,
-          "y": 6500
-        },
-        {
-          "x": -80,
-          "y": 6500
-        },
-        {
-          "x": -60,
-          "y": 6500
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 65,
-      "endIndex": 74,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 60,
-          "y": 6500
-        },
-        {
-          "x": 300,
-          "y": 6500
-        },
-        {
-          "x": 300,
-          "y": 7350
-        },
-        {
-          "x": 0,
-          "y": 7350
-        },
-        {
-          "x": 0,
-          "y": 7370
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 75,
-      "endIndex": 76,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 76,
-      "endIndex": 77,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 77,
-      "endIndex": 78,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 78,
-      "endIndex": 79,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 79,
-      "endIndex": 80,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 80,
-      "endIndex": 78,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": -60,
-          "y": 8000
-        },
-        {
-          "x": -90,
-          "y": 8000
-        },
-        {
-          "x": -90,
-          "y": 7800
-        },
-        {
-          "x": -80,
-          "y": 7800
-        },
-        {
-          "x": -60,
-          "y": 7800
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 78,
-      "endIndex": 81,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 60,
-          "y": 7800
-        },
-        {
-          "x": 20,
-          "y": 7800
-        },
-        {
-          "x": 20,
-          "y": 8050
-        },
-        {
-          "x": 0,
-          "y": 8050
-        },
-        {
-          "x": 0,
-          "y": 8070
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 81,
-      "endIndex": 82,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 82,
-      "endIndex": 83,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 83,
-      "endIndex": 84,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 84,
-      "endIndex": 85,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 85,
-      "endIndex": 86,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 86,
-      "endIndex": 87,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 87,
-      "endIndex": 85,
-      "startConnectorIndex": 3,
-      "endConnectorIndex": 3,
-      "nodes": [
-        {
-          "x": -60,
-          "y": 8700
-        },
-        {
-          "x": -90,
-          "y": 8700
-        },
-        {
-          "x": -90,
-          "y": 8500
-        },
-        {
-          "x": -80,
-          "y": 8500
-        },
-        {
-          "x": -60,
-          "y": 8500
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 85,
-      "endIndex": 88,
-      "startConnectorIndex": 1,
-      "endConnectorIndex": 0,
-      "nodes": [
-        {
-          "x": 60,
-          "y": 8500
-        },
-        {
-          "x": 40,
-          "y": 8500
-        },
-        {
-          "x": 40,
-          "y": 8750
-        },
-        {
-          "x": 0,
-          "y": 8750
-        },
-        {
-          "x": 0,
-          "y": 8770
-        }
-      ],
-      "counts": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 88,
-      "endIndex": 89,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 89,
-      "endIndex": 90,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 90,
-      "endIndex": 91,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 91,
-      "endIndex": 92,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 92,
-      "endIndex": 93,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 93,
-      "endIndex": 94,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 94,
-      "endIndex": 95,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 95,
-      "endIndex": 96,
-      "startConnectorIndex": 2,
-      "endConnectorIndex": 0,
-      "nodes": [],
-      "counts": [
-        1,
-        1,
-        1
-      ]
-    },
-    {
-      "startIndex": 96,
-      "endIndex": 97,
       "startConnectorIndex": 2,
       "endConnectorIndex": 0,
       "nodes": [],

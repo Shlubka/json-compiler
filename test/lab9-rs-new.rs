@@ -1,4 +1,4 @@
-/*use rand::Rng;
+use rand::Rng;
 use std::collections::{HashSet, VecDeque};
 use std::io::{self, Write};
 use std::time::Instant;
@@ -17,7 +17,7 @@ fn read_from_keyboard() -> u32 {
         println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
         return 10;
     }
-}*/
+}
 
 fn create_graph(size: usize) -> Vec<Vec<u32>> {
     let mut rng = rand::thread_rng();
@@ -36,7 +36,7 @@ fn create_graph(size: usize) -> Vec<Vec<u32>> {
     return graf;
 }
 
-/*fn create_adjacency_list(graf: &Vec<Vec<u32>>) -> Vec<Vec<usize>> {
+fn create_adjacency_list(graf: &Vec<Vec<u32>>) -> Vec<Vec<usize>> {
     let size = graf.len();
     let mut adj_list = vec![vec![]; size];
 
@@ -184,4 +184,3 @@ fn main() {
     println!("Distances: {:?}", distances);
     println!("Time elapsed: {:?}", duration);
 }
-*/

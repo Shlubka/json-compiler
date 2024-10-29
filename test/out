@@ -1,318 +1,1301 @@
-Processing node: kind=source_file, text=/*use rand::Rng;
-use std::collections::{HashSet, VecDeque};
-use std::io::{self, Write};
-use std::time::Instant;
+Processing node: kind=source_file, text=fn match_test() {
+    while true {
+        match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
+        }
+    }
+    println!("end");
+}
 
-fn read_from_keyboard() -> u32 {
-    io::stdout().flush().expect("flush error");
-    let mut input_text = String::new();
-    io::stdin()
-        .read_line(&mut input_text)
-        .expect("failed to read from stdin");
 
-    let trimmed = input_text.trim();
-    if let Ok(i) = trimmed.parse::<u32>() {
-        return i;
+fn goyda() -> bool {
+    let condition1 = true;
+    let condition2 = true;
+    let condition3 = true;
+    let condition4 = false;
+    let condition6 = false;
+    let condition8 = false;
+
+    if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            println!("statement3");
+        }
+    } else if condition8 {
+        println!("statement4");
     } else {
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
-    }
-}*/
-
-fn create_graph(size: usize) -> Vec<Vec<u32>> {
-    let mut rng = rand::thread_rng();
-    let mut graf = vec![vec![0u32; size]; size];
-
-    for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
+        println!("statement5");
     }
 
-    return graf;
+    return true;
 }
 
-/*fn create_adjacency_list(graf: &Vec<Vec<u32>>) -> Vec<Vec<usize>> {
-    let size = graf.len();
-    let mut adj_list = vec![vec![]; size];
+fn main() -> i32 {
+    let gg = 0;
 
-    for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-        }
+    for i in 1..10 {
+        println!("all ok");
     }
 
-    return adj_list;
+    loop {
+        goyda();
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+
+    while gg < 10 {
+        if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
+            }
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
+        }
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+
+
+    return 1;
 }
 
-fn bfs_matrix(graf: &Vec<Vec<u32>>, start: usize) -> Vec<usize> {
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
 
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
+Processing node: kind=function_item, text=fn match_test() {
+    while true {
+        match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
             }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
         }
     }
-
-    return distances;
-}
-
-fn bfs_list(adj_list: &Vec<Vec<usize>>, start: usize) -> Vec<usize> {
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
-
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-
-fn dfs_matrix(graf: &Vec<Vec<u32>>, start: usize) -> Vec<usize> {
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-
-fn dfs_list(adj_list: &Vec<Vec<usize>>, start: usize) -> Vec<usize> {
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-
-fn main() {
-    print!("Enter graph size, more than 0 (one number for line and column) > ");
-    let size = read_from_keyboard();
-    let graf = create_graph(size as usize);
-
-    println!("Graph:");
-    for row in &graf {
-        println!("{:?}", row);
-    }
-
-    println!("BFS using matrix");
-    let start = Instant::now();
-    let distances = bfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    let adj_list = create_adjacency_list(&graf);
-    println!("Graph:");
-    for row in &adj_list {
-        println!("{:?}", row);
-    }
-    println!("BFS using adjacency list:");
-    let start = Instant::now();
-    let distances = bfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using matrix");
-    let start = Instant::now();
-    let distances = dfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using adjacency list:");
-    let start = Instant::now();
-    let distances = dfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-}
-*/
-
-Processing node: kind=block_comment, text=/*use rand::Rng;
-use std::collections::{HashSet, VecDeque};
-use std::io::{self, Write};
-use std::time::Instant;
-
-fn read_from_keyboard() -> u32 {
-    io::stdout().flush().expect("flush error");
-    let mut input_text = String::new();
-    io::stdin()
-        .read_line(&mut input_text)
-        .expect("failed to read from stdin");
-
-    let trimmed = input_text.trim();
-    if let Ok(i) = trimmed.parse::<u32>() {
-        return i;
-    } else {
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
-    }
-}*/
-Processing node: kind=function_item, text=fn create_graph(size: usize) -> Vec<Vec<u32>> {
-    let mut rng = rand::thread_rng();
-    let mut graf = vec![vec![0u32; size]; size];
-
-    for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-
-    return graf;
+    println!("end");
 }
 Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=create_graph
-12
+Processing node: kind=identifier, text=match_test
+10
 push fn
-Processing node: kind=parameters, text=(size: usize)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<Vec<u32>>
+Processing node: kind=parameters, text=()
 Processing node: kind=block, text={
-    let mut rng = rand::thread_rng();
-    let mut graf = vec![vec![0u32; size]; size];
-
-    for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
+    while true {
+        match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
             }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
         }
     }
-
-    return graf;
+    println!("end");
 }
 Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let mut rng = rand::thread_rng();
-Processing node: kind=let_declaration, text=let mut graf = vec![vec![0u32; size]; size];
-Processing node: kind=expression_statement, text=for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
+Processing node: kind=expression_statement, text=while true {
+        match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
             }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
         }
     }
-Processing node: kind=for_expression, text=for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
+Processing node: kind=while_expression, text=while true {
+        match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
             }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
         }
     }
-push for
-Processing node: kind=expression_statement, text=for j in i..size {
-            if i == j {
-                continue;
+Processing node: kind=expression_statement, text=match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
             }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
         }
-Processing node: kind=for_expression, text=for j in i..size {
-            if i == j {
-                continue;
+Processing node: kind=match_expression, text=match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
             }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
         }
-push for
-Processing node: kind=expression_statement, text=if i == j {
-                continue;
+push match
+Processing node: kind=match, text=match
+Processing node: kind=identifier, text=gg
+Processing node: kind=match_block, text={
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
             }
-Processing node: kind=if_expression, text=if i == j {
-                continue;
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
             }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=continue;
-Processing node: kind=continue_expression, text=continue
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
+        }
+Processing node: kind={, text={
+Processing node: kind=match_arm, text=1 => println!("1"),
+Processing node: kind=match_pattern, text=1
+Processing node: kind==>, text==>
+Processing node: kind=macro_invocation, text=println!("1")
+Processing node: kind=,, text=,
+push end match arm
+Processing node: kind=match_arm, text=2 => {
+                println!("2");
+                println!("2");
+            }
+Processing node: kind=match_pattern, text=2
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("2");
+                println!("2");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("2");
+Processing node: kind=macro_invocation, text=println!("2")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("2");
+Processing node: kind=macro_invocation, text=println!("2")
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(If(0, 300, 0))
-len of block mass = 4
-Handling If block at 0:300
-Processing node: kind=expression_statement, text=graf[i][j] = rng.gen::<u32>() % 2;
-Processing node: kind=assignment_expression, text=graf[i][j] = rng.gen::<u32>() % 2
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=graf[j][i] = graf[i][j];
-Processing node: kind=assignment_expression, text=graf[j][i] = graf[i][j]
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(For(0, 200))
+Some(Match(0, 300, 15))
 len of block mass = 3
-Handling For block at 0:200
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(For(0, 100))
+Some(Match(0, 300, 14))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 13))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 12))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 11))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 10))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 9))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 8))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 7))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 6))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 5))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 4))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 3))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind=match_pattern, text=3
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("3");
+Processing node: kind=macro_invocation, text=println!("3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 2))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+Processing node: kind=match_pattern, text=4
+Processing node: kind==>, text==>
+Processing node: kind=block, text={
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("4");
+Processing node: kind=macro_invocation, text=println!("4")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("4");
+Processing node: kind=macro_invocation, text=println!("4")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("4");
+Processing node: kind=macro_invocation, text=println!("4")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=println!("4");
+Processing node: kind=macro_invocation, text=println!("4")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Match(0, 300, 1))
+len of block mass = 3
+skip pop
+Processing node: kind=match_arm, text=_ => println!("other"),
+Processing node: kind=match_pattern, text=_
+Processing node: kind==>, text==>
+Processing node: kind=macro_invocation, text=println!("other")
+Processing node: kind=,, text=,
+push end match arm
+Processing node: kind=}, text=}
+Some(Match(0, 300, 0))
+len of block mass = 3
+Processing node: kind=}, text=}
+Some(While(0, 100))
 len of block mass = 2
-Handling For block at 0:100
-Processing node: kind=expression_statement, text=return graf;
-Processing node: kind=return_expression, text=return graf
+Handling While block at 0:100
+Processing node: kind=expression_statement, text=println!("end");
+Processing node: kind=macro_invocation, text=println!("end")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Func)
+len of block mass = 1
+Handling Func block
+Processing node: kind=function_item, text=fn goyda() -> bool {
+    let condition1 = true;
+    let condition2 = true;
+    let condition3 = true;
+    let condition4 = false;
+    let condition6 = false;
+    let condition8 = false;
+
+    if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            println!("statement3");
+        }
+    } else if condition8 {
+        println!("statement4");
+    } else {
+        println!("statement5");
+    }
+
+    return true;
+}
+Processing node: kind=fn, text=fn
+Processing node: kind=identifier, text=goyda
+5
+push fn
+Processing node: kind=parameters, text=()
+Processing node: kind=->, text=->
+Processing node: kind=primitive_type, text=bool
+Processing node: kind=block, text={
+    let condition1 = true;
+    let condition2 = true;
+    let condition3 = true;
+    let condition4 = false;
+    let condition6 = false;
+    let condition8 = false;
+
+    if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            println!("statement3");
+        }
+    } else if condition8 {
+        println!("statement4");
+    } else {
+        println!("statement5");
+    }
+
+    return true;
+}
+Processing node: kind={, text={
+Processing node: kind=let_declaration, text=let condition1 = true;
+Processing node: kind=let_declaration, text=let condition2 = true;
+Processing node: kind=let_declaration, text=let condition3 = true;
+Processing node: kind=let_declaration, text=let condition4 = false;
+Processing node: kind=let_declaration, text=let condition6 = false;
+Processing node: kind=let_declaration, text=let condition8 = false;
+Processing node: kind=expression_statement, text=if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            println!("statement3");
+        }
+    } else if condition8 {
+        println!("statement4");
+    } else {
+        println!("statement5");
+    }
+Processing node: kind=if_expression, text=if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            println!("statement3");
+        }
+    } else if condition8 {
+        println!("statement4");
+    } else {
+        println!("statement5");
+    }
+push if
+local_offset == 200, else_count = 3, else_if_count == 1
+Processing node: kind=expression_statement, text=println!("statement1");
+Processing node: kind=macro_invocation, text=println!("statement1")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=if condition2 {
+            println!("statement2");
+        } else {
+            println!("statement3");
+        }
+Processing node: kind=if_expression, text=if condition2 {
+            println!("statement2");
+        } else {
+            println!("statement3");
+        }
+push if
+local_offset == 100, else_count = 1, else_if_count == 0
+Processing node: kind=expression_statement, text=println!("statement2");
+Processing node: kind=macro_invocation, text=println!("statement2")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(200, 1450, 100))
+len of block mass = 3
+Handling If block at 200:1450
+Processing node: kind=else_clause, text=else {
+            println!("statement3");
+        }
+mr penis
+Processing node: kind=else, text=else
+create else info block
+Processing node: kind=block, text={
+            println!("statement3");
+        }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("statement3");
+Processing node: kind=macro_invocation, text=println!("statement3")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Else(100, 1450))
+len of block mass = 3
+pop else
+Processing node: kind=}, text=}
+Some(If(0, 1250, 200))
+len of block mass = 2
+Handling If block at 0:1250
+Processing node: kind=else_clause, text=else if condition8 {
+        println!("statement4");
+    } else {
+        println!("statement5");
+    }
+push if
+local_offset == 100, else_count = 2, else_if_count == 1
+Processing node: kind=expression_statement, text=println!("statement4");
+Processing node: kind=macro_invocation, text=println!("statement4")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(100, 1750, 100))
+len of block mass = 2
+Handling If block at 100:1750
+Processing node: kind=else_clause, text=else {
+        println!("statement5");
+    }
+mr penis
+Processing node: kind=else, text=else
+create else info block
+Processing node: kind=block, text={
+        println!("statement5");
+    }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("statement5");
+Processing node: kind=macro_invocation, text=println!("statement5")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Else(0, 1750))
+len of block mass = 2
+pop else
+Processing node: kind=expression_statement, text=return true;
+Processing node: kind=return_expression, text=return true
 push return
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
@@ -320,258 +1303,1546 @@ Some(Func)
 len of block mass = 1
 Handling Func block
 skip brecket
-Processing node: kind=block_comment, text=/*fn create_adjacency_list(graf: &Vec<Vec<u32>>) -> Vec<Vec<usize>> {
-    let size = graf.len();
-    let mut adj_list = vec![vec![]; size];
+Processing node: kind=function_item, text=fn main() -> i32 {
+    let gg = 0;
 
-    for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
+    for i in 1..10 {
+        println!("all ok");
+    }
+
+    loop {
+        goyda();
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+
+    while gg < 10 {
+        if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
             }
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
         }
+        break; // Добавлено для предотвращения бесконечного цикла
     }
 
-    return adj_list;
+
+    return 1;
 }
+Processing node: kind=fn, text=fn
+Processing node: kind=identifier, text=main
+4
+push fn
+Processing node: kind=parameters, text=()
+Processing node: kind=->, text=->
+Processing node: kind=primitive_type, text=i32
+Processing node: kind=block, text={
+    let gg = 0;
 
-fn bfs_matrix(graf: &Vec<Vec<u32>>, start: usize) -> Vec<usize> {
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
+    for i in 1..10 {
+        println!("all ok");
+    }
 
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
+    loop {
+        goyda();
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+
+    while gg < 10 {
+        if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
             }
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
         }
+        break; // Добавлено для предотвращения бесконечного цикла
     }
 
-    return distances;
+
+    return 1;
 }
-
-fn bfs_list(adj_list: &Vec<Vec<usize>>, start: usize) -> Vec<usize> {
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
-
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
+Processing node: kind={, text={
+Processing node: kind=let_declaration, text=let gg = 0;
+Processing node: kind=expression_statement, text=for i in 1..10 {
+        println!("all ok");
+    }
+Processing node: kind=for_expression, text=for i in 1..10 {
+        println!("all ok");
+    }
+push for
+Processing node: kind=expression_statement, text=println!("all ok");
+Processing node: kind=macro_invocation, text=println!("all ok")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(For(0, 2250))
+len of block mass = 2
+Handling For block at 0:2250
+Processing node: kind=expression_statement, text=loop {
+        goyda();
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+Processing node: kind=loop_expression, text=loop {
+        goyda();
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+Processing node: kind=loop, text=loop
+push loop
+Processing node: kind=block, text={
+        goyda();
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=goyda();
+Processing node: kind=call_expression, text=goyda()
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=break;
+Processing node: kind=break_expression, text=break
+Processing node: kind=;, text=;
+Processing node: kind=line_comment, text=// Добавлено для предотвращения бесконечного цикла
+Processing node: kind=}, text=}
+Some(Loop(0, 2550))
+len of block mass = 2
+Handling Loop block at 0:2550
+Processing node: kind=expression_statement, text=while gg < 10 {
+        if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
             }
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
         }
+        break; // Добавлено для предотвращения бесконечного цикла
     }
-
-    return distances;
-}
-
-fn dfs_matrix(graf: &Vec<Vec<u32>>, start: usize) -> Vec<usize> {
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
+Processing node: kind=while_expression, text=while gg < 10 {
+        if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
             }
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
         }
+        break; // Добавлено для предотвращения бесконечного цикла
     }
-
-    return distances;
-}
-
-fn dfs_list(adj_list: &Vec<Vec<usize>>, start: usize) -> Vec<usize> {
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
+Processing node: kind=expression_statement, text=if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
             }
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
         }
-    }
-
-    return distances;
-}
-
-fn main() {
-    print!("Enter graph size, more than 0 (one number for line and column) > ");
-    let size = read_from_keyboard();
-    let graf = create_graph(size as usize);
-
-    println!("Graph:");
-    for row in &graf {
-        println!("{:?}", row);
-    }
-
-    println!("BFS using matrix");
-    let start = Instant::now();
-    let distances = bfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    let adj_list = create_adjacency_list(&graf);
-    println!("Graph:");
-    for row in &adj_list {
-        println!("{:?}", row);
-    }
-    println!("BFS using adjacency list:");
-    let start = Instant::now();
-    let distances = bfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using matrix");
-    let start = Instant::now();
-    let distances = dfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using adjacency list:");
-    let start = Instant::now();
-    let distances = dfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-}
-*/
+Processing node: kind=if_expression, text=if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
+            }
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
+        }
+push if
+local_offset == 200, else_count = 3, else_if_count == 1
+Processing node: kind=expression_statement, text=println!("statement1");
+Processing node: kind=macro_invocation, text=println!("statement1")
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
+            }
+Processing node: kind=if_expression, text=if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
+            }
+push if
+local_offset == 100, else_count = 1, else_if_count == 0
+Processing node: kind=expression_statement, text=println!("statement6");
+Processing node: kind=macro_invocation, text=println!("statement6")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(200, 3250, 100))
+len of block mass = 4
+Handling If block at 200:3250
+Processing node: kind=else_clause, text=else {
+                println!("statement7");
+            }
+mr penis
+Processing node: kind=else, text=else
+create else info block
+Processing node: kind=block, text={
+                println!("statement7");
+            }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("statement7");
+Processing node: kind=macro_invocation, text=println!("statement7")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Else(100, 3250))
+len of block mass = 4
+pop else
+Processing node: kind=}, text=}
+Some(If(0, 3050, 200))
+len of block mass = 3
+Handling If block at 0:3050
+Processing node: kind=else_clause, text=else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
+        }
+push if
+local_offset == 100, else_count = 2, else_if_count == 1
+Processing node: kind=expression_statement, text=println!("statement8");
+Processing node: kind=macro_invocation, text=println!("statement8")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(100, 3550, 100))
+len of block mass = 3
+Handling If block at 100:3550
+Processing node: kind=else_clause, text=else {
+            println!("statement9");
+        }
+mr penis
+Processing node: kind=else, text=else
+create else info block
+Processing node: kind=block, text={
+            println!("statement9");
+        }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("statement9");
+Processing node: kind=macro_invocation, text=println!("statement9")
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Else(0, 3550))
+len of block mass = 3
+pop else
+Processing node: kind=expression_statement, text=break;
+Processing node: kind=break_expression, text=break
+Processing node: kind=;, text=;
+Processing node: kind=line_comment, text=// Добавлено для предотвращения бесконечного цикла
+Processing node: kind=}, text=}
+Some(While(0, 2950))
+len of block mass = 2
+Handling While block at 0:2950
+Processing node: kind=expression_statement, text=return 1;
+Processing node: kind=return_expression, text=return 1
+push return
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Func)
+len of block mass = 1
+Handling Func block
+skip brecket
 Final block vector: [
     LocalVecBlock {
         type: Start,
-        text: "create_graph",
+        text: "match_test",
         x: 0,
         y: 0,
     },
     LocalVecBlock {
         type: Cycle,
-        text: "for i in 0..size ",
+        text: "while true ",
         x: 0,
         y: 100,
     },
     LocalVecBlock {
-        type: Cycle,
-        text: "for j in i..size ",
+        type: Condition,
+        text: "match gg ",
         x: 0,
         y: 200,
     },
     LocalVecBlock {
-        type: Condition,
-        text: "if i == j ",
-        x: 0,
+        type: Action,
+        text: "1",
+        x: -2250,
         y: 300,
     },
     LocalVecBlock {
-        type: Action,
-        text: "continue",
-        x: 100,
+        type: Print,
+        text: "Вывод строки",
+        x: -2250,
         y: 400,
     },
     LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 100,
+        type: EndMatchArm,
+        text: ",",
+        x: -2250,
         y: 500,
     },
     LocalVecBlock {
         type: Action,
-        text: "graf[i][j] = rng.gen::<u32>() % 2",
-        x: 0,
+        text: "2",
+        x: -1950,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1950,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1950,
         y: 500,
     },
     LocalVecBlock {
-        type: Action,
-        text: "graf[j][i] = graf[i][j]",
-        x: 0,
+        type: EndMatchArm,
+        text: "}",
+        x: -1950,
         y: 600,
     },
     LocalVecBlock {
-        type: End,
-        text: "0:200",
-        x: 0,
+        type: Action,
+        text: "3",
+        x: -1650,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1650,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1650,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1650,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: -1650,
         y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: -1350,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1350,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1350,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1350,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: -1350,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: -1050,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1050,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1050,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -1050,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: -1050,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: -750,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -750,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -750,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -750,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: -750,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: -450,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -450,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -450,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -450,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: -450,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: -150,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -150,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -150,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: -150,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: -150,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: 150,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 150,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 150,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 150,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: 150,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: 450,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 450,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 450,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 450,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: 450,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: 750,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 750,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 750,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 750,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: 750,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: 1050,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1050,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1050,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1050,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: 1050,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: 1350,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1350,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1350,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1350,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: 1350,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: 1650,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1650,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1650,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1650,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: 1650,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "3",
+        x: 1950,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1950,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1950,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 1950,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: 1950,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "4",
+        x: 2250,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 2250,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 2250,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 2250,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 2250,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: "}",
+        x: 2250,
+        y: 800,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "_",
+        x: 2550,
+        y: 300,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 2550,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: EndMatchArm,
+        text: ",",
+        x: 2550,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "match",
+        x: 2550,
+        y: 600,
     },
     LocalVecBlock {
         type: End,
         text: "0:100",
         x: 0,
-        y: 800,
+        y: 850,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 0,
+        y: 950,
     },
     LocalVecBlock {
         type: End,
-        text: "return graf",
+        text: "}",
         x: 0,
-        y: 900,
+        y: 1050,
+    },
+    LocalVecBlock {
+        type: Start,
+        text: "goyda",
+        x: 0,
+        y: 1150,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "if condition1 ",
+        x: 0,
+        y: 1250,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 200,
+        y: 1350,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "if condition2 ",
+        x: 200,
+        y: 1450,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 300,
+        y: 1550,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: 300,
+        y: 1650,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "mr penis",
+        x: 100,
+        y: 1650,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "continue",
+        x: 100,
+        y: 1550,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 100,
+        y: 1550,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end else",
+        x: 100,
+        y: 1650,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: 200,
+        y: 1750,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "else if condition8 ",
+        x: 100,
+        y: 1750,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 200,
+        y: 1850,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: 200,
+        y: 1950,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "mr penis",
+        x: 0,
+        y: 1950,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "continue",
+        x: 0,
+        y: 1850,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 0,
+        y: 1850,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end else",
+        x: 0,
+        y: 1950,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "return true",
+        x: 100,
+        y: 2050,
+    },
+    LocalVecBlock {
+        type: Start,
+        text: "Начало",
+        x: 0,
+        y: 2150,
+    },
+    LocalVecBlock {
+        type: Cycle,
+        text: "for i in 1..10 ",
+        x: 0,
+        y: 2250,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 0,
+        y: 2350,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "0:2250",
+        x: 0,
+        y: 2450,
+    },
+    LocalVecBlock {
+        type: Cycle,
+        text: "loop",
+        x: 0,
+        y: 2550,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "goyda()",
+        x: 0,
+        y: 2650,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "break",
+        x: 0,
+        y: 2750,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "0:2550",
+        x: 0,
+        y: 2850,
+    },
+    LocalVecBlock {
+        type: Cycle,
+        text: "while gg < 10 ",
+        x: 0,
+        y: 2950,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "if condition1 ",
+        x: 0,
+        y: 3050,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 200,
+        y: 3150,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "if condition2 ",
+        x: 200,
+        y: 3250,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 300,
+        y: 3350,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: 300,
+        y: 3450,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "mr penis",
+        x: 100,
+        y: 3450,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "continue",
+        x: 100,
+        y: 3350,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 100,
+        y: 3350,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end else",
+        x: 100,
+        y: 3450,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: 200,
+        y: 3550,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "else if condition8 ",
+        x: 100,
+        y: 3550,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 200,
+        y: 3650,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: 200,
+        y: 3750,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "mr penis",
+        x: 0,
+        y: 3750,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "continue",
+        x: 0,
+        y: 3650,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "Вывод строки",
+        x: 0,
+        y: 3650,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end else",
+        x: 0,
+        y: 3750,
+    },
+    LocalVecBlock {
+        type: Action,
+        text: "break",
+        x: 100,
+        y: 3850,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "0:2950",
+        x: 100,
+        y: 3950,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "return 1",
+        x: 100,
+        y: 4050,
     },
 ]
 coords: x=0; y=0
 coords: x=0; y=100
 coords: x=0; y=200
-coords: x=0; y=300
-push iterator [3]
-coords: x=100; y=400
+push iterator [2]
+coords: x=-2250; y=300
 enter in check funk
-2
+1
+not more
+after check [-2310, 0]
+coords: x=-2250; y=400
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-2250; y=500
+push match arm
+coords: x=-1950; y=300
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1950; y=400
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1950; y=500
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1950; y=600
+push match arm
+coords: x=-1650; y=300
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1650; y=400
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1650; y=500
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1650; y=600
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1650; y=700
+push match arm
+coords: x=-1350; y=300
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1350; y=400
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1350; y=500
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1350; y=600
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1350; y=700
+push match arm
+coords: x=-1050; y=300
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1050; y=400
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1050; y=500
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1050; y=600
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-1050; y=700
+push match arm
+coords: x=-750; y=300
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-750; y=400
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-750; y=500
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-750; y=600
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-750; y=700
+push match arm
+coords: x=-450; y=300
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-450; y=400
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-450; y=500
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-450; y=600
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-450; y=700
+push match arm
+coords: x=-150; y=300
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-150; y=400
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-150; y=500
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-150; y=600
+enter in check funk
+1
+after check [-2310, 0]
+coords: x=-150; y=700
+push match arm
+coords: x=150; y=300
+enter in check funk
+1
 more
-after check [0, 160]
-coords: x=100; y=500
-coords: x=0; y=500
+after check [-2310, 210]
+coords: x=150; y=400
 enter in check funk
-2
-after check [0, 160]
-coords: x=0; y=600
+1
+after check [-2310, 210]
+coords: x=150; y=500
 enter in check funk
-2
-after check [0, 160]
-coords: x=0; y=700
-index: 2
-arrow after cycle
-
-metirial:
-x_m_m_a == [-10, 170]
-all current: x == 0, y == 700
-to: 200
-
-coords: x=0; y=800
+1
+after check [-2310, 210]
+coords: x=150; y=600
+enter in check funk
+1
+after check [-2310, 210]
+coords: x=150; y=700
+push match arm
+coords: x=450; y=300
+enter in check funk
+1
+more
+after check [-2310, 510]
+coords: x=450; y=400
+enter in check funk
+1
+after check [-2310, 510]
+coords: x=450; y=500
+enter in check funk
+1
+after check [-2310, 510]
+coords: x=450; y=600
+enter in check funk
+1
+after check [-2310, 510]
+coords: x=450; y=700
+push match arm
+coords: x=750; y=300
+enter in check funk
+1
+more
+after check [-2310, 810]
+coords: x=750; y=400
+enter in check funk
+1
+after check [-2310, 810]
+coords: x=750; y=500
+enter in check funk
+1
+after check [-2310, 810]
+coords: x=750; y=600
+enter in check funk
+1
+after check [-2310, 810]
+coords: x=750; y=700
+push match arm
+coords: x=1050; y=300
+enter in check funk
+1
+more
+after check [-2310, 1110]
+coords: x=1050; y=400
+enter in check funk
+1
+after check [-2310, 1110]
+coords: x=1050; y=500
+enter in check funk
+1
+after check [-2310, 1110]
+coords: x=1050; y=600
+enter in check funk
+1
+after check [-2310, 1110]
+coords: x=1050; y=700
+push match arm
+coords: x=1350; y=300
+enter in check funk
+1
+more
+after check [-2310, 1410]
+coords: x=1350; y=400
+enter in check funk
+1
+after check [-2310, 1410]
+coords: x=1350; y=500
+enter in check funk
+1
+after check [-2310, 1410]
+coords: x=1350; y=600
+enter in check funk
+1
+after check [-2310, 1410]
+coords: x=1350; y=700
+push match arm
+coords: x=1650; y=300
+enter in check funk
+1
+more
+after check [-2310, 1710]
+coords: x=1650; y=400
+enter in check funk
+1
+after check [-2310, 1710]
+coords: x=1650; y=500
+enter in check funk
+1
+after check [-2310, 1710]
+coords: x=1650; y=600
+enter in check funk
+1
+after check [-2310, 1710]
+coords: x=1650; y=700
+push match arm
+coords: x=1950; y=300
+enter in check funk
+1
+more
+after check [-2310, 2010]
+coords: x=1950; y=400
+enter in check funk
+1
+after check [-2310, 2010]
+coords: x=1950; y=500
+enter in check funk
+1
+after check [-2310, 2010]
+coords: x=1950; y=600
+enter in check funk
+1
+after check [-2310, 2010]
+coords: x=1950; y=700
+push match arm
+coords: x=2250; y=300
+enter in check funk
+1
+more
+after check [-2310, 2310]
+coords: x=2250; y=400
+enter in check funk
+1
+after check [-2310, 2310]
+coords: x=2250; y=500
+enter in check funk
+1
+after check [-2310, 2310]
+coords: x=2250; y=600
+enter in check funk
+1
+after check [-2310, 2310]
+coords: x=2250; y=700
+enter in check funk
+1
+after check [-2310, 2310]
+coords: x=2250; y=800
+push match arm
+coords: x=2550; y=300
+enter in check funk
+1
+more
+after check [-2310, 2610]
+coords: x=2550; y=400
+enter in check funk
+1
+after check [-2310, 2610]
+coords: x=2550; y=500
+push match arm
+coords: x=2550; y=600
+coords: x=0; y=850
 index: 1
+
+add arrow to cycle
+metirial:
+x_m_m_a == [-2320, 2620]
+all current: x == 0, y == 850
+to: x == 0; y == 100
 arrow after cycle
 
 metirial:
-x_m_m_a == [-20, 190]
-all current: x == 0, y == 800
-to: 100
+x_m_m_a == [-2330, 2620]
+all current: x == 0, y == 850
+to: x == 0; y == 100
 
-coords: x=0; y=900
+coords: x=0; y=950
+enter in check funk
+after check [-2330, 2630]
+coords: x=0; y=1050
+coords: x=0; y=1150
+coords: x=0; y=1250
+push iterator [2, 71]
+coords: x=200; y=1350
+enter in check funk
+after check [-10, 0]
+coords: x=200; y=1450
+push iterator [2, 71, 73]
+coords: x=300; y=1550
+enter in check funk
+after check [-20, 0]
+coords: x=300; y=1650
+coords: x=100; y=1650
+else goyda
+pop iterator [2, 71, 73]
+coords: x=100; y=1550
+coords: x=100; y=1550
+enter in check funk
+after check [-20, 0]
+coords: x=100; y=1650
+coords: x=200; y=1750
+coords: x=100; y=1750
+push iterator [2, 71, 76]
+coords: x=200; y=1850
+enter in check funk
+after check [-30, 0]
+coords: x=200; y=1950
+coords: x=0; y=1950
+else goyda
+pop iterator [2, 71, 76]
+coords: x=0; y=1850
+coords: x=0; y=1850
+enter in check funk
+after check [-30, 0]
+coords: x=0; y=1950
+coords: x=100; y=2050
+coords: x=0; y=2150
+coords: x=0; y=2250
+coords: x=0; y=2350
+enter in check funk
+1
+after check [0, 0]
+coords: x=0; y=2450
+index: 81
+
+add arrow to cycle
+metirial:
+x_m_m_a == [-10, 10]
+all current: x == 0, y == 2450
+to: x == 0; y == 2250
+arrow after cycle
+
+metirial:
+x_m_m_a == [-20, 10]
+all current: x == 0, y == 2450
+to: x == 0; y == 2250
+
+coords: x=0; y=2550
+coords: x=0; y=2650
+enter in check funk
+1
+after check [-20, 20]
+coords: x=0; y=2750
+enter in check funk
+1
+after check [-20, 20]
+coords: x=0; y=2850
+index: 84
+
+add arrow to cycle
+metirial:
+x_m_m_a == [-30, 30]
+all current: x == 0, y == 2850
+to: x == 0; y == 2550
+arrow after cycle
+
+metirial:
+x_m_m_a == [-40, 30]
+all current: x == 0, y == 2850
+to: x == 0; y == 2550
+
+coords: x=0; y=2950
+coords: x=0; y=3050
+push iterator [2, 71, 89]
+coords: x=200; y=3150
+enter in check funk
+1
+more
+after check [-50, 260]
+coords: x=200; y=3250
+push iterator [2, 71, 89, 91]
+coords: x=300; y=3350
+enter in check funk
+1
+more
+after check [-60, 360]
+coords: x=300; y=3450
+coords: x=100; y=3450
+else goyda
+pop iterator [2, 71, 89, 91]
+coords: x=100; y=3350
+coords: x=100; y=3350
+enter in check funk
+1
+after check [-60, 360]
+coords: x=100; y=3450
+coords: x=200; y=3550
+coords: x=100; y=3550
+push iterator [2, 71, 89, 94]
+coords: x=200; y=3650
+enter in check funk
+1
+after check [-70, 360]
+coords: x=200; y=3750
+coords: x=0; y=3750
+else goyda
+pop iterator [2, 71, 89, 94]
+coords: x=0; y=3650
+coords: x=0; y=3650
+enter in check funk
+1
+after check [-70, 360]
+coords: x=0; y=3750
+coords: x=100; y=3850
+enter in check funk
+1
+after check [-70, 360]
+coords: x=100; y=3950
+index: 88
+
+add arrow to cycle
+metirial:
+x_m_m_a == [-80, 370]
+all current: x == 100, y == 3950
+to: x == 0; y == 2950
+arrow after cycle
+
+metirial:
+x_m_m_a == [-90, 370]
+all current: x == 100, y == 3950
+to: x == 0; y == 2950
+
+coords: x=100; y=4050
