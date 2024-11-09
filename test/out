@@ -1,2426 +1,906 @@
-Processing node: kind=source_file, text=use rand::Rng;
-use std::collections::{HashSet, VecDeque};
-use std::io::{self, Write};
-use std::time::Instant;
+Processing node: kind=source_file, text=/*fn match_test() {
+    while true {
+        match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
+        }
+    }
+    println!("end");
+}*/
 
-fn read_from_keyboard() -> u32 {
-    io::stdout().flush().expect("flush error");
-    let mut input_text = String::new();
-    io::stdin()
-        .read_line(&mut input_text)
-        .expect("failed to read from stdin");
+fn goyda() -> bool {
+    let condition1 = true;
+    let condition2 = true;
+    let condition3 = true;
+    let condition4 = false;
+    let condition6 = false;
+    let condition8 = false;
 
-    let trimmed = input_text.trim();
-    if let Ok(i) = trimmed.parse::<u32>() {
-        return i;
+    if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+        }
+    } else if condition8 {
+        println!("statement4");
     } else {
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
+        println!("statement5");
     }
+
+    return true;
 }
 
-fn create_graph(size: usize) -> Vec<Vec<u32>> {
-    let mut rng = rand::thread_rng();
-    let mut graf = vec![vec![0u32; size]; size];
+/*fn main() -> i32 {
+    let gg = 0;
 
-    for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
+    for i in 1..10 {
+        println!("all ok");
+    }
+
+    loop {
+        goyda();
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+
+    while gg < 10 {
+        if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
             }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
+        }
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+
+    return 1;
+}
+*/
+
+Processing node: kind=block_comment, text=/*fn match_test() {
+    while true {
+        match gg {
+            1 => println!("1"),
+            2 => {
+                println!("2");
+                println!("2");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            3 => {
+                println!("3");
+                println!("3");
+                println!("3");
+            }
+            4 => {
+                println!("4");
+                println!("4");
+                println!("4");
+                println!("4");
+            }
+            _ => println!("other"),
         }
     }
+    println!("end");
+}*/
+Processing node: kind=function_item, text=fn goyda() -> bool {
+    let condition1 = true;
+    let condition2 = true;
+    let condition3 = true;
+    let condition4 = false;
+    let condition6 = false;
+    let condition8 = false;
 
-    return graf;
-}
-
-fn create_adjacency_list(graf: &Vec<Vec<u32>>) -> Vec<Vec<usize>> {
-    let size = graf.len();
-    let mut adj_list = vec![vec![]; size];
-
-    for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-        }
-    }
-
-    return adj_list;
-}
-
-fn bfs_matrix(graf: &Vec<Vec<u32>>, start: usize) -> Vec<usize> {
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
-
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
+    if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
                 }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
             }
         }
-    }
-
-    return distances;
-}
-
-fn bfs_list(adj_list: &Vec<Vec<usize>>, start: usize) -> Vec<usize> {
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
-
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-
-fn dfs_matrix(graf: &Vec<Vec<u32>>, start: usize) -> Vec<usize> {
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-
-fn dfs_list(adj_list: &Vec<Vec<usize>>, start: usize) -> Vec<usize> {
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-
-fn main() {
-    print!("Enter graph size, more than 0 (one number for line and column) > ");
-    let size = read_from_keyboard();
-    let graf = create_graph(size as usize);
-
-    println!("Graph:");
-    for row in &graf {
-        println!("{:?}", row);
-    }
-
-    println!("BFS using matrix");
-    let start = Instant::now();
-    let distances = bfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    let adj_list = create_adjacency_list(&graf);
-    println!("Graph:");
-    for row in &adj_list {
-        println!("{:?}", row);
-    }
-    println!("BFS using adjacency list:");
-    let start = Instant::now();
-    let distances = bfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using matrix");
-    let start = Instant::now();
-    let distances = dfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using adjacency list:");
-    let start = Instant::now();
-    let distances = dfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-}
-
-Processing node: kind=use_declaration, text=use rand::Rng;
-Processing node: kind=use_declaration, text=use std::collections::{HashSet, VecDeque};
-Processing node: kind=use_declaration, text=use std::io::{self, Write};
-Processing node: kind=use_declaration, text=use std::time::Instant;
-Processing node: kind=function_item, text=fn read_from_keyboard() -> u32 {
-    io::stdout().flush().expect("flush error");
-    let mut input_text = String::new();
-    io::stdin()
-        .read_line(&mut input_text)
-        .expect("failed to read from stdin");
-
-    let trimmed = input_text.trim();
-    if let Ok(i) = trimmed.parse::<u32>() {
-        return i;
+    } else if condition8 {
+        println!("statement4");
     } else {
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
+        println!("statement5");
     }
+
+    return true;
 }
 Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=read_from_keyboard
-18
+Processing node: kind=identifier, text=goyda
+5
 push fn
+add block to y_offset == 0 x_offset = 0
 Processing node: kind=parameters, text=()
 Processing node: kind=->, text=->
-Processing node: kind=primitive_type, text=u32
+Processing node: kind=primitive_type, text=bool
 Processing node: kind=block, text={
-    io::stdout().flush().expect("flush error");
-    let mut input_text = String::new();
-    io::stdin()
-        .read_line(&mut input_text)
-        .expect("failed to read from stdin");
+    let condition1 = true;
+    let condition2 = true;
+    let condition3 = true;
+    let condition4 = false;
+    let condition6 = false;
+    let condition8 = false;
 
-    let trimmed = input_text.trim();
-    if let Ok(i) = trimmed.parse::<u32>() {
-        return i;
+    if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+        }
+    } else if condition8 {
+        println!("statement4");
     } else {
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
+        println!("statement5");
     }
+
+    return true;
 }
 Processing node: kind={, text={
-Processing node: kind=expression_statement, text=io::stdout().flush().expect("flush error");
-Processing node: kind=call_expression, text=io::stdout().flush().expect("flush error")
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let mut input_text = String::new();
-Processing node: kind=expression_statement, text=io::stdin()
-        .read_line(&mut input_text)
-        .expect("failed to read from stdin");
-Processing node: kind=call_expression, text=io::stdin()
-        .read_line(&mut input_text)
-        .expect("failed to read from stdin")
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let trimmed = input_text.trim();
-Processing node: kind=expression_statement, text=if let Ok(i) = trimmed.parse::<u32>() {
-        return i;
+Processing node: kind=let_declaration, text=let condition1 = true;
+Processing node: kind=let_declaration, text=let condition2 = true;
+Processing node: kind=let_declaration, text=let condition3 = true;
+Processing node: kind=let_declaration, text=let condition4 = false;
+Processing node: kind=let_declaration, text=let condition6 = false;
+Processing node: kind=let_declaration, text=let condition8 = false;
+Processing node: kind=expression_statement, text=if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+        }
+    } else if condition8 {
+        println!("statement4");
     } else {
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
+        println!("statement5");
     }
-Processing node: kind=if_expression, text=if let Ok(i) = trimmed.parse::<u32>() {
-        return i;
+Processing node: kind=if_expression, text=if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+        }
+    } else if condition8 {
+        println!("statement4");
     } else {
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
+        println!("statement5");
     }
 push if
-local_offset == 100, else_count = 1, else_if_count == 0
-Processing node: kind=expression_statement, text=return i;
-Processing node: kind=return_expression, text=return i
-push return
+local_offset == 400, else_count = 6, else_if_count == 2
+push to if_else_stack. local x: 0; local y: 100; to x: -400
+Processing node: kind=expression_statement, text=println!("statement1");
+Processing node: kind=macro_invocation, text=println!("statement1")
+add block to y_offset == 300 x_offset = 400
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=if condition2 {
+            println!("statement2");
+        } else {
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+        }
+Processing node: kind=if_expression, text=if condition2 {
+            println!("statement2");
+        } else {
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+        }
+push if
+local_offset == 300, else_count = 4, else_if_count == 1
+push to if_else_stack. local x: 400; local y: 300; to x: 100
+Processing node: kind=expression_statement, text=println!("statement2");
+Processing node: kind=macro_invocation, text=println!("statement2")
+add block to y_offset == 500 x_offset = 700
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(If(0, 300, 100))
-len of block mass = 2
-Handling If block at 0:300
+Some(If(400, 300, 300))
+len of block mass = 3
+Handling If block at 400:300
 Processing node: kind=else_clause, text=else {
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
-    }
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+        }
+push if
+local_offset == 300, else_count = 4, else_if_count == 1
+push to if_else_stack. local x: 100; local y: 300; to x: -200
+Processing node: kind=expression_statement, text=if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+Processing node: kind=if_expression, text=if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+push if
+local_offset == 200, else_count = 3, else_if_count == 1
+push to if_else_stack. local x: 400; local y: 400; to x: 200
+Processing node: kind=expression_statement, text=println!("statement1");
+Processing node: kind=macro_invocation, text=println!("statement1")
+add block to y_offset == 600 x_offset = 600
+Processing node: kind=;, text=;
+Processing node: kind=expression_statement, text=if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+Processing node: kind=if_expression, text=if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+push if
+local_offset == 100, else_count = 1, else_if_count == 0
+push to if_else_stack. local x: 600; local y: 600; to x: 500
+Processing node: kind=expression_statement, text=println!("statement2");
+Processing node: kind=macro_invocation, text=println!("statement2")
+add block to y_offset == 800 x_offset = 700
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(600, 600, 100))
+len of block mass = 5
+Handling If block at 600:600
+Processing node: kind=else_clause, text=else {
+                    println!("statement3");
+                }
 mr penis
+return to in vec x:500 y:600
+local coords x500 y:600
 Processing node: kind=else, text=else
 create else info block
 Processing node: kind=block, text={
-        println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-        return 10;
-    }
+                    println!("statement3");
+                }
 Processing node: kind={, text={
-Processing node: kind=expression_statement, text=println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m");
-Processing node: kind=macro_invocation, text=println!("\x1b[31m!!!No number in input, установлено значение по умолчанию(10)!!!\x1b[0m")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=return 10;
-Processing node: kind=return_expression, text=return 10
-push return
+Processing node: kind=expression_statement, text=println!("statement3");
+Processing node: kind=macro_invocation, text=println!("statement3")
+add block to y_offset == 800 x_offset = 500
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(Else(-100, 300))
-len of block mass = 2
+Some(Else(500, 600))
+len of block mass = 5
 pop else
 Processing node: kind=}, text=}
-Some(Func)
-len of block mass = 1
-Handling Func block
-skip brecket
-Processing node: kind=function_item, text=fn create_graph(size: usize) -> Vec<Vec<u32>> {
-    let mut rng = rand::thread_rng();
-    let mut graf = vec![vec![0u32; size]; size];
-
-    for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-
-    return graf;
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=create_graph
-12
-push fn
-Processing node: kind=parameters, text=(size: usize)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<Vec<u32>>
-Processing node: kind=block, text={
-    let mut rng = rand::thread_rng();
-    let mut graf = vec![vec![0u32; size]; size];
-
-    for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-
-    return graf;
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let mut rng = rand::thread_rng();
-Processing node: kind=let_declaration, text=let mut graf = vec![vec![0u32; size]; size];
-Processing node: kind=expression_statement, text=for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-Processing node: kind=for_expression, text=for i in 0..size {
-        for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-    }
-push for
-Processing node: kind=expression_statement, text=for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-Processing node: kind=for_expression, text=for j in i..size {
-            if i == j {
-                continue;
-            }
-            graf[i][j] = rng.gen::<u32>() % 2;
-            graf[j][i] = graf[i][j];
-        }
-push for
-Processing node: kind=expression_statement, text=if i == j {
-                continue;
-            }
-Processing node: kind=if_expression, text=if i == j {
-                continue;
-            }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=continue;
-Processing node: kind=continue_expression, text=continue
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(If(0, 1000, 0))
+Some(If(400, 400, 200))
 len of block mass = 4
-Handling If block at 0:1000
-Processing node: kind=expression_statement, text=graf[i][j] = rng.gen::<u32>() % 2;
-Processing node: kind=assignment_expression, text=graf[i][j] = rng.gen::<u32>() % 2
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=graf[j][i] = graf[i][j];
-Processing node: kind=assignment_expression, text=graf[j][i] = graf[i][j]
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(For(0, 900))
-len of block mass = 3
-Handling For block at 0:900
-Processing node: kind=}, text=}
-Some(For(0, 800))
-len of block mass = 2
-Handling For block at 0:800
-Processing node: kind=expression_statement, text=return graf;
-Processing node: kind=return_expression, text=return graf
-push return
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(Func)
-len of block mass = 1
-Handling Func block
-skip brecket
-Processing node: kind=function_item, text=fn create_adjacency_list(graf: &Vec<Vec<u32>>) -> Vec<Vec<usize>> {
-    let size = graf.len();
-    let mut adj_list = vec![vec![]; size];
-
-    for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-        }
-    }
-
-    return adj_list;
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=create_adjacency_list
-21
-push fn
-Processing node: kind=parameters, text=(graf: &Vec<Vec<u32>>)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<Vec<usize>>
-Processing node: kind=block, text={
-    let size = graf.len();
-    let mut adj_list = vec![vec![]; size];
-
-    for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-        }
-    }
-
-    return adj_list;
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let size = graf.len();
-Processing node: kind=let_declaration, text=let mut adj_list = vec![vec![]; size];
-Processing node: kind=expression_statement, text=for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-        }
-    }
-Processing node: kind=for_expression, text=for i in 0..size {
-        for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-        }
-    }
-push for
-Processing node: kind=expression_statement, text=for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-        }
-Processing node: kind=for_expression, text=for j in 0..size {
-            if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-        }
-push for
-Processing node: kind=expression_statement, text=if graf[i][j] == 1 {
-                adj_list[i].push(j);
-            }
-Processing node: kind=if_expression, text=if graf[i][j] == 1 {
-                adj_list[i].push(j);
+Handling If block at 400:400
+Processing node: kind=else_clause, text=else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
             }
 push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=adj_list[i].push(j);
-Processing node: kind=call_expression, text=adj_list[i].push(j)
+local_offset == 100, else_count = 2, else_if_count == 1
+push to if_else_stack. local x: 200; local y: 400; to x: 100
+Processing node: kind=expression_statement, text=println!("statement4");
+Processing node: kind=macro_invocation, text=println!("statement4")
+add block to y_offset == 600 x_offset = 300
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(If(0, 2000, 0))
+Some(If(200, 400, 100))
 len of block mass = 4
-Handling If block at 0:2000
-Processing node: kind=}, text=}
-Some(For(0, 1900))
-len of block mass = 3
-Handling For block at 0:1900
-Processing node: kind=}, text=}
-Some(For(0, 1800))
-len of block mass = 2
-Handling For block at 0:1800
-Processing node: kind=expression_statement, text=return adj_list;
-Processing node: kind=return_expression, text=return adj_list
-push return
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(Func)
-len of block mass = 1
-Handling Func block
-skip brecket
-Processing node: kind=function_item, text=fn bfs_matrix(graf: &Vec<Vec<u32>>, start: usize) -> Vec<usize> {
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
-
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
+Handling If block at 200:400
+Processing node: kind=else_clause, text=else {
+                println!("statement5");
             }
-        }
-    }
-
-    return distances;
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=bfs_matrix
-10
-push fn
-Processing node: kind=parameters, text=(graf: &Vec<Vec<u32>>, start: usize)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<usize>
+mr penis
+return to in vec x:100 y:400
+local coords x100 y:400
+Processing node: kind=else, text=else
+create else info block
 Processing node: kind=block, text={
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
-
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
+                println!("statement5");
             }
-        }
-    }
-
-    return distances;
-}
 Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let num_vertices = graf.len();
-Processing node: kind=let_declaration, text=let mut visited = vec![false; num_vertices];
-Processing node: kind=let_declaration, text=let mut distances = vec![usize::MAX; num_vertices];
-Processing node: kind=let_declaration, text=let mut queue = VecDeque::new();
-Processing node: kind=expression_statement, text=queue.push_back(start);
-Processing node: kind=call_expression, text=queue.push_back(start)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=distances[start] = 0;
-Processing node: kind=assignment_expression, text=distances[start] = 0
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-Processing node: kind=while_expression, text=while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-Processing node: kind=expression_statement, text=if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-Processing node: kind=if_expression, text=if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=visited[vertex] = true;
-Processing node: kind=assignment_expression, text=visited[vertex] = true
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-Processing node: kind=for_expression, text=for neighbour in 0..num_vertices {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-push for
-Processing node: kind=expression_statement, text=if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-Processing node: kind=if_expression, text=if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=queue.push_back(neighbour);
-Processing node: kind=call_expression, text=queue.push_back(neighbour)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=distances[neighbour] = distances[vertex] + 1;
-Processing node: kind=assignment_expression, text=distances[neighbour] = distances[vertex] + 1
+Processing node: kind=expression_statement, text=println!("statement5");
+Processing node: kind=macro_invocation, text=println!("statement5")
+add block to y_offset == 600 x_offset = 100
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(If(100, 3200, 0))
-len of block mass = 5
-Handling If block at 100:3200
-Processing node: kind=}, text=}
-Some(For(100, 3100))
+Some(Else(100, 400))
 len of block mass = 4
-Handling For block at 100:3100
+pop else
 Processing node: kind=}, text=}
-Some(If(0, 2900, 0))
+Some(If(100, 300, 300))
 len of block mass = 3
-Handling If block at 0:2900
+Handling If block at 100:300
 Processing node: kind=}, text=}
-Some(While(0, 2800))
+Some(If(0, 100, 400))
 len of block mass = 2
-Handling While block at 0:2800
-Processing node: kind=expression_statement, text=return distances;
-Processing node: kind=return_expression, text=return distances
+Handling If block at 0:100
+Processing node: kind=else_clause, text=else if condition8 {
+        println!("statement4");
+    } else {
+        println!("statement5");
+    }
+push if
+local_offset == 100, else_count = 2, else_if_count == 1
+push to if_else_stack. local x: -200; local y: 300; to x: -300
+Processing node: kind=expression_statement, text=println!("statement4");
+Processing node: kind=macro_invocation, text=println!("statement4")
+add block to y_offset == 500 x_offset = -100
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(-200, 300, 100))
+len of block mass = 2
+Handling If block at -200:300
+Processing node: kind=else_clause, text=else {
+        println!("statement5");
+    }
+mr penis
+return to in vec x:-300 y:300
+local coords x-300 y:300
+Processing node: kind=else, text=else
+create else info block
+Processing node: kind=block, text={
+        println!("statement5");
+    }
+Processing node: kind={, text={
+Processing node: kind=expression_statement, text=println!("statement5");
+Processing node: kind=macro_invocation, text=println!("statement5")
+add block to y_offset == 500 x_offset = -300
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(Else(-300, 300))
+len of block mass = 2
+pop else
+Processing node: kind=expression_statement, text=return true;
+Processing node: kind=return_expression, text=return true
 push return
+add block to y_offset == 700 x_offset = -200
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
 Some(Func)
 len of block mass = 1
 Handling Func block
 skip brecket
-Processing node: kind=function_item, text=fn bfs_list(adj_list: &Vec<Vec<usize>>, start: usize) -> Vec<usize> {
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
+Processing node: kind=block_comment, text=/*fn main() -> i32 {
+    let gg = 0;
 
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
+    for i in 1..10 {
+        println!("all ok");
     }
 
-    return distances;
+    loop {
+        goyda();
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+
+    while gg < 10 {
+        if condition1 {
+            println!("statement1");
+            if condition2 {
+                println!("statement6");
+            } else {
+                println!("statement7");
+            }
+        } else if condition8 {
+            println!("statement8");
+        } else {
+            println!("statement9");
+        }
+        break; // Добавлено для предотвращения бесконечного цикла
+    }
+
+    return 1;
 }
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=bfs_list
-8
-push fn
-Processing node: kind=parameters, text=(adj_list: &Vec<Vec<usize>>, start: usize)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<usize>
-Processing node: kind=block, text={
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut queue = VecDeque::new();
-    queue.push_back(start);
-    distances[start] = 0;
-
-    while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let num_vertices = adj_list.len();
-Processing node: kind=let_declaration, text=let mut visited = vec![false; num_vertices];
-Processing node: kind=let_declaration, text=let mut distances = vec![usize::MAX; num_vertices];
-Processing node: kind=let_declaration, text=let mut queue = VecDeque::new();
-Processing node: kind=expression_statement, text=queue.push_back(start);
-Processing node: kind=call_expression, text=queue.push_back(start)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=distances[start] = 0;
-Processing node: kind=assignment_expression, text=distances[start] = 0
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-Processing node: kind=while_expression, text=while let Some(vertex) = queue.pop_front() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-Processing node: kind=expression_statement, text=if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-Processing node: kind=if_expression, text=if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=visited[vertex] = true;
-Processing node: kind=assignment_expression, text=visited[vertex] = true
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-Processing node: kind=for_expression, text=for &neighbour in &adj_list[vertex] {
-                if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-push for
-Processing node: kind=expression_statement, text=if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-Processing node: kind=if_expression, text=if !visited[neighbour] {
-                    queue.push_back(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=queue.push_back(neighbour);
-Processing node: kind=call_expression, text=queue.push_back(neighbour)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=distances[neighbour] = distances[vertex] + 1;
-Processing node: kind=assignment_expression, text=distances[neighbour] = distances[vertex] + 1
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(If(100, 4500, 0))
-len of block mass = 5
-Handling If block at 100:4500
-Processing node: kind=}, text=}
-Some(For(100, 4400))
-len of block mass = 4
-Handling For block at 100:4400
-Processing node: kind=}, text=}
-Some(If(0, 4200, 0))
-len of block mass = 3
-Handling If block at 0:4200
-Processing node: kind=}, text=}
-Some(While(0, 4100))
-len of block mass = 2
-Handling While block at 0:4100
-Processing node: kind=expression_statement, text=return distances;
-Processing node: kind=return_expression, text=return distances
-push return
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(Func)
-len of block mass = 1
-Handling Func block
-skip brecket
-Processing node: kind=function_item, text=fn dfs_matrix(graf: &Vec<Vec<u32>>, start: usize) -> Vec<usize> {
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=dfs_matrix
-10
-push fn
-Processing node: kind=parameters, text=(graf: &Vec<Vec<u32>>, start: usize)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<usize>
-Processing node: kind=block, text={
-    let num_vertices = graf.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let num_vertices = graf.len();
-Processing node: kind=let_declaration, text=let mut visited = vec![false; num_vertices];
-Processing node: kind=let_declaration, text=let mut distances = vec![usize::MAX; num_vertices];
-Processing node: kind=let_declaration, text=let mut stack = vec![start];
-Processing node: kind=expression_statement, text=distances[start] = 0;
-Processing node: kind=assignment_expression, text=distances[start] = 0
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-Processing node: kind=while_expression, text=while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-Processing node: kind=expression_statement, text=if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-Processing node: kind=if_expression, text=if !visited[vertex] {
-            visited[vertex] = true;
-            for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=visited[vertex] = true;
-Processing node: kind=assignment_expression, text=visited[vertex] = true
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-Processing node: kind=for_expression, text=for neighbour in (0..num_vertices).rev() {
-                if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-push for
-Processing node: kind=expression_statement, text=if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-Processing node: kind=if_expression, text=if graf[vertex][neighbour] == 1 && !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=stack.push(neighbour);
-Processing node: kind=call_expression, text=stack.push(neighbour)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=distances[neighbour] = distances[vertex] + 1;
-Processing node: kind=assignment_expression, text=distances[neighbour] = distances[vertex] + 1
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(If(100, 5700, 0))
-len of block mass = 5
-Handling If block at 100:5700
-Processing node: kind=}, text=}
-Some(For(100, 5600))
-len of block mass = 4
-Handling For block at 100:5600
-Processing node: kind=}, text=}
-Some(If(0, 5400, 0))
-len of block mass = 3
-Handling If block at 0:5400
-Processing node: kind=}, text=}
-Some(While(0, 5300))
-len of block mass = 2
-Handling While block at 0:5300
-Processing node: kind=expression_statement, text=return distances;
-Processing node: kind=return_expression, text=return distances
-push return
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(Func)
-len of block mass = 1
-Handling Func block
-skip brecket
-Processing node: kind=function_item, text=fn dfs_list(adj_list: &Vec<Vec<usize>>, start: usize) -> Vec<usize> {
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=dfs_list
-8
-push fn
-Processing node: kind=parameters, text=(adj_list: &Vec<Vec<usize>>, start: usize)
-Processing node: kind=->, text=->
-Processing node: kind=generic_type, text=Vec<usize>
-Processing node: kind=block, text={
-    let num_vertices = adj_list.len();
-    let mut visited = vec![false; num_vertices];
-    let mut distances = vec![usize::MAX; num_vertices];
-    let mut stack = vec![start];
-    distances[start] = 0;
-
-    while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-
-    return distances;
-}
-Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let num_vertices = adj_list.len();
-Processing node: kind=let_declaration, text=let mut visited = vec![false; num_vertices];
-Processing node: kind=let_declaration, text=let mut distances = vec![usize::MAX; num_vertices];
-Processing node: kind=let_declaration, text=let mut stack = vec![start];
-Processing node: kind=expression_statement, text=distances[start] = 0;
-Processing node: kind=assignment_expression, text=distances[start] = 0
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-Processing node: kind=while_expression, text=while let Some(vertex) = stack.pop() {
-        if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-    }
-Processing node: kind=expression_statement, text=if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-Processing node: kind=if_expression, text=if !visited[vertex] {
-            visited[vertex] = true;
-            for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-        }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=visited[vertex] = true;
-Processing node: kind=assignment_expression, text=visited[vertex] = true
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-Processing node: kind=for_expression, text=for &neighbour in adj_list[vertex].iter().rev() {
-                if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-            }
-push for
-Processing node: kind=expression_statement, text=if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-Processing node: kind=if_expression, text=if !visited[neighbour] {
-                    stack.push(neighbour);
-                    distances[neighbour] = distances[vertex] + 1;
-                }
-push if
-local_offset == 0, else_count = 0, else_if_count == 0
-Processing node: kind=expression_statement, text=stack.push(neighbour);
-Processing node: kind=call_expression, text=stack.push(neighbour)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=distances[neighbour] = distances[vertex] + 1;
-Processing node: kind=assignment_expression, text=distances[neighbour] = distances[vertex] + 1
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(If(100, 6900, 0))
-len of block mass = 5
-Handling If block at 100:6900
-Processing node: kind=}, text=}
-Some(For(100, 6800))
-len of block mass = 4
-Handling For block at 100:6800
-Processing node: kind=}, text=}
-Some(If(0, 6600, 0))
-len of block mass = 3
-Handling If block at 0:6600
-Processing node: kind=}, text=}
-Some(While(0, 6500))
-len of block mass = 2
-Handling While block at 0:6500
-Processing node: kind=expression_statement, text=return distances;
-Processing node: kind=return_expression, text=return distances
-push return
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(Func)
-len of block mass = 1
-Handling Func block
-skip brecket
-Processing node: kind=function_item, text=fn main() {
-    print!("Enter graph size, more than 0 (one number for line and column) > ");
-    let size = read_from_keyboard();
-    let graf = create_graph(size as usize);
-
-    println!("Graph:");
-    for row in &graf {
-        println!("{:?}", row);
-    }
-
-    println!("BFS using matrix");
-    let start = Instant::now();
-    let distances = bfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    let adj_list = create_adjacency_list(&graf);
-    println!("Graph:");
-    for row in &adj_list {
-        println!("{:?}", row);
-    }
-    println!("BFS using adjacency list:");
-    let start = Instant::now();
-    let distances = bfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using matrix");
-    let start = Instant::now();
-    let distances = dfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using adjacency list:");
-    let start = Instant::now();
-    let distances = dfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-}
-Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=main
-4
-push fn
-Processing node: kind=parameters, text=()
-Processing node: kind=block, text={
-    print!("Enter graph size, more than 0 (one number for line and column) > ");
-    let size = read_from_keyboard();
-    let graf = create_graph(size as usize);
-
-    println!("Graph:");
-    for row in &graf {
-        println!("{:?}", row);
-    }
-
-    println!("BFS using matrix");
-    let start = Instant::now();
-    let distances = bfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    let adj_list = create_adjacency_list(&graf);
-    println!("Graph:");
-    for row in &adj_list {
-        println!("{:?}", row);
-    }
-    println!("BFS using adjacency list:");
-    let start = Instant::now();
-    let distances = bfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using matrix");
-    let start = Instant::now();
-    let distances = dfs_matrix(&graf, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-
-    println!("DFS using adjacency list:");
-    let start = Instant::now();
-    let distances = dfs_list(&adj_list, 0);
-    let duration = start.elapsed();
-    println!("Distances: {:?}", distances);
-    println!("Time elapsed: {:?}", duration);
-}
-Processing node: kind={, text={
-Processing node: kind=expression_statement, text=print!("Enter graph size, more than 0 (one number for line and column) > ");
-Processing node: kind=macro_invocation, text=print!("Enter graph size, more than 0 (one number for line and column) > ")
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let size = read_from_keyboard();
-Processing node: kind=let_declaration, text=let graf = create_graph(size as usize);
-Processing node: kind=expression_statement, text=println!("Graph:");
-Processing node: kind=macro_invocation, text=println!("Graph:")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for row in &graf {
-        println!("{:?}", row);
-    }
-Processing node: kind=for_expression, text=for row in &graf {
-        println!("{:?}", row);
-    }
-push for
-Processing node: kind=expression_statement, text=println!("{:?}", row);
-Processing node: kind=macro_invocation, text=println!("{:?}", row)
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(For(0, 7800))
-len of block mass = 2
-Handling For block at 0:7800
-Processing node: kind=expression_statement, text=println!("BFS using matrix");
-Processing node: kind=macro_invocation, text=println!("BFS using matrix")
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let start = Instant::now();
-Processing node: kind=let_declaration, text=let distances = bfs_matrix(&graf, 0);
-Processing node: kind=let_declaration, text=let duration = start.elapsed();
-Processing node: kind=expression_statement, text=println!("Distances: {:?}", distances);
-Processing node: kind=macro_invocation, text=println!("Distances: {:?}", distances)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!("Time elapsed: {:?}", duration);
-Processing node: kind=macro_invocation, text=println!("Time elapsed: {:?}", duration)
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let adj_list = create_adjacency_list(&graf);
-Processing node: kind=expression_statement, text=println!("Graph:");
-Processing node: kind=macro_invocation, text=println!("Graph:")
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=for row in &adj_list {
-        println!("{:?}", row);
-    }
-Processing node: kind=for_expression, text=for row in &adj_list {
-        println!("{:?}", row);
-    }
-push for
-Processing node: kind=expression_statement, text=println!("{:?}", row);
-Processing node: kind=macro_invocation, text=println!("{:?}", row)
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(For(0, 8500))
-len of block mass = 2
-Handling For block at 0:8500
-Processing node: kind=expression_statement, text=println!("BFS using adjacency list:");
-Processing node: kind=macro_invocation, text=println!("BFS using adjacency list:")
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let start = Instant::now();
-Processing node: kind=let_declaration, text=let distances = bfs_list(&adj_list, 0);
-Processing node: kind=let_declaration, text=let duration = start.elapsed();
-Processing node: kind=expression_statement, text=println!("Distances: {:?}", distances);
-Processing node: kind=macro_invocation, text=println!("Distances: {:?}", distances)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!("Time elapsed: {:?}", duration);
-Processing node: kind=macro_invocation, text=println!("Time elapsed: {:?}", duration)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!("DFS using matrix");
-Processing node: kind=macro_invocation, text=println!("DFS using matrix")
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let start = Instant::now();
-Processing node: kind=let_declaration, text=let distances = dfs_matrix(&graf, 0);
-Processing node: kind=let_declaration, text=let duration = start.elapsed();
-Processing node: kind=expression_statement, text=println!("Distances: {:?}", distances);
-Processing node: kind=macro_invocation, text=println!("Distances: {:?}", distances)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!("Time elapsed: {:?}", duration);
-Processing node: kind=macro_invocation, text=println!("Time elapsed: {:?}", duration)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!("DFS using adjacency list:");
-Processing node: kind=macro_invocation, text=println!("DFS using adjacency list:")
-Processing node: kind=;, text=;
-Processing node: kind=let_declaration, text=let start = Instant::now();
-Processing node: kind=let_declaration, text=let distances = dfs_list(&adj_list, 0);
-Processing node: kind=let_declaration, text=let duration = start.elapsed();
-Processing node: kind=expression_statement, text=println!("Distances: {:?}", distances);
-Processing node: kind=macro_invocation, text=println!("Distances: {:?}", distances)
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=println!("Time elapsed: {:?}", duration);
-Processing node: kind=macro_invocation, text=println!("Time elapsed: {:?}", duration)
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(Func)
-len of block mass = 1
-Handling Func block
+*/
 Final block vector: [
     LocalVecBlock {
         type: Start,
-        text: "read_from_keyboard",
+        text: "goyda",
         x: 0,
         y: 0,
     },
     LocalVecBlock {
-        type: Action,
-        text: "io::stdout().flush().expect(\"flush error\")",
+        type: Condition,
+        text: "if condition1 ",
         x: 0,
         y: 100,
     },
     LocalVecBlock {
-        type: Action,
-        text: "io::stdin()\n        .read_line(&mut input_text)\n        .expect(\"failed to read from stdin\")",
-        x: 0,
+        type: Print,
+        text: "println!(\"statement1\")",
+        x: 400,
         y: 200,
     },
     LocalVecBlock {
         type: Condition,
-        text: "if let Ok(i) = trimmed.parse::<u32>() ",
-        x: 0,
+        text: "if condition2 ",
+        x: 400,
         y: 300,
     },
     LocalVecBlock {
-        type: End,
-        text: "return i",
-        x: 100,
+        type: Print,
+        text: "println!(\"statement2\")",
+        x: 700,
         y: 400,
     },
     LocalVecBlock {
         type: End,
         text: "end if",
+        x: 700,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "else ",
         x: 100,
         y: 500,
     },
     LocalVecBlock {
-        type: Else,
-        text: "mr penis",
-        x: -100,
-        y: 500,
-    },
-    LocalVecBlock {
-        type: Else,
-        text: "continue",
-        x: -100,
+        type: Condition,
+        text: "if condition1 ",
+        x: 400,
         y: 400,
     },
     LocalVecBlock {
         type: Print,
-        text: "Вывод строки",
-        x: -100,
-        y: 400,
+        text: "println!(\"statement1\")",
+        x: 600,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "if condition2 ",
+        x: 600,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "println!(\"statement2\")",
+        x: 700,
+        y: 700,
     },
     LocalVecBlock {
         type: End,
-        text: "return 10",
-        x: -100,
+        text: "end if",
+        x: 700,
+        y: 800,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "mr penis",
+        x: 500,
+        y: 800,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "continue",
+        x: 500,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "println!(\"statement3\")",
+        x: 500,
+        y: 700,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end else",
+        x: 500,
+        y: 800,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: 600,
+        y: 900,
+    },
+    LocalVecBlock {
+        type: Condition,
+        text: "else if condition8 ",
+        x: 200,
+        y: 900,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "println!(\"statement4\")",
+        x: 300,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: 300,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "mr penis",
+        x: 100,
+        y: 600,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "continue",
+        x: 100,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Print,
+        text: "println!(\"statement5\")",
+        x: 100,
         y: 500,
     },
     LocalVecBlock {
         type: End,
         text: "end else",
-        x: -100,
+        x: 100,
         y: 600,
     },
     LocalVecBlock {
-        type: Start,
-        text: "create_graph",
-        x: 0,
+        type: End,
+        text: "end if",
+        x: 200,
         y: 700,
     },
     LocalVecBlock {
-        type: Cycle,
-        text: "for i in 0..size ",
-        x: 0,
-        y: 800,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for j in i..size ",
-        x: 0,
-        y: 900,
+        type: End,
+        text: "end if",
+        x: 100,
+        y: 700,
     },
     LocalVecBlock {
         type: Condition,
-        text: "if i == j ",
-        x: 0,
-        y: 1000,
+        text: "else if condition8 ",
+        x: -200,
+        y: 700,
     },
     LocalVecBlock {
-        type: Action,
+        type: Print,
+        text: "println!(\"statement4\")",
+        x: -100,
+        y: 400,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: -100,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Else,
+        text: "mr penis",
+        x: -300,
+        y: 500,
+    },
+    LocalVecBlock {
+        type: Else,
         text: "continue",
-        x: 100,
-        y: 1100,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 100,
-        y: 1200,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "graf[i][j] = rng.gen::<u32>() % 2",
-        x: 0,
-        y: 1200,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "graf[j][i] = graf[i][j]",
-        x: 0,
-        y: 1300,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "0:900",
-        x: 0,
-        y: 1400,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "0:800",
-        x: 0,
-        y: 1500,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "return graf",
-        x: 0,
-        y: 1600,
-    },
-    LocalVecBlock {
-        type: Start,
-        text: "create_adjacency_list",
-        x: 0,
-        y: 1700,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for i in 0..size ",
-        x: 0,
-        y: 1800,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for j in 0..size ",
-        x: 0,
-        y: 1900,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if graf[i][j] == 1 ",
-        x: 0,
-        y: 2000,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "adj_list[i].push(j)",
-        x: 100,
-        y: 2100,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 100,
-        y: 2200,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "0:1900",
-        x: 0,
-        y: 2200,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "0:1800",
-        x: 0,
-        y: 2300,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "return adj_list",
-        x: 0,
-        y: 2400,
-    },
-    LocalVecBlock {
-        type: Start,
-        text: "bfs_matrix",
-        x: 0,
-        y: 2500,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "queue.push_back(start)",
-        x: 0,
-        y: 2600,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "distances[start] = 0",
-        x: 0,
-        y: 2700,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "while let Some(vertex) = queue.pop_front() ",
-        x: 0,
-        y: 2800,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if !visited[vertex] ",
-        x: 0,
-        y: 2900,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "visited[vertex] = true",
-        x: 100,
-        y: 3000,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for neighbour in 0..num_vertices ",
-        x: 100,
-        y: 3100,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if graf[vertex][neighbour] == 1 && !visited[neighbour] ",
-        x: 100,
-        y: 3200,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "queue.push_back(neighbour)",
-        x: 200,
-        y: 3300,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "distances[neighbour] = distances[vertex] + 1",
-        x: 200,
-        y: 3400,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 200,
-        y: 3500,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "100:3100",
-        x: 100,
-        y: 3500,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 100,
-        y: 3600,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "0:2800",
-        x: 0,
-        y: 3600,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "return distances",
-        x: 0,
-        y: 3700,
-    },
-    LocalVecBlock {
-        type: Start,
-        text: "bfs_list",
-        x: 0,
-        y: 3800,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "queue.push_back(start)",
-        x: 0,
-        y: 3900,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "distances[start] = 0",
-        x: 0,
-        y: 4000,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "while let Some(vertex) = queue.pop_front() ",
-        x: 0,
-        y: 4100,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if !visited[vertex] ",
-        x: 0,
-        y: 4200,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "visited[vertex] = true",
-        x: 100,
-        y: 4300,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for &neighbour in &adj_list[vertex] ",
-        x: 100,
-        y: 4400,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if !visited[neighbour] ",
-        x: 100,
-        y: 4500,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "queue.push_back(neighbour)",
-        x: 200,
-        y: 4600,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "distances[neighbour] = distances[vertex] + 1",
-        x: 200,
-        y: 4700,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 200,
-        y: 4800,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "100:4400",
-        x: 100,
-        y: 4800,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 100,
-        y: 4900,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "0:4100",
-        x: 0,
-        y: 4900,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "return distances",
-        x: 0,
-        y: 5000,
-    },
-    LocalVecBlock {
-        type: Start,
-        text: "dfs_matrix",
-        x: 0,
-        y: 5100,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "distances[start] = 0",
-        x: 0,
-        y: 5200,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "while let Some(vertex) = stack.pop() ",
-        x: 0,
-        y: 5300,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if !visited[vertex] ",
-        x: 0,
-        y: 5400,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "visited[vertex] = true",
-        x: 100,
-        y: 5500,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for neighbour in (0..num_vertices).rev() ",
-        x: 100,
-        y: 5600,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if graf[vertex][neighbour] == 1 && !visited[neighbour] ",
-        x: 100,
-        y: 5700,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "stack.push(neighbour)",
-        x: 200,
-        y: 5800,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "distances[neighbour] = distances[vertex] + 1",
-        x: 200,
-        y: 5900,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 200,
-        y: 6000,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "100:5600",
-        x: 100,
-        y: 6000,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 100,
-        y: 6100,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "0:5300",
-        x: 0,
-        y: 6100,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "return distances",
-        x: 0,
-        y: 6200,
-    },
-    LocalVecBlock {
-        type: Start,
-        text: "dfs_list",
-        x: 0,
-        y: 6300,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "distances[start] = 0",
-        x: 0,
-        y: 6400,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "while let Some(vertex) = stack.pop() ",
-        x: 0,
-        y: 6500,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if !visited[vertex] ",
-        x: 0,
-        y: 6600,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "visited[vertex] = true",
-        x: 100,
-        y: 6700,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for &neighbour in adj_list[vertex].iter().rev() ",
-        x: 100,
-        y: 6800,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if !visited[neighbour] ",
-        x: 100,
-        y: 6900,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "stack.push(neighbour)",
-        x: 200,
-        y: 7000,
-    },
-    LocalVecBlock {
-        type: Action,
-        text: "distances[neighbour] = distances[vertex] + 1",
-        x: 200,
-        y: 7100,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 200,
-        y: 7200,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "100:6800",
-        x: 100,
-        y: 7200,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 100,
-        y: 7300,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "0:6500",
-        x: 0,
-        y: 7300,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "return distances",
-        x: 0,
-        y: 7400,
-    },
-    LocalVecBlock {
-        type: Start,
-        text: "Начало",
-        x: 0,
-        y: 7500,
+        x: -300,
+        y: 400,
     },
     LocalVecBlock {
         type: Print,
-        text: "Вывод строки",
-        x: 0,
-        y: 7600,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод строки",
-        x: 0,
-        y: 7700,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for row in &graf ",
-        x: 0,
-        y: 7800,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 7900,
+        text: "println!(\"statement5\")",
+        x: -300,
+        y: 400,
     },
     LocalVecBlock {
         type: End,
-        text: "0:7800",
-        x: 0,
-        y: 8000,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод строки",
-        x: 0,
-        y: 8100,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 8200,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 8300,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод строки",
-        x: 0,
-        y: 8400,
-    },
-    LocalVecBlock {
-        type: Cycle,
-        text: "for row in &adj_list ",
-        x: 0,
-        y: 8500,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 8600,
+        text: "end else",
+        x: -300,
+        y: 500,
     },
     LocalVecBlock {
         type: End,
-        text: "0:8500",
-        x: 0,
-        y: 8700,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод строки",
-        x: 0,
-        y: 8800,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 8900,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 9000,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод строки",
-        x: 0,
-        y: 9100,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 9200,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 9300,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод строки",
-        x: 0,
-        y: 9400,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 9500,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "Вывод переменной",
-        x: 0,
-        y: 9600,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "}",
-        x: 0,
-        y: 9700,
+        text: "return true",
+        x: -200,
+        y: 600,
     },
 ]
 coords: x=0; y=0
 coords: x=0; y=100
-enter in check funk
-after check [0, 0]
-coords: x=0; y=200
-enter in check funk
-after check [0, 0]
-coords: x=0; y=300
-push iterator [3]
-coords: x=100; y=400
-coords: x=100; y=500
-coords: x=-100; y=500
-else goyda
-pop iterator [3]
-coords: x=-100; y=400
-coords: x=-100; y=400
+push iterator [1]
+coords: x=400; y=200
 enter in check funk
 after check [-10, 0]
+coords: x=400; y=300
+push iterator [1, 3]
+coords: x=700; y=400
+enter in check funk
+after check [-20, 0]
+coords: x=700; y=500
+coords: x=100; y=500
+push iterator [1, 3, 5]
+coords: x=400; y=400
+push iterator [1, 3, 5, 6]
+coords: x=600; y=500
+enter in check funk
+after check [-40, 0]
+coords: x=600; y=600
+push iterator [1, 3, 5, 6, 8]
+coords: x=700; y=700
+enter in check funk
+after check [-50, 0]
+coords: x=700; y=800
+coords: x=500; y=800
+else goyda
+pop iterator [1, 3, 5, 6, 8]
+coords: x=500; y=700
+else goyda
+pop iterator [1, 3, 5, 6]
+coords: x=500; y=700
+enter in check funk
+after check [-50, 0]
+coords: x=500; y=800
+coords: x=600; y=900
+coords: x=200; y=900
+push iterator [1, 3, 5, 11]
+coords: x=300; y=500
+enter in check funk
+after check [-60, 0]
+coords: x=300; y=600
+coords: x=100; y=600
+else goyda
+pop iterator [1, 3, 5, 11]
+coords: x=100; y=500
+else goyda
+pop iterator [1, 3, 5]
+coords: x=100; y=500
+enter in check funk
+after check [-60, 0]
+coords: x=100; y=600
+coords: x=200; y=700
+coords: x=100; y=700
+coords: x=-200; y=700
+push iterator [1, 3, 14]
+coords: x=-100; y=400
+enter in check funk
+after check [-70, 0]
 coords: x=-100; y=500
-coords: x=-100; y=600
-coords: x=0; y=700
-coords: x=0; y=800
-coords: x=0; y=900
-coords: x=0; y=1000
-push iterator [10]
-coords: x=100; y=1100
+coords: x=-300; y=500
+else goyda
+pop iterator [1, 3, 14]
+coords: x=-300; y=400
+else goyda
+pop iterator [1, 3]
+coords: x=-300; y=400
 enter in check funk
-2
-more
-after check [-10, 160]
-coords: x=100; y=1200
-coords: x=0; y=1200
-enter in check funk
-2
-after check [-10, 160]
-coords: x=0; y=1300
-enter in check funk
-2
-after check [-10, 160]
-coords: x=0; y=1400
-index: 9
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-20, 170]
-all current: x == 0, y == 1400
-to: x == 0; y == 900
-arrow after cycle
-
-metirial:
-x_m_m_a == [-30, 170]
-all current: x == 0, y == 1400
-to: x == 0; y == 900
-
-coords: x=0; y=1500
-index: 8
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-40, 190]
-all current: x == 0, y == 1500
-to: x == 0; y == 800
-arrow after cycle
-
-metirial:
-x_m_m_a == [-50, 190]
-all current: x == 0, y == 1500
-to: x == 0; y == 800
-
-coords: x=0; y=1600
-coords: x=0; y=1700
-coords: x=0; y=1800
-coords: x=0; y=1900
-coords: x=0; y=2000
-push iterator [10, 20]
-coords: x=100; y=2100
-enter in check funk
-2
-more
-after check [-10, 160]
-coords: x=100; y=2200
-coords: x=0; y=2200
-index: 19
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-20, 170]
-all current: x == 0, y == 2200
-to: x == 0; y == 1900
-arrow after cycle
-
-metirial:
-x_m_m_a == [-30, 170]
-all current: x == 0, y == 2200
-to: x == 0; y == 1900
-
-coords: x=0; y=2300
-index: 18
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-40, 190]
-all current: x == 0, y == 2300
-to: x == 0; y == 1800
-arrow after cycle
-
-metirial:
-x_m_m_a == [-50, 190]
-all current: x == 0, y == 2300
-to: x == 0; y == 1800
-
-coords: x=0; y=2400
-coords: x=0; y=2500
-coords: x=0; y=2600
-enter in check funk
-after check [0, 0]
-coords: x=0; y=2700
-enter in check funk
-after check [0, 0]
-coords: x=0; y=2800
-coords: x=0; y=2900
-push iterator [10, 20, 29]
-coords: x=100; y=3000
-enter in check funk
-1
-more
-after check [-10, 160]
-coords: x=100; y=3100
-coords: x=100; y=3200
-push iterator [10, 20, 29, 32]
-coords: x=200; y=3300
-enter in check funk
-2
-more
-after check [-20, 260]
-coords: x=200; y=3400
-enter in check funk
-2
-after check [-20, 260]
-coords: x=200; y=3500
-coords: x=100; y=3500
-index: 31
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-30, 270]
-all current: x == 100, y == 3500
-to: x == 100; y == 3100
-arrow after cycle
-
-metirial:
-x_m_m_a == [-40, 270]
-all current: x == 100, y == 3500
-to: x == 100; y == 3100
-
-coords: x=100; y=3600
-coords: x=0; y=3600
-index: 28
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-50, 290]
-all current: x == 0, y == 3600
-to: x == 0; y == 2800
-arrow after cycle
-
-metirial:
-x_m_m_a == [-60, 290]
-all current: x == 0, y == 3600
-to: x == 0; y == 2800
-
-coords: x=0; y=3700
-coords: x=0; y=3800
-coords: x=0; y=3900
-enter in check funk
-after check [0, 0]
-coords: x=0; y=4000
-enter in check funk
-after check [0, 0]
-coords: x=0; y=4100
-coords: x=0; y=4200
-push iterator [10, 20, 29, 32, 42]
-coords: x=100; y=4300
-enter in check funk
-1
-more
-after check [-10, 160]
-coords: x=100; y=4400
-coords: x=100; y=4500
-push iterator [10, 20, 29, 32, 42, 45]
-coords: x=200; y=4600
-enter in check funk
-2
-more
-after check [-20, 260]
-coords: x=200; y=4700
-enter in check funk
-2
-after check [-20, 260]
-coords: x=200; y=4800
-coords: x=100; y=4800
-index: 44
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-30, 270]
-all current: x == 100, y == 4800
-to: x == 100; y == 4400
-arrow after cycle
-
-metirial:
-x_m_m_a == [-40, 270]
-all current: x == 100, y == 4800
-to: x == 100; y == 4400
-
-coords: x=100; y=4900
-coords: x=0; y=4900
-index: 41
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-50, 290]
-all current: x == 0, y == 4900
-to: x == 0; y == 4100
-arrow after cycle
-
-metirial:
-x_m_m_a == [-60, 290]
-all current: x == 0, y == 4900
-to: x == 0; y == 4100
-
-coords: x=0; y=5000
-coords: x=0; y=5100
-coords: x=0; y=5200
-enter in check funk
-after check [0, 0]
-coords: x=0; y=5300
-coords: x=0; y=5400
-push iterator [10, 20, 29, 32, 42, 45, 54]
-coords: x=100; y=5500
-enter in check funk
-1
-more
-after check [-10, 160]
-coords: x=100; y=5600
-coords: x=100; y=5700
-push iterator [10, 20, 29, 32, 42, 45, 54, 57]
-coords: x=200; y=5800
-enter in check funk
-2
-more
-after check [-20, 260]
-coords: x=200; y=5900
-enter in check funk
-2
-after check [-20, 260]
-coords: x=200; y=6000
-coords: x=100; y=6000
-index: 56
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-30, 270]
-all current: x == 100, y == 6000
-to: x == 100; y == 5600
-arrow after cycle
-
-metirial:
-x_m_m_a == [-40, 270]
-all current: x == 100, y == 6000
-to: x == 100; y == 5600
-
-coords: x=100; y=6100
-coords: x=0; y=6100
-index: 53
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-50, 290]
-all current: x == 0, y == 6100
-to: x == 0; y == 5300
-arrow after cycle
-
-metirial:
-x_m_m_a == [-60, 290]
-all current: x == 0, y == 6100
-to: x == 0; y == 5300
-
-coords: x=0; y=6200
-coords: x=0; y=6300
-coords: x=0; y=6400
-enter in check funk
-after check [0, 0]
-coords: x=0; y=6500
-coords: x=0; y=6600
-push iterator [10, 20, 29, 32, 42, 45, 54, 57, 66]
-coords: x=100; y=6700
-enter in check funk
-1
-more
-after check [-10, 160]
-coords: x=100; y=6800
-coords: x=100; y=6900
-push iterator [10, 20, 29, 32, 42, 45, 54, 57, 66, 69]
-coords: x=200; y=7000
-enter in check funk
-2
-more
-after check [-20, 260]
-coords: x=200; y=7100
-enter in check funk
-2
-after check [-20, 260]
-coords: x=200; y=7200
-coords: x=100; y=7200
-index: 68
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-30, 270]
-all current: x == 100, y == 7200
-to: x == 100; y == 6800
-arrow after cycle
-
-metirial:
-x_m_m_a == [-40, 270]
-all current: x == 100, y == 7200
-to: x == 100; y == 6800
-
-coords: x=100; y=7300
-coords: x=0; y=7300
-index: 65
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-50, 290]
-all current: x == 0, y == 7300
-to: x == 0; y == 6500
-arrow after cycle
-
-metirial:
-x_m_m_a == [-60, 290]
-all current: x == 0, y == 7300
-to: x == 0; y == 6500
-
-coords: x=0; y=7400
-coords: x=0; y=7500
-coords: x=0; y=7600
-enter in check funk
-after check [0, 0]
-coords: x=0; y=7700
-enter in check funk
-after check [0, 0]
-coords: x=0; y=7800
-coords: x=0; y=7900
-enter in check funk
-1
-after check [0, 0]
-coords: x=0; y=8000
-index: 78
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-10, 10]
-all current: x == 0, y == 8000
-to: x == 0; y == 7800
-arrow after cycle
-
-metirial:
-x_m_m_a == [-20, 10]
-all current: x == 0, y == 8000
-to: x == 0; y == 7800
-
-coords: x=0; y=8100
-enter in check funk
-after check [-20, 20]
-coords: x=0; y=8200
-enter in check funk
-after check [-20, 20]
-coords: x=0; y=8300
-enter in check funk
-after check [-20, 20]
-coords: x=0; y=8400
-enter in check funk
-after check [-20, 20]
-coords: x=0; y=8500
-coords: x=0; y=8600
-enter in check funk
-1
-after check [-20, 20]
-coords: x=0; y=8700
-index: 85
-
-add arrow to cycle
-metirial:
-x_m_m_a == [-30, 30]
-all current: x == 0, y == 8700
-to: x == 0; y == 8500
-arrow after cycle
-
-metirial:
-x_m_m_a == [-40, 30]
-all current: x == 0, y == 8700
-to: x == 0; y == 8500
-
-coords: x=0; y=8800
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=8900
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=9000
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=9100
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=9200
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=9300
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=9400
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=9500
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=9600
-enter in check funk
-after check [-40, 40]
-coords: x=0; y=9700
+after check [-70, 0]
+coords: x=-300; y=500
+coords: x=-200; y=600

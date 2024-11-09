@@ -1,4 +1,3 @@
-use json::value;
 use serde::{Deserialize, Serialize};
 use serde_json::to_string_pretty;
 
@@ -81,10 +80,11 @@ impl Arrow {
     }
 }
 
-pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
+pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
     let mut cycle_acum = Vec::<usize>::new(); //indexing cycle index
     let mut x_min_max_acum = [0, 0]; //max min x for correct arrow adding for cycle
     let mut is_cycle = 0;
+    //let mut is_match = false;
     let mut else_arrow_iter = 0;
     let mut last_condition_index = Vec::new();
     let mut match_arm = Vec::<usize>::new();
@@ -98,59 +98,34 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
     };
 
     let mut iterator = 0;
-
-    for i in &analyzed_vector {
+    let sluzba = vec!["end if", "end else"];
+    for i in &mut analyzed_vector {
+        let local_text = text_analyzer(i);
         let mut local_block = JsBlock::new(i.x, i.y);
         let mut local_arrow = Arrow::new(iterator.clone());
         println!("coords: x={}; y={}", i.x, i.y);
-        /*if is_cycle > 0 {
-            if i.x < x_min_max_acum[0] {
-                x_min_max_acum[0] = i.x;
-                println!("more");
-            }
-            if i.x > x_min_max_acum[1] {
-                x_min_max_acum[1] = i.x;
-                println!("not more");
-            }
-        } else {
-            x_min_max_acum = [100, -100];
-        }*/
-
-        let mut local_text = String::new();
-        if i.text.len() > 16 {
-            //println!("enter");
-            let mut chars = i.text.chars();
-            let mid = chars.clone().count() / 2;
-            let first_half: String = chars.by_ref().take(mid).collect();
-            let second_half: String = chars.collect();
-            local_text = format!("{first_half}\n{second_half}");
-        }
 
         match i.r#type {
             BlockType::Start => {
-                //println!("found start {} in vec {} {}", i.text, i.x, i.y);
-                local_block.text.clone_from(&i.text);
-                local_block.r#type = String::from("Начало / конец");
-                local_full_blocks.arrows.pop();
-                //Костыль!! надо найти место, где эта стрелка вылазит
-                if let Some(last_arrow) = local_full_blocks.arrows.last() {
-                    if last_arrow.end_index == iterator {
-                        local_full_blocks.arrows.pop();
-                    }
-                }
+                block_start(
+                    &mut x_min_max_acum,
+                    &mut local_full_blocks,
+                    &mut local_block,
+                    i,
+                    iterator,
+                );
             }
             BlockType::Condition => {
-                last_condition_index.push(iterator);
-                println!("push iterator {last_condition_index:?}");
-                //println!("found Condition {} in vec {} {}", i.text, i.x, i.y);
-                local_block.text.clone_from(&i.text);
-                local_block.r#type = String::from("Условие");
-                if i.text.contains("match") {
-                    local_arrow.start_connector_index = 2;
-                } else {
-                    local_arrow.start_connector_index = 1;
-                    look_for_cond_xy.push((i.x, i.y, iterator));
-                }
+                block_condition(
+                    &mut x_min_max_acum,
+                    &mut local_block,
+                    &mut local_arrow,
+                    i,
+                    &mut look_for_cond_xy,
+                    &mut last_condition_index,
+                    iterator,
+                    //is_match: bool
+                );
             }
             BlockType::Action => {
                 check_x(is_cycle, i.x, &mut x_min_max_acum);
@@ -235,6 +210,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                         i,
                         &mut x_min_max_acum,
                         to_y,
+                        to_x,
                         cycle_index,
                     );
 
@@ -251,7 +227,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 } else {
                     local_block.r#type = String::from("Начало / конец");
                     local_block.text = if i.text.is_empty() || i.text == "}" {
-                        local_block.y -= 100;
+                        //local_block.y -= 100;
                         "Конец".to_string()
                     } else {
                         i.text.clone()
@@ -259,6 +235,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                 }
             }
             BlockType::Print => {
+                check_x(is_cycle, i.x, &mut x_min_max_acum);
                 local_block.r#type = String::from("Ввод / вывод");
                 if i.text.is_empty() {
                     local_block.text = String::from("Вывод строки");
@@ -275,11 +252,13 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
             BlockType::Else => {
                 if i.text == "continue" {
                     else_arrow_iter = iterator - 1;
-                    continue;
                 }
+                /*if i.text == "mr penis" {
+                    println!("json mr penis");
+                    println!("x: {}; y: {}", i.x, i.y);
+                }*/
                 local_full_blocks.arrows.pop();
                 local_full_blocks.arrows.pop();
-                println!("else goyda");
                 println!("pop iterator {:?}", last_condition_index);
                 add_else_arrow(
                     local_arrow,
@@ -287,6 +266,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
                     iterator,
                     last_condition_index.pop().unwrap(),
                 );
+                //x_min_max_acum[0] -= 100;
                 continue;
             }
         }
@@ -295,6 +275,7 @@ pub fn create_json_blocks(analyzed_vector: Vec<LocalVecBlock>) -> String {
         iterator += 1;
     }
     local_full_blocks.arrows.pop();
+    //local_full_blocks.arrows.clear();
     to_string_pretty(&local_full_blocks).unwrap()
 }
 
@@ -314,6 +295,7 @@ fn check_x(is_cycle: i32, current_x: i32, x_min_max_acum: &mut [i32; 2]) {
     println!("after check {x_min_max_acum:?}");
 }
 
+//arrows hendlers
 fn _add_arrow_after() {}
 fn _add_arrow_before() {}
 fn add_arrow_from_cycle(
@@ -328,11 +310,12 @@ fn add_arrow_from_cycle(
     println!("arrow after cycle");
     println!("");
     println!(
-        "metirial:\nx_m_m_a == {x_min_max_acum:?}\nall current: x == {}, y == {}\nto: {to_y}",
+        "metirial:\nx_m_m_a == {x_min_max_acum:?}\nall current: x == {}, y == {}\nto: x == {to_x}; y == {to_y}",
         current.x, current.y
     );
     println!();
     // из цикла в блок после }
+    // ни при каких обстоятельствах не трогать!!!!!!!!!!!!!!!!!
     let value = vec![
         Node {
             //x: x_min_max_acum[1],
@@ -371,27 +354,42 @@ fn add_arrow_to_cycle(
     current: &LocalVecBlock,
     x_min_max_acum: &mut [i32; 2],
     to_y: i32,
+    to_x: i32,
     cycle_index: &usize,
 ) {
+    println!(
+        "\nadd arrow to cycle\nmetirial:\nx_m_m_a == {x_min_max_acum:?}\nall current: x == {}, y == {}\nto: x == {to_x}; y == {to_y}",
+        current.x, current.y
+    );
     // из крайнего блока цикла в цикл
+    // ни при каких обстоятельствах не трогать!!!!!!!!!!!!!!!!!
     let value = vec![
         Node {
-            x: current.x,
-            y: current.y - 30,
-        },
-        Node {
-            x: current.x,
+            // связь стрелка блок
+            x: current.x - 60,
             y: current.y,
         },
         Node {
-            x: x_min_max_acum[0] - 60,
+            // угол
+            x: current.x - 90,
             y: current.y,
         },
         Node {
-            x: x_min_max_acum[0],
+            x: x_min_max_acum[0] - 20,
+            //x: x_min_max_acum[0],
+            //y: current.y,
+            y: to_y,
+        },
+        Node {
+            x: to_x - 80,
+            y: to_y,
+        },
+        Node {
+            x: to_x - 60,
             y: to_y,
         },
     ];
+    x_min_max_acum[0] -= 10;
     let local_arrow_local = Arrow {
         start_index: iterator,
         end_index: *cycle_index,
@@ -414,4 +412,69 @@ fn add_else_arrow(
     local_arrow.end_index = iterator;
     local_arrow.end_connector_index = 0;
     local_full_blocks.arrows.push(local_arrow);
+}
+
+//blocks hendlers
+fn block_start(
+    x_min_max_acum: &mut [i32; 2],
+    local_full_blocks: &mut FullJson,
+    local_block: &mut JsBlock,
+    i: &mut LocalVecBlock,
+    iterator: usize,
+) {
+    *x_min_max_acum = [0, 0];
+    //println!("found start {} in vec {} {}", i.text, i.x, i.y);
+    local_block.text.clone_from(&i.text);
+    local_block.r#type = String::from("Начало / конец");
+    local_full_blocks.arrows.pop();
+    //Костыль!! надо найти место, где эта стрелка вылазит
+    if let Some(last_arrow) = local_full_blocks.arrows.last() {
+        if last_arrow.end_index == iterator {
+            local_full_blocks.arrows.pop();
+        }
+    }
+}
+
+fn block_condition(
+    x_min_max_acum: &mut [i32; 2],
+    local_block: &mut JsBlock,
+    local_arrow: &mut Arrow,
+    i: &mut LocalVecBlock,
+    look_for_cond_xy: &mut Vec<(i32, i32, usize)>,
+    last_condition_index: &mut Vec<usize>,
+    iterator: usize,
+    //is_match: bool
+) {
+    /*local_full_blocks.arrows.retain(|arrow| {
+        !(arrow.end_index == iterator
+            && !arrow.nodes.is_empty()
+            && i.y < arrow.nodes[0].y)
+    });*/
+    x_min_max_acum[0] -= 10;
+    last_condition_index.push(iterator);
+    println!("push iterator {last_condition_index:?}");
+    //println!("found Condition {} in vec {} {}", i.text, i.x, i.y);
+    local_block.text.clone_from(&i.text);
+    local_block.r#type = String::from("Условие");
+    if i.text.contains("match") {
+        local_arrow.start_connector_index = 2;
+        //is_match = true;
+    } else {
+        local_arrow.start_connector_index = 1;
+        look_for_cond_xy.push((i.x, i.y, iterator));
+    }
+}
+
+fn text_analyzer(i: &mut LocalVecBlock) -> String {
+    i.text = i.text.replace("\t", "");
+    let mut local_text = String::new();
+    if i.text.len() > 1 {
+        let mid = i.text.chars().count() / 2;
+        let first_half: String = i.text.chars().take(mid).collect();
+        let second_half: String = i.text.chars().skip(mid).collect();
+        local_text = format!("{}\n{}", first_half, second_half);
+    } else {
+        local_text = i.text.clone();
+    }
+    local_text
 }

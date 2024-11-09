@@ -1,4 +1,4 @@
-fn match_test() {
+/*fn match_test() {
     while true {
         match gg {
             1 => println!("1"),
@@ -81,8 +81,7 @@ fn match_test() {
         }
     }
     println!("end");
-}
-
+}*/
 
 fn goyda() -> bool {
     let condition1 = true;
@@ -97,7 +96,18 @@ fn goyda() -> bool {
         if condition2 {
             println!("statement2");
         } else {
-            println!("statement3");
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
         }
     } else if condition8 {
         println!("statement4");
@@ -108,7 +118,7 @@ fn goyda() -> bool {
     return true;
 }
 
-fn main() -> i32 {
+/*fn main() -> i32 {
     let gg = 0;
 
     for i in 1..10 {
@@ -136,7 +146,6 @@ fn main() -> i32 {
         break; // Добавлено для предотвращения бесконечного цикла
     }
 
-
     return 1;
 }
-
+*/
