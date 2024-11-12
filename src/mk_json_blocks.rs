@@ -89,6 +89,7 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
     let mut last_condition_index = Vec::new();
     let mut match_arm = Vec::<usize>::new();
     let mut look_for_cond_xy = Vec::new();
+    let mut nesting_if_else_iter = Vec::new();
 
     let mut local_full_blocks = FullJson {
         blocks: Vec::<JsBlock>::new(),
@@ -100,6 +101,7 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
     let mut iterator = 0;
     let sluzba = vec!["end if", "end else"];
     for i in &mut analyzed_vector {
+        println!("thish block ready for processing {i:?}");
         let local_text = text_analyzer(i);
         let mut local_block = JsBlock::new(i.x, i.y);
         let mut local_arrow = Arrow::new(iterator.clone());
@@ -107,6 +109,7 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
 
         match i.r#type {
             BlockType::Start => {
+                nesting_if_else_iter.clear();
                 block_start(
                     &mut x_min_max_acum,
                     &mut local_full_blocks,
@@ -143,7 +146,10 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
             }
             BlockType::End => {
                 if i.text == "end if" {
-                    let (_, _, to_iterator) = look_for_cond_xy.pop().unwrap();
+                    println!("pop look_for");
+                    let (_, _, to_iterator) =
+                        look_for_cond_xy.pop().expect("look_for_cond_xy is empty");
+                    //.unwrap();
                     local_arrow.start_index = to_iterator;
                     local_arrow.end_index = iterator;
                     local_arrow.start_connector_index = 3;
@@ -252,6 +258,21 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
             BlockType::Else => {
                 if i.text == "continue" {
                     else_arrow_iter = iterator - 1;
+                    local_full_blocks
+                        .arrows
+                        .remove(local_full_blocks.arrows.len() - 2); //чисто на рандом тыкнул, мб когда нибуль аукнится
+                                                                     // ну я хз, это костыль, но работает
+                    continue;
+                }
+                //не работает
+                if i.text.contains("if") {
+                    for i in local_full_blocks.arrows.iter_mut().rev() {
+                        if i.end_index == iterator {
+                            local_full_blocks.arrows.pop();
+                            nesting_if_else_iter.push(iterator -= 1);
+                            break;
+                        }
+                    }
                 }
                 /*if i.text == "mr penis" {
                     println!("json mr penis");
@@ -461,6 +482,7 @@ fn block_condition(
         //is_match = true;
     } else {
         local_arrow.start_connector_index = 1;
+        println!("push look_for {}", i.text);
         look_for_cond_xy.push((i.x, i.y, iterator));
     }
 }

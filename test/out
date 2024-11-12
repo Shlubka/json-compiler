@@ -83,6 +83,32 @@ Processing node: kind=source_file, text=/*fn match_test() {
     println!("end");
 }*/
 
+fn decision_tree(value: i32) {
+    if value < 2 {
+        println!("Значение меньше 2.");
+    } else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+}
+/*
+fn new_test() {
+    if g11 {
+        println!("g11")
+    } else {
+        println!("g2")
+    }
+}*/
+/*
 fn goyda() -> bool {
     let condition1 = true;
     let condition2 = true;
@@ -117,7 +143,7 @@ fn goyda() -> bool {
 
     return true;
 }
-
+*/
 /*fn main() -> i32 {
     let gg = 0;
 
@@ -234,368 +260,454 @@ Processing node: kind=block_comment, text=/*fn match_test() {
     }
     println!("end");
 }*/
-Processing node: kind=function_item, text=fn goyda() -> bool {
-    let condition1 = true;
-    let condition2 = true;
-    let condition3 = true;
-    let condition4 = false;
-    let condition6 = false;
-    let condition8 = false;
-
-    if condition1 {
-        println!("statement1");
-        if condition2 {
-            println!("statement2");
-        } else {
-            if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-        }
-    } else if condition8 {
-        println!("statement4");
+Processing node: kind=function_item, text=fn decision_tree(value: i32) {
+    if value < 2 {
+        println!("Значение меньше 2.");
+    } else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
     } else {
-        println!("statement5");
+        println!("Значение 30 или больше.");
     }
-
-    return true;
 }
 Processing node: kind=fn, text=fn
-Processing node: kind=identifier, text=goyda
-5
+Processing node: kind=identifier, text=decision_tree
+push to blocks identifier
+13
 push fn
+push local_block
+LocalVecBlock { type: Start, text: "decision_tree", x: 0, y: 0 }
+
 add block to y_offset == 0 x_offset = 0
-Processing node: kind=parameters, text=()
-Processing node: kind=->, text=->
-Processing node: kind=primitive_type, text=bool
+Processing node: kind=parameters, text=(value: i32)
 Processing node: kind=block, text={
-    let condition1 = true;
-    let condition2 = true;
-    let condition3 = true;
-    let condition4 = false;
-    let condition6 = false;
-    let condition8 = false;
-
-    if condition1 {
-        println!("statement1");
-        if condition2 {
-            println!("statement2");
-        } else {
-            if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-        }
-    } else if condition8 {
-        println!("statement4");
+    if value < 2 {
+        println!("Значение меньше 2.");
+    } else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
     } else {
-        println!("statement5");
+        println!("Значение 30 или больше.");
     }
-
-    return true;
 }
 Processing node: kind={, text={
-Processing node: kind=let_declaration, text=let condition1 = true;
-Processing node: kind=let_declaration, text=let condition2 = true;
-Processing node: kind=let_declaration, text=let condition3 = true;
-Processing node: kind=let_declaration, text=let condition4 = false;
-Processing node: kind=let_declaration, text=let condition6 = false;
-Processing node: kind=let_declaration, text=let condition8 = false;
-Processing node: kind=expression_statement, text=if condition1 {
-        println!("statement1");
-        if condition2 {
-            println!("statement2");
-        } else {
-            if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-        }
-    } else if condition8 {
-        println!("statement4");
+Processing node: kind=expression_statement, text=if value < 2 {
+        println!("Значение меньше 2.");
+    } else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
     } else {
-        println!("statement5");
+        println!("Значение 30 или больше.");
     }
-Processing node: kind=if_expression, text=if condition1 {
-        println!("statement1");
-        if condition2 {
-            println!("statement2");
-        } else {
-            if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-        }
-    } else if condition8 {
-        println!("statement4");
+Processing node: kind=if_expression, text=if value < 2 {
+        println!("Значение меньше 2.");
+    } else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
     } else {
-        println!("statement5");
+        println!("Значение 30 или больше.");
     }
+push to blocks if_expression
+local coords x:0; y:100
 push if
-local_offset == 400, else_count = 6, else_if_count == 2
-push to if_else_stack. local x: 0; local y: 100; to x: -400
-Processing node: kind=expression_statement, text=println!("statement1");
-Processing node: kind=macro_invocation, text=println!("statement1")
-add block to y_offset == 300 x_offset = 400
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=if condition2 {
-            println!("statement2");
-        } else {
-            if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-        }
-Processing node: kind=if_expression, text=if condition2 {
-            println!("statement2");
-        } else {
-            if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-        }
-push if
-local_offset == 300, else_count = 4, else_if_count == 1
-push to if_else_stack. local x: 400; local y: 300; to x: 100
-Processing node: kind=expression_statement, text=println!("statement2");
-Processing node: kind=macro_invocation, text=println!("statement2")
-add block to y_offset == 500 x_offset = 700
+text in if: if value < 2 {
+        println!("Значение меньше 2.");
+    } else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+local_offset == 600, else_count = 1, else_if_count == 5
+push to if_else_stack. local x: 0; local y: 100; to x: -600
+push local_block
+LocalVecBlock { type: Condition, text: "if value < 2 ", x: 0, y: 100 }
+
+Processing node: kind=expression_statement, text=println!("Значение меньше 2.");
+Processing node: kind=macro_invocation, text=println!("Значение меньше 2.")
+push to blocks macro
+push local_block
+LocalVecBlock { type: Print, text: "println!(\"Значение меньше 2.\")", x: 600, y: 200 }
+
+add block to y_offset == 300 x_offset = 600
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(If(400, 300, 300))
-len of block mass = 3
-Handling If block at 400:300
-Processing node: kind=else_clause, text=else {
-            if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-        }
-push if
-local_offset == 300, else_count = 4, else_if_count == 1
-push to if_else_stack. local x: 100; local y: 300; to x: -200
-Processing node: kind=expression_statement, text=if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-Processing node: kind=if_expression, text=if condition1 {
-                println!("statement1");
-                if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-            } else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-push if
-local_offset == 200, else_count = 3, else_if_count == 1
-push to if_else_stack. local x: 400; local y: 400; to x: 200
-Processing node: kind=expression_statement, text=println!("statement1");
-Processing node: kind=macro_invocation, text=println!("statement1")
-add block to y_offset == 600 x_offset = 600
-Processing node: kind=;, text=;
-Processing node: kind=expression_statement, text=if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-Processing node: kind=if_expression, text=if condition2 {
-                    println!("statement2");
-                } else {
-                    println!("statement3");
-                }
-push if
-local_offset == 100, else_count = 1, else_if_count == 0
-push to if_else_stack. local x: 600; local y: 600; to x: 500
-Processing node: kind=expression_statement, text=println!("statement2");
-Processing node: kind=macro_invocation, text=println!("statement2")
-add block to y_offset == 800 x_offset = 700
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(If(600, 600, 100))
-len of block mass = 5
-Handling If block at 600:600
-Processing node: kind=else_clause, text=else {
-                    println!("statement3");
-                }
-mr penis
-return to in vec x:500 y:600
-local coords x500 y:600
-Processing node: kind=else, text=else
-create else info block
-Processing node: kind=block, text={
-                    println!("statement3");
-                }
-Processing node: kind={, text={
-Processing node: kind=expression_statement, text=println!("statement3");
-Processing node: kind=macro_invocation, text=println!("statement3")
-add block to y_offset == 800 x_offset = 500
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(Else(500, 600))
-len of block mass = 5
-pop else
-Processing node: kind=}, text=}
-Some(If(400, 400, 200))
-len of block mass = 4
-Handling If block at 400:400
-Processing node: kind=else_clause, text=else if condition8 {
-                println!("statement4");
-            } else {
-                println!("statement5");
-            }
-push if
-local_offset == 100, else_count = 2, else_if_count == 1
-push to if_else_stack. local x: 200; local y: 400; to x: 100
-Processing node: kind=expression_statement, text=println!("statement4");
-Processing node: kind=macro_invocation, text=println!("statement4")
-add block to y_offset == 600 x_offset = 300
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(If(200, 400, 100))
-len of block mass = 4
-Handling If block at 200:400
-Processing node: kind=else_clause, text=else {
-                println!("statement5");
-            }
-mr penis
-return to in vec x:100 y:400
-local coords x100 y:400
-Processing node: kind=else, text=else
-create else info block
-Processing node: kind=block, text={
-                println!("statement5");
-            }
-Processing node: kind={, text={
-Processing node: kind=expression_statement, text=println!("statement5");
-Processing node: kind=macro_invocation, text=println!("statement5")
-add block to y_offset == 600 x_offset = 100
-Processing node: kind=;, text=;
-Processing node: kind=}, text=}
-Some(Else(100, 400))
-len of block mass = 4
-pop else
-Processing node: kind=}, text=}
-Some(If(100, 300, 300))
-len of block mass = 3
-Handling If block at 100:300
-Processing node: kind=}, text=}
-Some(If(0, 100, 400))
+Some(If(0, 100, 600))
 len of block mass = 2
 Handling If block at 0:100
-Processing node: kind=else_clause, text=else if condition8 {
-        println!("statement4");
+push local_block
+LocalVecBlock { type: End, text: "end if", x: 600, y: 300 }
+
+Processing node: kind=else_clause, text=else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
     } else {
-        println!("statement5");
+        println!("Значение 30 или больше.");
     }
+push to blocks else_clause
+text in else_clause: else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+pop from if_else_stack. it contains [(-600, 100)]
+after pop x: -600; y: 100
+local coords x:-600; y:100
 push if
-local_offset == 100, else_count = 2, else_if_count == 1
-push to if_else_stack. local x: -200; local y: 300; to x: -300
-Processing node: kind=expression_statement, text=println!("statement4");
-Processing node: kind=macro_invocation, text=println!("statement4")
-add block to y_offset == 500 x_offset = -100
+text in if: else if value < 5 {
+        println!("Значение от 2 до 5.");
+    } else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+local_offset == 600, else_count = 1, else_if_count == 5
+push to if_else_stack. local x: -600; local y: 100; to x: -1200
+Processing node: kind=expression_statement, text=println!("Значение от 2 до 5.");
+Processing node: kind=macro_invocation, text=println!("Значение от 2 до 5.")
+push to blocks macro
+push local_block
+LocalVecBlock { type: Print, text: "println!(\"Значение от 2 до 5.\")", x: 0, y: 100 }
+
+add block to y_offset == 200 x_offset = 0
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(If(-200, 300, 100))
+Some(If(-600, 100, 600))
 len of block mass = 2
-Handling If block at -200:300
-Processing node: kind=else_clause, text=else {
-        println!("statement5");
+Handling If block at -600:100
+push local_block
+LocalVecBlock { type: End, text: "end if", x: 0, y: 200 }
+
+Processing node: kind=else_clause, text=else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
     }
+push to blocks else_clause
+text in else_clause: else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+pop from if_else_stack. it contains [(-1200, 100)]
+after pop x: -1200; y: 100
+local coords x:-1200; y:100
+push if
+text in if: else if value < 10 {
+        println!("Значение от 5 до 10.");
+    } else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+local_offset == 500, else_count = 1, else_if_count == 4
+push to if_else_stack. local x: -1200; local y: 100; to x: -1700
+Processing node: kind=expression_statement, text=println!("Значение от 5 до 10.");
+Processing node: kind=macro_invocation, text=println!("Значение от 5 до 10.")
+push to blocks macro
+push local_block
+LocalVecBlock { type: Print, text: "println!(\"Значение от 5 до 10.\")", x: -700, y: 100 }
+
+add block to y_offset == 200 x_offset = -700
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(-1200, 100, 500))
+len of block mass = 2
+Handling If block at -1200:100
+push local_block
+LocalVecBlock { type: End, text: "end if", x: -700, y: 200 }
+
+Processing node: kind=else_clause, text=else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+push to blocks else_clause
+text in else_clause: else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+pop from if_else_stack. it contains [(-1700, 100)]
+after pop x: -1700; y: 100
+local coords x:-1700; y:100
+push if
+text in if: else if value < 15 {
+        println!("Значение от 10 до 15.");
+    } else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+local_offset == 400, else_count = 1, else_if_count == 3
+push to if_else_stack. local x: -1700; local y: 100; to x: -2100
+Processing node: kind=expression_statement, text=println!("Значение от 10 до 15.");
+Processing node: kind=macro_invocation, text=println!("Значение от 10 до 15.")
+push to blocks macro
+push local_block
+LocalVecBlock { type: Print, text: "println!(\"Значение от 10 до 15.\")", x: -1300, y: 100 }
+
+add block to y_offset == 200 x_offset = -1300
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(-1700, 100, 400))
+len of block mass = 2
+Handling If block at -1700:100
+push local_block
+LocalVecBlock { type: End, text: "end if", x: -1300, y: 200 }
+
+Processing node: kind=else_clause, text=else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+push to blocks else_clause
+text in else_clause: else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+pop from if_else_stack. it contains [(-2100, 100)]
+after pop x: -2100; y: 100
+local coords x:-2100; y:100
+push if
+text in if: else if value < 20 {
+        println!("Значение от 15 до 20.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+local_offset == 300, else_count = 1, else_if_count == 2
+push to if_else_stack. local x: -2100; local y: 100; to x: -2400
+it have 20
+Processing node: kind=expression_statement, text=println!("Значение от 15 до 20.");
+Processing node: kind=macro_invocation, text=println!("Значение от 15 до 20.")
+push to blocks macro
+push local_block
+LocalVecBlock { type: Print, text: "println!(\"Значение от 15 до 20.\")", x: -1800, y: 100 }
+
+add block to y_offset == 200 x_offset = -1800
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(-2100, 100, 300))
+len of block mass = 2
+Handling If block at -2100:100
+push local_block
+LocalVecBlock { type: End, text: "end if", x: -1800, y: 200 }
+
+Processing node: kind=else_clause, text=else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+push to blocks else_clause
+text in else_clause: else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+pop from if_else_stack. it contains [(-2400, 100)]
+after pop x: -2400; y: 100
+local coords x:-2400; y:100
+push if
+text in if: else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+local_offset == 200, else_count = 1, else_if_count == 1
+push to if_else_stack. local x: -2400; local y: 100; to x: -2600
+Processing node: kind=expression_statement, text=println!("Значение от 20 до 30.");
+Processing node: kind=macro_invocation, text=println!("Значение от 20 до 30.")
+push to blocks macro
+push local_block
+LocalVecBlock { type: Print, text: "println!(\"Значение от 20 до 30.\")", x: -2200, y: 100 }
+
+add block to y_offset == 200 x_offset = -2200
+Processing node: kind=;, text=;
+Processing node: kind=}, text=}
+Some(If(-2400, 100, 200))
+len of block mass = 2
+Handling If block at -2400:100
+push local_block
+LocalVecBlock { type: End, text: "end if", x: -2200, y: 200 }
+
+Processing node: kind=else_clause, text=else {
+        println!("Значение 30 или больше.");
+    }
+push to blocks else_clause
+text in else_clause: else {
+        println!("Значение 30 или больше.");
+    }
+pop from if_else_stack. it contains [(-2600, 100)]
+after pop x: -2600; y: 100
 mr penis
-return to in vec x:-300 y:300
-local coords x-300 y:300
+return to in vec x:-2600 y:100
+local coords x-2600 y:100
 Processing node: kind=else, text=else
+push to blocks else
+text in else_handler: else
 create else info block
+push local_block
+LocalVecBlock { type: Else, text: "continue", x: -2600, y: 200 }
+
 Processing node: kind=block, text={
-        println!("statement5");
+        println!("Значение 30 или больше.");
     }
 Processing node: kind={, text={
-Processing node: kind=expression_statement, text=println!("statement5");
-Processing node: kind=macro_invocation, text=println!("statement5")
-add block to y_offset == 500 x_offset = -300
+Processing node: kind=expression_statement, text=println!("Значение 30 или больше.");
+Processing node: kind=macro_invocation, text=println!("Значение 30 или больше.")
+push to blocks macro
+push local_block
+LocalVecBlock { type: Print, text: "println!(\"Значение 30 или больше.\")", x: -2600, y: 200 }
+
+add block to y_offset == 300 x_offset = -2600
 Processing node: kind=;, text=;
 Processing node: kind=}, text=}
-Some(Else(-300, 300))
+Some(Else(-2600, 100))
 len of block mass = 2
 pop else
-Processing node: kind=expression_statement, text=return true;
-Processing node: kind=return_expression, text=return true
-push return
-add block to y_offset == 700 x_offset = -200
-Processing node: kind=;, text=;
+push local_block
+LocalVecBlock { type: End, text: "end else", x: -2600, y: 300 }
+
 Processing node: kind=}, text=}
 Some(Func)
 len of block mass = 1
 Handling Func block
-skip brecket
+push local_block
+LocalVecBlock { type: End, text: "}", x: -2500, y: 400 }
+
+Processing node: kind=block_comment, text=/*
+fn new_test() {
+    if g11 {
+        println!("g11")
+    } else {
+        println!("g2")
+    }
+}*/
+Processing node: kind=block_comment, text=/*
+fn goyda() -> bool {
+    let condition1 = true;
+    let condition2 = true;
+    let condition3 = true;
+    let condition4 = false;
+    let condition6 = false;
+    let condition8 = false;
+
+    if condition1 {
+        println!("statement1");
+        if condition2 {
+            println!("statement2");
+        } else {
+            if condition1 {
+                println!("statement1");
+                if condition2 {
+                    println!("statement2");
+                } else {
+                    println!("statement3");
+                }
+            } else if condition8 {
+                println!("statement4");
+            } else {
+                println!("statement5");
+            }
+        }
+    } else if condition8 {
+        println!("statement4");
+    } else {
+        println!("statement5");
+    }
+
+    return true;
+}
+*/
 Processing node: kind=block_comment, text=/*fn main() -> i32 {
     let gg = 0;
 
@@ -630,277 +742,130 @@ Processing node: kind=block_comment, text=/*fn main() -> i32 {
 Final block vector: [
     LocalVecBlock {
         type: Start,
-        text: "goyda",
+        text: "decision_tree",
         x: 0,
         y: 0,
     },
     LocalVecBlock {
         type: Condition,
-        text: "if condition1 ",
+        text: "if value < 2 ",
         x: 0,
         y: 100,
     },
     LocalVecBlock {
         type: Print,
-        text: "println!(\"statement1\")",
-        x: 400,
+        text: "println!(\"Значение меньше 2.\")",
+        x: 600,
         y: 200,
     },
     LocalVecBlock {
-        type: Condition,
-        text: "if condition2 ",
-        x: 400,
+        type: End,
+        text: "end if",
+        x: 600,
         y: 300,
     },
     LocalVecBlock {
         type: Print,
-        text: "println!(\"statement2\")",
-        x: 700,
-        y: 400,
+        text: "println!(\"Значение от 2 до 5.\")",
+        x: 0,
+        y: 100,
     },
     LocalVecBlock {
         type: End,
         text: "end if",
-        x: 700,
-        y: 500,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "else ",
-        x: 100,
-        y: 500,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if condition1 ",
-        x: 400,
-        y: 400,
+        x: 0,
+        y: 200,
     },
     LocalVecBlock {
         type: Print,
-        text: "println!(\"statement1\")",
-        x: 600,
-        y: 500,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "if condition2 ",
-        x: 600,
-        y: 600,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "println!(\"statement2\")",
-        x: 700,
-        y: 700,
+        text: "println!(\"Значение от 5 до 10.\")",
+        x: -700,
+        y: 100,
     },
     LocalVecBlock {
         type: End,
         text: "end if",
-        x: 700,
-        y: 800,
-    },
-    LocalVecBlock {
-        type: Else,
-        text: "mr penis",
-        x: 500,
-        y: 800,
-    },
-    LocalVecBlock {
-        type: Else,
-        text: "continue",
-        x: 500,
-        y: 700,
+        x: -700,
+        y: 200,
     },
     LocalVecBlock {
         type: Print,
-        text: "println!(\"statement3\")",
-        x: 500,
-        y: 700,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end else",
-        x: 500,
-        y: 800,
+        text: "println!(\"Значение от 10 до 15.\")",
+        x: -1300,
+        y: 100,
     },
     LocalVecBlock {
         type: End,
         text: "end if",
-        x: 600,
-        y: 900,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "else if condition8 ",
-        x: 200,
-        y: 900,
+        x: -1300,
+        y: 200,
     },
     LocalVecBlock {
         type: Print,
-        text: "println!(\"statement4\")",
-        x: 300,
-        y: 500,
+        text: "println!(\"Значение от 15 до 20.\")",
+        x: -1800,
+        y: 100,
     },
     LocalVecBlock {
         type: End,
         text: "end if",
-        x: 300,
-        y: 600,
+        x: -1800,
+        y: 200,
     },
     LocalVecBlock {
-        type: Else,
-        text: "mr penis",
-        x: 100,
-        y: 600,
+        type: Print,
+        text: "println!(\"Значение от 20 до 30.\")",
+        x: -2200,
+        y: 100,
+    },
+    LocalVecBlock {
+        type: End,
+        text: "end if",
+        x: -2200,
+        y: 200,
     },
     LocalVecBlock {
         type: Else,
         text: "continue",
-        x: 100,
-        y: 500,
+        x: -2600,
+        y: 200,
     },
     LocalVecBlock {
         type: Print,
-        text: "println!(\"statement5\")",
-        x: 100,
-        y: 500,
+        text: "println!(\"Значение 30 или больше.\")",
+        x: -2600,
+        y: 200,
     },
     LocalVecBlock {
         type: End,
         text: "end else",
-        x: 100,
-        y: 600,
+        x: -2600,
+        y: 300,
     },
     LocalVecBlock {
         type: End,
-        text: "end if",
-        x: 200,
-        y: 700,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: 100,
-        y: 700,
-    },
-    LocalVecBlock {
-        type: Condition,
-        text: "else if condition8 ",
-        x: -200,
-        y: 700,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "println!(\"statement4\")",
-        x: -100,
+        text: "}",
+        x: -2500,
         y: 400,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end if",
-        x: -100,
-        y: 500,
-    },
-    LocalVecBlock {
-        type: Else,
-        text: "mr penis",
-        x: -300,
-        y: 500,
-    },
-    LocalVecBlock {
-        type: Else,
-        text: "continue",
-        x: -300,
-        y: 400,
-    },
-    LocalVecBlock {
-        type: Print,
-        text: "println!(\"statement5\")",
-        x: -300,
-        y: 400,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "end else",
-        x: -300,
-        y: 500,
-    },
-    LocalVecBlock {
-        type: End,
-        text: "return true",
-        x: -200,
-        y: 600,
     },
 ]
+thish block ready for processing LocalVecBlock { type: Start, text: "decision_tree", x: 0, y: 0 }
 coords: x=0; y=0
+thish block ready for processing LocalVecBlock { type: Condition, text: "if value < 2 ", x: 0, y: 100 }
 coords: x=0; y=100
 push iterator [1]
-coords: x=400; y=200
+push look_for if value < 2 
+thish block ready for processing LocalVecBlock { type: Print, text: "println!(\"Значение меньше 2.\")", x: 600, y: 200 }
+coords: x=600; y=200
 enter in check funk
 after check [-10, 0]
-coords: x=400; y=300
-push iterator [1, 3]
-coords: x=700; y=400
+thish block ready for processing LocalVecBlock { type: End, text: "end if", x: 600, y: 300 }
+coords: x=600; y=300
+pop look_for
+thish block ready for processing LocalVecBlock { type: Print, text: "println!(\"Значение от 2 до 5.\")", x: 0, y: 100 }
+coords: x=0; y=100
 enter in check funk
-after check [-20, 0]
-coords: x=700; y=500
-coords: x=100; y=500
-push iterator [1, 3, 5]
-coords: x=400; y=400
-push iterator [1, 3, 5, 6]
-coords: x=600; y=500
-enter in check funk
-after check [-40, 0]
-coords: x=600; y=600
-push iterator [1, 3, 5, 6, 8]
-coords: x=700; y=700
-enter in check funk
-after check [-50, 0]
-coords: x=700; y=800
-coords: x=500; y=800
-else goyda
-pop iterator [1, 3, 5, 6, 8]
-coords: x=500; y=700
-else goyda
-pop iterator [1, 3, 5, 6]
-coords: x=500; y=700
-enter in check funk
-after check [-50, 0]
-coords: x=500; y=800
-coords: x=600; y=900
-coords: x=200; y=900
-push iterator [1, 3, 5, 11]
-coords: x=300; y=500
-enter in check funk
-after check [-60, 0]
-coords: x=300; y=600
-coords: x=100; y=600
-else goyda
-pop iterator [1, 3, 5, 11]
-coords: x=100; y=500
-else goyda
-pop iterator [1, 3, 5]
-coords: x=100; y=500
-enter in check funk
-after check [-60, 0]
-coords: x=100; y=600
-coords: x=200; y=700
-coords: x=100; y=700
-coords: x=-200; y=700
-push iterator [1, 3, 14]
-coords: x=-100; y=400
-enter in check funk
-after check [-70, 0]
-coords: x=-100; y=500
-coords: x=-300; y=500
-else goyda
-pop iterator [1, 3, 14]
-coords: x=-300; y=400
-else goyda
-pop iterator [1, 3]
-coords: x=-300; y=400
-enter in check funk
-after check [-70, 0]
-coords: x=-300; y=500
-coords: x=-200; y=600
+after check [-10, 0]
+thish block ready for processing LocalVecBlock { type: End, text: "end if", x: 0, y: 200 }
+coords: x=0; y=200
+pop look_for
