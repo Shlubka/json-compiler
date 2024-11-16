@@ -89,7 +89,7 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
     let mut last_condition_index = Vec::new();
     let mut match_arm = Vec::<usize>::new();
     let mut look_for_cond_xy = Vec::new();
-    let mut nesting_if_else_iter = Vec::new();
+    //let mut nesting_if_else_iter = Vec::new();
 
     let mut local_full_blocks = FullJson {
         blocks: Vec::<JsBlock>::new(),
@@ -99,7 +99,7 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
     };
 
     let mut iterator = 0;
-    let sluzba = vec!["end if", "end else"];
+    let mut sluzba = 0;
     for i in &mut analyzed_vector {
         println!("thish block ready for processing {i:?}");
         let local_text = text_analyzer(i);
@@ -109,7 +109,7 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
 
         match i.r#type {
             BlockType::Start => {
-                nesting_if_else_iter.clear();
+                //nesting_if_else_iter.clear();
                 block_start(
                     &mut x_min_max_acum,
                     &mut local_full_blocks,
@@ -128,6 +128,7 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
                     &mut last_condition_index,
                     iterator,
                     //is_match: bool
+                    &mut sluzba,
                 );
             }
             BlockType::Action => {
@@ -241,6 +242,8 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
                 }
             }
             BlockType::Print => {
+                println!("text in json block {}, iterator {iterator}", i.text);
+                //rem_unused(&mut local_full_blocks, iterator, &sluzba);
                 check_x(is_cycle, i.x, &mut x_min_max_acum);
                 local_block.r#type = String::from("Ввод / вывод");
                 if i.text.is_empty() {
@@ -256,30 +259,14 @@ pub fn create_json_blocks(mut analyzed_vector: Vec<LocalVecBlock>) -> String {
                 local_block.text.clone_from(&i.text.to_string())
             }
             BlockType::Else => {
+                local_full_blocks
+                    .arrows
+                    .remove(local_full_blocks.arrows.len() - 2); //чисто на рандом тыкнул, мб когда нибуль аукнится
+                                                                 // ну я хз, это костыль, но работает
                 if i.text == "continue" {
                     else_arrow_iter = iterator - 1;
-                    local_full_blocks
-                        .arrows
-                        .remove(local_full_blocks.arrows.len() - 2); //чисто на рандом тыкнул, мб когда нибуль аукнится
-                                                                     // ну я хз, это костыль, но работает
                     continue;
                 }
-                //не работает
-                if i.text.contains("if") {
-                    for i in local_full_blocks.arrows.iter_mut().rev() {
-                        if i.end_index == iterator {
-                            local_full_blocks.arrows.pop();
-                            nesting_if_else_iter.push(iterator -= 1);
-                            break;
-                        }
-                    }
-                }
-                /*if i.text == "mr penis" {
-                    println!("json mr penis");
-                    println!("x: {}; y: {}", i.x, i.y);
-                }*/
-                local_full_blocks.arrows.pop();
-                local_full_blocks.arrows.pop();
                 println!("pop iterator {:?}", last_condition_index);
                 add_else_arrow(
                     local_arrow,
@@ -317,8 +304,6 @@ fn check_x(is_cycle: i32, current_x: i32, x_min_max_acum: &mut [i32; 2]) {
 }
 
 //arrows hendlers
-fn _add_arrow_after() {}
-fn _add_arrow_before() {}
 fn add_arrow_from_cycle(
     local_arrow: &mut Arrow,
     current: &LocalVecBlock,
@@ -465,12 +450,14 @@ fn block_condition(
     last_condition_index: &mut Vec<usize>,
     iterator: usize,
     //is_match: bool
+    sluzba: &mut usize,
 ) {
     /*local_full_blocks.arrows.retain(|arrow| {
         !(arrow.end_index == iterator
             && !arrow.nodes.is_empty()
             && i.y < arrow.nodes[0].y)
     });*/
+    *sluzba = iterator;
     x_min_max_acum[0] -= 10;
     last_condition_index.push(iterator);
     println!("push iterator {last_condition_index:?}");
@@ -499,4 +486,20 @@ fn text_analyzer(i: &mut LocalVecBlock) -> String {
         local_text = i.text.clone();
     }
     local_text
+}
+
+//для чистки стрелок между веток в if else
+fn rem_unused(local_full_blocks: &mut FullJson, iterator: usize, sluzba: &usize) {
+    let start_index = *sluzba;
+    local_full_blocks.arrows.retain(|arrow| {
+        if arrow.end_index == iterator {
+            if arrow.start_index == start_index {
+                true // Оставить элемент, если start_index равен заданному числу
+            } else {
+                false // Удалить элемент
+            }
+        } else {
+            true // Оставить элемент, если end_index не равен iterator
+        }
+    });
 }

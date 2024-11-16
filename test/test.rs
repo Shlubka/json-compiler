@@ -1,4 +1,44 @@
-/*fn match_test() {
+fn new_test() {
+    if g11 {
+        println!("g11");
+        println!("g12");
+        println!("g13");
+    } else {
+        println!("g21");
+        println!("g22");
+        if g31 {
+            println!("g31");
+            println!("g32");
+            println!("g33");
+        } else {
+            println!("g41");
+            println!("g42");
+            println!("g43");
+        }
+    }
+}
+/*
+fn only_else_if(value: i32) {
+    if value < 2 {
+        println!("Значение меньше 2.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else if value < 30 {
+        println!("Значение от 20 до 30.");
+    } else {
+        println!("Значение 30 или больше.");
+    }
+}
+
+fn match_test() {
     while true {
         match gg {
             1 => println!("1"),
@@ -81,34 +121,38 @@
         }
     }
     println!("end");
-}*/
+}
 
 fn decision_tree(value: i32) {
-    if value < 2 {
-        println!("Значение меньше 2.");
-    } else if value < 5 {
-        println!("Значение от 2 до 5.");
-    } else if value < 10 {
-        println!("Значение от 5 до 10.");
-    } else if value < 15 {
-        println!("Значение от 10 до 15.");
+    if value < 10 {
+        println!("Значение меньше 10.");
+        if value < 5 {
+            println!("Значение меньше 5.");
+            if value < 2 {
+                println!("Значение меньше 2.");
+            } else {
+                println!("Значение от 2 до 5.");
+            }
+        } else {
+            println!("Значение от 5 до 10.");
+        }
     } else if value < 20 {
-        println!("Значение от 15 до 20.");
-    } else if value < 30 {
-        println!("Значение от 20 до 30.");
+        println!("Значение от 10 до 20.");
+        if value < 15 {
+            println!("Значение от 10 до 15.");
+        } else {
+            println!("Значение от 15 до 20.");
+        }
     } else {
-        println!("Значение 30 или больше.");
+        println!("Значение 20 или больше.");
+        if value < 30 {
+            println!("Значение от 20 до 30.");
+        } else {
+            println!("Значение 30 или больше.");
+        }
     }
 }
-/*
-fn new_test() {
-    if g11 {
-        println!("g11")
-    } else {
-        println!("g2")
-    }
-}*/
-/*
+
 fn goyda() -> bool {
     let condition1 = true;
     let condition2 = true;
@@ -143,8 +187,7 @@ fn goyda() -> bool {
 
     return true;
 }
-*/
-/*fn main() -> i32 {
+fn main() -> i32 {
     let gg = 0;
 
     for i in 1..10 {

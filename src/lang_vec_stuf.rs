@@ -1,5 +1,3 @@
-use std::mem::offset_of;
-
 use tree_sitter::{Node, Parser};
 
 pub trait Language {
@@ -61,7 +59,7 @@ impl Language for Rust {
             if_else_stack: &mut Vec<(i32, i32)>,
             y_if_max: &mut i32,
         ) {
-            let mut not_push = false;
+            //let mut not_push = false;
             let text = node.utf8_text(source).unwrap_or("").to_string();
 
             if *skip_until_brace {
@@ -165,19 +163,36 @@ impl Language for Rust {
                 }
                 "else_clause" => {
                     println!("push to blocks else_clause");
-                    not_push = true;
-                    else_clause(
-                        blocks,
-                        text,
-                        &mut local_block,
-                        skip_until_brace,
-                        y_if_max,
-                        y_offset,
-                        x_offset,
-                        if_else_stack,
-                        block_vec,
-                    );
-                    //*y_offset -= 100;
+                    //not_push = true;
+
+                    if text.contains("else if") {
+                        println!("start in else: if");
+                        if_expression(
+                            //blocks,
+                            &mut local_block, // Pass by value
+                            skip_until_brace,
+                            y_if_max,
+                            y_offset,
+                            x_offset,
+                            if_else_stack,
+                            block_vec,
+                            text,
+                        );
+                    } else {
+                        println!("start in else: else");
+                        else_clause(
+                            blocks,
+                            text,
+                            &mut local_block,
+                            skip_until_brace,
+                            y_if_max,
+                            y_offset,
+                            x_offset,
+                            if_else_stack,
+                            block_vec,
+                        );
+                        //*y_offset -= 100;
+                    }
                 }
                 "else" => {
                     println!("push to blocks else");
@@ -297,14 +312,15 @@ impl Language for Rust {
                 _ => {}
             }
 
-            match not_push {
+            println!("push local_block\n{local_block:?}\n");
+            blocks.push(local_block);
+            *y_offset += 100;
+            /*match not_push {
                 false => {
-                    println!("push local_block\n{local_block:?}\n");
-                    blocks.push(local_block);
-                    *y_offset += 100;
+                очень умный компилятор, не дает мне поставмть флаг
                 }
-                true => {}
-            }
+                true => not_push = false,
+            }*/
 
             let mut cursor = node.walk();
             for child in node.children(&mut cursor) {
@@ -447,30 +463,17 @@ fn else_clause(
     *x_offset = return_to.0;
     *y_offset = return_to.1;
     println!("after pop x: {x_offset}; y: {y_offset}");
-    if text.contains("if") {
-        if_expression(
-            //blocks,
-            local_block, // Pass by value
-            skip_until_brace,
-            y_if_max,
-            y_offset,
-            x_offset,
-            if_else_stack,
-            block_vec,
-            text,
-        );
-    } else {
-        println!("mr penis");
-        // let mut local_block = local_block; // Create a mutable copy
-        local_block.text = String::from("mr penis");
-        println!("return to in vec x:{} y:{}", return_to.0, return_to.1);
-        println!("local coords x{} y:{}", *x_offset, *y_offset);
-        block_vec.push(CodeBlock::Else(*x_offset, *y_offset));
-        local_block.r#type = BlockType::Else;
-        local_block.x = *x_offset;
-        //blocks.push(local_block); // Push the modified local_block
-        *y_offset += 100;
-    }
+    println!("mr penis");
+    // let mut local_block = local_block; // Create a mutable copy
+    local_block.text = String::from("mr penis");
+    println!("return to in vec x:{} y:{}", return_to.0, return_to.1);
+    println!("local coords x{} y:{}", *x_offset, *y_offset);
+    block_vec.push(CodeBlock::Else(*x_offset, *y_offset));
+    local_block.r#type = BlockType::Else;
+    local_block.x = *x_offset;
+    local_block.y = *y_offset - 200;
+    //blocks.push(local_block); // Push the modified local_block
+    //*y_offset += 100;
 }
 
 fn if_expression(
@@ -491,7 +494,13 @@ fn if_expression(
     let mut local_offset = ((else_count + else_if_count) * 100) as i32;
     let local_offest_fin = match local_offset {
         0 => 100,
-        _ => local_offset,
+        _ => {
+            if else_count <= 1 {
+                100
+            } else {
+                local_offset
+            }
+        }
     };
     local_offset = local_offest_fin;
 
